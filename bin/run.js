@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const stdio = require('stdio')
-const {runChallenge} = require('../lib/sandbox.js')
+const {runChallenge} = require('../lib/runner.js')
 
 const options = stdio.getopt({
 	id: {key: 'i', args: 1, description: 'Challenge identifier'},
