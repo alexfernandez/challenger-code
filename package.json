@@ -1,0 +1,31 @@
+{
+  "name": "challenger-code",
+  "version": "0.0.1",
+  "description": "Challenger code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexfernandez/challenger-code.git"
+  },
+  "keywords": [
+    "challenge",
+    "coding",
+    "exercise"
+  ],
+  "author": "Alex Fernández <alexfernandeznpm@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/alexfernandez/challenger-code/issues"
+  },
+  "homepage": "https://github.com/alexfernandez/challenger-code#readme",
+  "dependencies": {
+    "fastify": "^2.14.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2"
+  }
+}
