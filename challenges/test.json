@@ -6,5 +6,6 @@
 		"input": [],
 		"output": 0
 	}],
+	"runningTimeoutMs": 10000,
 	"maxMinutes": 10
 }
