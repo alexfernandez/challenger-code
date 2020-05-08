@@ -39,6 +39,14 @@ describe('Challenge model tests', () => {
 		await challenge.runSandboxed('function solve() {return 0}')
 		try {
 			await challenge.runSandboxed('function solve() {return 1}')
+			throw new TestError('Should not accept invalid result')
+		} catch(error) {
+			console.error(error)
+			expect(error).to.be.instanceof(ApiError)
+		}
+		try {
+			await challenge.runSandboxed('function solve() {while (true){}}')
+			throw new TestError('Should not finish infinite loop')
 		} catch(error) {
 			console.error(error)
 			expect(error).to.be.instanceof(ApiError)
