@@ -23,7 +23,8 @@
   "homepage": "https://github.com/alexfernandez/challenger-code#readme",
   "dependencies": {
     "fastify": "^2.14.0",
-    "stdio": "^2.1.1"
+    "stdio": "^2.1.1",
+    "vm2": "^3.9.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",

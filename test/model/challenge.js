@@ -24,14 +24,14 @@ describe('Challenge model tests', () => {
 			const solve = () => fs.readFileSync("/etc/resolv.conf")`)
 			throw new TestError('Should not run require()')
 		} catch(error) {
-			expect(error).to.be.instanceof(TypeError)
+			expect(error.constructor.name).to.equal('VMError')
 		}
 		try {
 			await challenge.run(`import {readFileSync} from "fs";
 			const solve = () => fs.readFileSync("/etc/resolv.conf")`)
 			throw new TestError('Should not run import')
 		} catch(error) {
-			expect(error).to.be.instanceof(ApiError)
+			expect(error).to.be.instanceof(SyntaxError)
 		}
 	})
 	it('should run in a separate process', async() => {
