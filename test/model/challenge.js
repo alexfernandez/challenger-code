@@ -38,7 +38,6 @@ describe('Challenge model tests', () => {
 		const challenge = await findChallenge('test')
 		await challenge.runSandboxed('function solve() {return 0}')
 		try {
-			const challenge = await findChallenge('test')
 			await challenge.runSandboxed('function solve() {return 1}')
 		} catch(error) {
 			console.error(error)
