@@ -1,0 +1,14 @@
+{
+	"id": "higher-than",
+	"name": "Challenge: Count values higher than given value",
+	"description": "Write a function solve(limit, array) that will return the number of elements of the array that are larger than the limit.",
+	"tests": [{
+		"input": [5, [1,2,3,4,5,6,7,8,9]],
+		"output": 4
+	}, {
+		"input": [10, [1, 100, 10, 11, 110, -5, 47]],
+		"output": 4
+	}],
+	"runningTimeoutMs": 10000,
+	"maxMinutes": 10
+}
