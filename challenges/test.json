@@ -3,6 +3,7 @@
 	"name": "Test Challenge",
 	"description": "Create a function that returns the number 0",
 	"tests": [{
+		"name": "Empty parameters",
 		"input": [],
 		"output": 0
 	}],

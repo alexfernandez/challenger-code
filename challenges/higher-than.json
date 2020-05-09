@@ -3,9 +3,11 @@
 	"name": "Challenge: Count values higher than given value",
 	"description": "Write a function solve(limit, array) that will return the number of elements of the array that are larger than the limit.",
 	"tests": [{
+		"name": "Sorted array",
 		"input": [5, [1,2,3,4,5,6,7,8,9]],
 		"output": 4
 	}, {
+		"name": "Unsorted array",
 		"input": [10, [1, 100, 10, 11, 110, -5, 47]],
 		"output": 4
 	}],
