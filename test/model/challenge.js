@@ -7,7 +7,10 @@ describe('Challenge model tests', () => {
 	it('should find and run existing challenge', async() => {
 		const challenge = await findChallenge('test')
 		expect(challenge.id).to.equal('test')
-		await challenge.runSandboxed('function solve() {return 0}')
+		const successful = await challenge.runSandboxed('function solve() {return 0}')
+		expect(successful.success).to.equal(true)
+		const failed = await challenge.runSandboxed('function solve() {return 1}')
+		expect(failed.success).to.equal(false)
 	})
 	it('should not find non-existing challenge', async() => {
 		try {
@@ -36,14 +39,10 @@ describe('Challenge model tests', () => {
 	})
 	it('should run in a separate process', async() => {
 		const challenge = await findChallenge('test')
-		await challenge.runIsolated('function solve() {return 0}')
-		try {
-			await challenge.runIsolated('function solve() {return 1}')
-			throw new TestError('Should not accept invalid result')
-		} catch(error) {
-			console.error(error)
-			expect(error).to.be.instanceof(ApiError)
-		}
+		const successful = await challenge.runIsolated('function solve() {return 0}')
+		expect(successful.success).to.equal(true)
+		const failed = await challenge.runIsolated('function solve() {return 1}')
+		expect(failed.success).to.equal(false)
 		try {
 			await challenge.runIsolated('function solve() {while (true){}}')
 			throw new TestError('Should not finish infinite loop')
