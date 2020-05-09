@@ -2,7 +2,7 @@
 	"id": "test",
 	"name": "Test Challenge",
 	"description": "Create a function that returns the number 0",
-	"tests": [{
+	"verifications": [{
 		"name": "Empty parameters",
 		"input": [],
 		"output": 0
