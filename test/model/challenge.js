@@ -7,7 +7,7 @@ describe('Challenge model tests', () => {
 	it('should find and run existing challenge', async() => {
 		const challenge = await findChallenge('test')
 		expect(challenge.id).to.equal('test')
-		challenge.run('function solve() {return 0}')
+		await challenge.runSandboxed('function solve() {return 0}')
 	})
 	it('should not find non-existing challenge', async() => {
 		try {
@@ -20,14 +20,14 @@ describe('Challenge model tests', () => {
 	it('should reject malicious code', async() => {
 		const challenge = await findChallenge('test')
 		try {
-			await challenge.run(`const fs = require("fs");
+			await challenge.runSandboxed(`const fs = require("fs");
 			const solve = () => fs.readFileSync("/etc/resolv.conf")`)
 			throw new TestError('Should not run require()')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('VMError')
 		}
 		try {
-			await challenge.run(`import {readFileSync} from "fs";
+			await challenge.runSandboxed(`import {readFileSync} from "fs";
 			const solve = () => fs.readFileSync("/etc/resolv.conf")`)
 			throw new TestError('Should not run import')
 		} catch(error) {
@@ -36,16 +36,16 @@ describe('Challenge model tests', () => {
 	})
 	it('should run in a separate process', async() => {
 		const challenge = await findChallenge('test')
-		await challenge.runSandboxed('function solve() {return 0}')
+		await challenge.runIsolated('function solve() {return 0}')
 		try {
-			await challenge.runSandboxed('function solve() {return 1}')
+			await challenge.runIsolated('function solve() {return 1}')
 			throw new TestError('Should not accept invalid result')
 		} catch(error) {
 			console.error(error)
 			expect(error).to.be.instanceof(ApiError)
 		}
 		try {
-			await challenge.runSandboxed('function solve() {while (true){}}')
+			await challenge.runIsolated('function solve() {while (true){}}')
 			throw new TestError('Should not finish infinite loop')
 		} catch(error) {
 			console.error(error)
