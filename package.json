@@ -23,6 +23,7 @@
   "homepage": "https://github.com/alexfernandez/challenger-code#readme",
   "dependencies": {
     "fastify": "^2.14.0",
+    "mongodb": "^3.5.7",
     "stdio": "^2.1.1",
     "vm2": "^3.9.2"
   },
