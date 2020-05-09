@@ -13,7 +13,7 @@
 	}, {
 		"name": "Big array ~100,000 elements",
 		"input": [1000, "array"],
-		"array": "function generate() {const array = []; for (i = 0; i < 100000; i++) {array.push(Math.round(Math.random() * 1000))}; return array}"
+		"array": "function generate() {const array = []; for (i = 0; i < 100000; i++) {array.push(Math.round(Math.random() * 2000))}; return array}"
 	}],
 	"implementation": "const solve = (limit, array) => array.filter(e => e > limit).length",
 	"runningTimeoutMs": 10000,
