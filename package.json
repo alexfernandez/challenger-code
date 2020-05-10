@@ -29,6 +29,7 @@
     "vm2": "^3.9.2"
   },
   "devDependencies": {
+    "basic-request": "^3.0.4",
     "chai": "^4.2.0",
     "mocha": "^7.1.2"
   }
