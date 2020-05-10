@@ -8,8 +8,8 @@
 		"input": [],
 		"output": 0
 	}, {
-		"name": "Many",
-		"input": [1, 2, "hi"],
+		"name": "Many parameters",
+		"input": [1, [1,2,3,4,5,6,7,8,9,1,2,3,4,5]],
 		"output": 0
 	}],
 	"implementation": "const solve = () => 0",
