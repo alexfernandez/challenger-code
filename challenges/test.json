@@ -3,8 +3,13 @@
 	"name": "Test Challenge",
 	"description": "Create a function that returns the number 0",
 	"verifications": [{
+		"public": true,
 		"name": "Empty parameters",
 		"input": [],
+		"output": 0
+	}, {
+		"name": "Many",
+		"input": [1, 2, "hi"],
 		"output": 0
 	}],
 	"implementation": "const solve = () => 0",
