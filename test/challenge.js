@@ -8,7 +8,7 @@ const challengeId = 'test'
 const code = 'function solve() {return 0}'
 const failure = 'function solve() {return 1}'
 const wrong = 'function trash() {return 1}'
-const base = `http://localhost:${port}`
+const base = `http://localhost:${port}/api`
 
 describe('Challenge integration tests', () => {
 	let app = null
