@@ -1,0 +1,29 @@
+{
+	"id": "east-west-pairs",
+	"name": "Challenge: Count pairs of cars going East and West",
+	"description": "Write a function solve(array) that will count the number of pairs of cars, one going East (0) and another later going West (1). Given an array: [0, 1, 0, 1, 1] it should count the pairs: for the car at (1): (1, 2), (1, 4), (1, 5); and then for the car at (3): (3, 4), (3, 5). The result should be 5.\n\nNote: if the result is higher than 1,000,000,000 the function should return -1",
+	"verifications": [{
+		"name": "Test pairs",
+		"input": [[0,1,0,1,1]],
+		"output": 5
+	}, {
+		"name": "Only one",
+		"input": [[1]],
+		"output": 0
+	}, {
+		"name": "Big array ~100,000 elements, all 0s",
+		"input": ["array"],
+		"array": "function generate() {const array = []; for (i = 0; i < 100000; i++) {array.push(0)}; return array}"
+	}, {
+		"name": "Big array ~100,000 elements, all 1s",
+		"input": ["array"],
+		"array": "function generate() {const array = []; for (i = 0; i < 100000; i++) {array.push(1)}; return array}"
+	}, {
+		"name": "Big array ~100,000 elements, random",
+		"input": ["array"],
+		"array": "function generate() {const array = []; for (i = 0; i < 100000; i++) {array.push(Math.floor(Math.random() * 2))}; return array}"
+	}],
+	"implementation": "const solve = (array) => {let total = 0; let partial = 0; for (let i = array.length -1; i >= 0; i--) {if (array[i] ==1) {partial += 1} else {total += partial; if (total > 1000000000) return -1}}; return total}",
+	"runningTimeoutMs": 10000,
+	"maxMinutes": 10
+}
