@@ -45,7 +45,9 @@ describe('Challenge integration tests', () => {
 function checkChallenge(challenge, id) {
 	expect(challenge.id).to.equal(id)
 	expect(challenge).to.have.property('name')
-	expect(challenge).to.have.property('implementation')
+	expect(challenge).to.not.have.property('implementation')
+	expect(challenge.verifications).to.be.an('array')
+	expect(challenge.verifications.length).to.equal(1)
 }
 
 function checkRun(run, id) {
