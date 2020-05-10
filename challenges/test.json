@@ -8,6 +8,6 @@
 		"output": 0
 	}],
 	"implementation": "const solve = () => 0",
-	"runningTimeoutMs": 500,
+	"runningTimeoutMs": 1000,
 	"maxMinutes": 10
 }
