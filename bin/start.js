@@ -1,5 +1,5 @@
 const stdio = require('stdio')
-const {startServer} = require('../lib/server.js')
+const server = require('../lib/server.js')
 
 const options = stdio.getopt({
 	port: {key: 'p', args: 1, description: 'Server port', default: 8474},
@@ -7,5 +7,5 @@ const options = stdio.getopt({
 	mongodb: {key: 'm', description: 'MongoDB connection string', default: 'mongodb://localhost/cc'}
 })
 
-startServer(options).catch(error => console.error(`Could not start server: ${error} ${error.stack}`))
+server.start(options).catch(error => console.error(`Could not start server: ${error} ${error.stack}`))
 
