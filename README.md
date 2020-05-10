@@ -6,12 +6,12 @@ Challenge yourself with coding exercises.
 
 The following API calls are published.
 
-### `GET /challenge/:id`
+### `GET /api/challenge/:id`
 
 Returns the challenge with the given `id`.
 No parameters.
 
-### `POST /challenge/:id/run`
+### `POST /api/challenge/:id/run`
 
 Runs the given challenge `id` with some code.
 Body parameters:
