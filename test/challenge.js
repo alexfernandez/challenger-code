@@ -9,9 +9,11 @@ const challengeId = 'test'
 const code = 'function solve() {return 0}'
 const failure = 'function solve() {return 1}'
 const wrong = 'function trash() {return 1}'
-const parallel = 'function solve() {return new Promise(resolve => setTimeout(() => resolve(0), 200))}'
+const timeout = 200
+const parallel = `function solve() {return new Promise(resolve => setTimeout(() => resolve(0), ${timeout}))}`
 
-describe('Challenge integration tests', () => {
+describe('Challenge integration tests', function() {
+	this.timeout(5000)
 	let app = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
@@ -42,16 +44,20 @@ describe('Challenge integration tests', () => {
 		}
 	})
 	it.only('should run challenges in parallel', async() => {
-		const promise1 = request.post(`${base}/challenge/${challengeId}/run`, {code: parallel})
-		const promise2 = request.post(`${base}/challenge/${challengeId}/run`, {code: parallel})
+		const promises = []
+		for (let i = 0; i < 5; i++) {
+			const promise = request.post(`${base}/challenge/${challengeId}/run`, {code: parallel})
+			promises.push(promise)
+		}
 		const start = Date.now()
-		const runs = await Promise.all([promise1, promise2])
+		const runs = await Promise.all(promises)
 		const elapsed = Date.now() - start
-		checkRun(runs[0])
-		expect(runs[0].success).to.equal(true)
-		checkRun(runs[1])
-		expect(runs[1].success).to.equal(true)
-		expect(elapsed).to.be.above(800)
+		for (const run of runs) {
+			checkRun(run)
+			expect(run.success).to.equal(true)
+		}
+		// 2 tests per run
+		expect(elapsed).to.be.above(2 * timeout * runs.length)
 		console.log(runs)
 		console.log(elapsed)
 	})
