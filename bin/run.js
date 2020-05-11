@@ -10,7 +10,11 @@ const options = stdio.getopt({
 })
 
 runChallenge(options).catch(error => {
-	console.error(`Could not run challenge: ${error} ${error.stack}`)
+	if (process.send) {
+		process.send({error: {message: error.message, stack: error.stack}})
+	} else {
+		console.error(`Could not run challenge: ${error} ${error.stack}`)
+	}
 	process.exit(1)
 })
 
