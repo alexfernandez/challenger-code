@@ -35,8 +35,23 @@ function solve() {
 }
 </textarea>
 				<button id="submit">Send</button>
-				<p id="result">
-				</p>
+				<h2>Result</h2>
+				<div id="result">
+					<p>
+					<span id="success">???</span> in
+					<span id="elapsed">???</span> ms
+					</p>
+					<ol>
+					<% for (let i = 0; i < challenge.totalVerifications; i++) { %>
+					<li>
+						<span id="name<%= i %>">
+							<%= challenge.verifications[i] ? challenge.verifications[i].name : '' %>
+						</span>
+						<span id="success<%= i %>">???</span> in
+						<span id="elapsed<%= i %>">???</span> ms
+					</li>
+					<% } %>
+				</div>
 			</div>
 		</div>
 		<h2>Home</h2>
