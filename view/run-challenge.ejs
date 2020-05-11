@@ -41,7 +41,8 @@ function solve(array) {
 					<h2>Result:
 						<span id="success">???</span>
 					</h2>
-					<ol>
+					<pre id="error" class="invisible"></pre>
+					<ol id="verifications">
 						<% for (let i = 0; i < challenge.totalVerifications; i++) { %>
 						<li>
 							<span id="name<%= i %>">

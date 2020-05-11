@@ -23,13 +23,18 @@ function showResponse(response) {
 	document.getElementById('submit').disabled = false
 	if (response.status != 200) {
 		response.json().then(json => {
-			const text = `${getSuccess(false)} ${response.status}: ${json.error}`
+			const text = `${getSuccess(false)} ${response.status}`
 			document.getElementById('success').innerText = text
+			document.getElementById('error').className = ''
+			document.getElementById('verifications').className = 'invisible'
+			document.getElementById('error').innerText = json.error
 		})
 		return
 	}
 	response.json().then(json => {
 		console.log(`Result: ${JSON.stringify(json)}`)
+		document.getElementById('error').className = 'invisible'
+		document.getElementById('verifications').className = ''
 		const text = `${getSuccess(json.success)} in ${json.elapsed} ms with ${json.nodes} nodes`
 		document.getElementById('success').innerText = text
 		for (let i = 0; i < json.results.length; i++) {
