@@ -7,12 +7,12 @@
 		<script src="/js/run-challenge.js"></script>
 	</head>
 	<body>
-		<p>
-			<a href="/"><img class="logo" src="/img/logo.png" /></a>
-			<strong>challengerco.de</strong> — challenge yourself
-		</p>
 		<div class="wrapper">
 			<div class="read">
+				<p>
+					<a href="/"><img class="logo" src="/img/logo.png" /></a>
+					<strong>challengerco.de</strong> — challenge yourself
+				</p>
 				<h1><%= challenge.name %></h1>
 				<h2>The Challenge</h2>
 				<p>
@@ -35,22 +35,19 @@ function solve() {
 }
 </textarea>
 				<button id="submit">Send</button>
-				<h2>Result</h2>
 				<div id="result">
-					<p>
-					<span id="success">???</span> in
-					<span id="elapsed">???</span> ms
-					</p>
+					<h2>Result:
+						<span id="success">???</span>
+					</h2>
 					<ol>
-					<% for (let i = 0; i < challenge.totalVerifications; i++) { %>
-					<li>
-						<span id="name<%= i %>">
-							<%= challenge.verifications[i] ? challenge.verifications[i].name : '' %>
-						</span>
-						<span id="success<%= i %>">???</span> in
-						<span id="elapsed<%= i %>">???</span> ms
-					</li>
-					<% } %>
+						<% for (let i = 0; i < challenge.totalVerifications; i++) { %>
+						<li>
+							<span id="name<%= i %>">
+								<%= challenge.verifications[i] ? challenge.verifications[i].name : '' %>
+							</span>
+							<span id="success<%= i %>">???</span>
+						</li>
+						<% } %>
 				</div>
 			</div>
 		</div>
