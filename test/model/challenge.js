@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const {ApiError, TestError} = require('../../lib/model/error.js')
-const {findChallenge} = require('../../lib/model/challenge.js')
+const {listChallenges, findChallenge} = require('../../lib/model/challenge.js')
 
 
 describe('Challenge model tests', () => {
