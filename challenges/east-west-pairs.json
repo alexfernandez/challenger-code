@@ -1,6 +1,7 @@
 {
 	"id": "east-west-pairs",
-	"name": "Challenge: Count pairs of cars going East and West",
+	"category": "prefix-pairs",
+	"name": "Count pairs of cars going East and West",
 	"description": "Write a function solve(array) that will count the number of pairs of cars, one going East (0) and another later going West (1). Given an array: [0, 1, 0, 1, 1] it should count the pairs: for the car at (1): (1, 2), (1, 4), (1, 5); and then for the car at (3): (3, 4), (3, 5). The result should be 5.\n\nNote: if the result is higher than 1,000,000,000 the function should return -1",
 	"verifications": [{
 		"public": true,
