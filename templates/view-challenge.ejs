@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title><%= challenge.name %> - challengerco.de</title>
+	</head>
+	<body>
+		<h1>challengerco.de: <%= challenge.name %></h1>
+		<p>Challenge yourself!</p>
+		<p>
+		Fork me <a href="https://github.com/alexfernandez/challenger-code">on GitHub</a>.
+		</p>
+		<h2>The Challenge</h2>
+		<p>
+		<%= challenge.description %>
+		</p>
+		<h2>Ready for It?</h2>
+		<p>
+		<a href="/run-challenge/<%= challenge.id %>">Run it!</a>
+		</p>
+		<h2>Home</h2>
+		<p>
+		Not ready yet? <a href="/">Go back</a>
+		</p>
+  </body>
+</html>

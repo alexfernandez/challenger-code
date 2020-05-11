@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Challenger Code</title>
+		<title>challengerco.de</title>
 	</head>
 	<body>
-		<h1>Challenger Code</h1>
+		<h1>challengerco.de</h1>
 		<p>Challenge yourself!</p>
 		<p>
 			Fork me <a href="https://github.com/alexfernandez/challenger-code">on GitHub</a>.
@@ -16,8 +16,8 @@
 		<% for (const challenge of challenges) { %>
 			<h3><%= challenge.name %></h3>
 			<p>
-				<a href="/view/<%= challenge.id %>">View</a> or
-				<a href="/run/<%= challenge.id %>">run</a> the challenge.
+				<a href="/challenge/<%= challenge.id %>/view">View</a> or
+				<a href="/challenge/<%= challenge.id %>/run">run</a> the challenge.
 			</p>
 		<% } %>
 		<h2>Acknowledgements</h2>
