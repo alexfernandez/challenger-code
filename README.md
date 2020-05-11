@@ -6,6 +6,11 @@ Challenge yourself with coding exercises.
 
 The following API calls are published.
 
+### `GET /api/challenges`
+
+Returns a list of challenges with `id` and `name`.
+No parameters.
+
 ### `GET /api/challenge/:id`
 
 Returns the challenge with the given `id`.

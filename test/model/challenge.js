@@ -4,6 +4,10 @@ const {findChallenge} = require('../../lib/model/challenge.js')
 
 
 describe('Challenge model tests', () => {
+	it('should list challenges', async() => {
+		const challenges = await listChallenges()
+		expect(challenges.length).to.be.above(2)
+	})
 	it('should find and run existing challenge', async() => {
 		const challenge = await findChallenge('test')
 		expect(challenge.id).to.equal('test')

@@ -21,6 +21,12 @@ describe('Challenge integration tests', function() {
 	after(async() => {
 		await server.stop(app)
 	})
+	it('should list challenges', async() => {
+		const challenges = await request.get(`${base}/challenges`)
+		expect(challenges.length).to.be.above(2)
+		expect(challenges[0]).to.have.property('id')
+		expect(challenges[0]).to.have.property('name')
+	})
 	it('should find a challenge', async() => {
 		const challenge = await request.get(`${base}/challenge/${challengeId}`)
 		checkChallenge(challenge, challengeId)
