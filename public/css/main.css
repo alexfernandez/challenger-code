@@ -1,0 +1,9 @@
+
+.logo {
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+	image-rendering: pixelated;
+	margin: 10px;
+}
+
