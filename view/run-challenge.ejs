@@ -2,20 +2,26 @@
 <html lang="en">
 	<head>
 		<title><%= challenge.id %> - challengerco.de</title>
+		<link rel="shortcut icon" href="/img/logo.png" />
 		<script src="/js/run-challenge.js"></script>
 	</head>
 	<body>
+		<p>
+			<a href="/"><img src="/img/logo.png" style="width: 32px; height: 32px; vertical-align: middle;
+				image-rendering: pixelated;"/></a>
+			<strong>challengerco.de</strong> — challenge yourself
+		</p>
 		<h1><%= challenge.name %></h1>
 		<h2>The Challenge</h2>
 		<p>
 		<%= challenge.description %>
 		</p>
-		<h3>Public verifications</h3>
+		<h2>Public verifications</h2>
 		<% for (const verification of challenge.verifications) { %>
 		<p><%= verification.name %></p>
 		<p><%= verification.input %> ⇒ <%= verification.output %></p>
 		<% } %>
-		<h3>Write Your Solution</h3>
+		<h2>Write Your Solution</h2>
 		<textarea id="solution">
 		</textarea>
 		<button id="submit">Send</button>
