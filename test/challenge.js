@@ -43,7 +43,7 @@ describe('Challenge integration tests', function() {
 			expect(error.constructor.name).to.equal('RequestError')
 		}
 	})
-	it.only('should run challenges in parallel', async() => {
+	it('should run challenges in parallel', async() => {
 		const promises = []
 		for (let i = 0; i < 5; i++) {
 			const promise = request.post(`${base}/challenge/${challengeId}/run`, {code: parallel})
