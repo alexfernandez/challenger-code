@@ -11,20 +11,34 @@
 			<a href="/"><img class="logo" src="/img/logo.png" /></a>
 			<strong>challengerco.de</strong> — challenge yourself
 		</p>
-		<h1><%= challenge.name %></h1>
-		<h2>The Challenge</h2>
-		<p>
-		<%= challenge.description %>
-		</p>
-		<h2>Public verifications</h2>
-		<% for (const verification of challenge.verifications) { %>
-		<p><%= verification.name %></p>
-		<p><%= verification.input %> ⇒ <%= verification.output %></p>
-		<% } %>
-		<h2>Write Your Solution</h2>
-		<textarea id="solution">
-		</textarea>
-		<button id="submit">Send</button>
+		<div class="wrapper">
+			<div class="read">
+				<h1><%= challenge.name %></h1>
+				<h2>The Challenge</h2>
+				<p>
+				<%= challenge.description %>
+				</p>
+				<h2>Public verifications</h2>
+				<% for (const verification of challenge.verifications) { %>
+				<p><%= verification.name %></p>
+				<p><%= verification.input %> ⇒ <%= verification.output %></p>
+				<% } %>
+			</div>
+			<div class="write">
+				<h2>Write Your Solution</h2>
+				<textarea class="solution" id="solution" name="Solution">
+/**
+ * Write a function solve() that solves the challenge.
+ */
+function solve() {
+	// write your code here
+}
+</textarea>
+				<button id="submit">Send</button>
+				<p id="result">
+				</p>
+			</div>
+		</div>
 		<h2>Home</h2>
 		<p>
 		More challenges on <a href="/">challengerco.de</a>!
