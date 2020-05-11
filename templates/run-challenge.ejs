@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title><%= challenge.id %> - challengerco.de</title>
+		<script src="/js/run-challenge.js"></script>
+	</head>
+	<body>
+		<h1><%= challenge.name %></h1>
+		<h2>The Challenge</h2>
+		<p>
+		<%= challenge.description %>
+		</p>
+		<h3>Public verifications</h3>
+		<% for (const verification of challenge.verifications) { %>
+		<p><%= verification.name %></p>
+		<p><%= verification.input %> ⇒ <%= verification.output %></p>
+		<% } %>
+		<h3>Write Your Solution</h3>
+		<textarea id="solution">
+		</textarea>
+		<button id="submit">Send</button>
+		<h2>Home</h2>
+		<p>
+		More challenges on <a href="/">challengerco.de</a>!
+		</p>
+		<p>
+		Fork me <a href="https://github.com/alexfernandez/challenger-code">on GitHub</a>.
+		</p>
+	</body>
+</html>
+
