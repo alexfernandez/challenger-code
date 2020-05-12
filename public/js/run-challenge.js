@@ -1,13 +1,25 @@
 'use strict'
 
+let codeMirror = null
+
 window.onload = () => {
 	console.log('loaded')
+	codeMirror = CodeMirror.fromTextArea(document.getElementById('solution'), {
+		mode:  'javascript',
+		indentUnit: 4,
+		indentWithTabs: true,
+		lineWrapping: true,
+		lineNumbers: true,
+		autofocus: true,
+		cursorBlinkRate: 0,
+	})
 	const submit = document.getElementById('submit')
 	submit.onclick = sendDocument
 }
 
 function sendDocument() {
 	console.log('sending')
+	codeMirror.save()
 	document.getElementById('submit').disabled = true
 	const solution = document.getElementById('solution').value
 	const body = {code: solution}
@@ -21,8 +33,10 @@ function sendDocument() {
 
 function showResponse(response) {
 	document.getElementById('submit').disabled = false
+	document.getElementById('result').className = 'disabled'
 	if (response.status != 200) {
 		response.json().then(json => {
+			document.getElementById('result').className = 'errored'
 			const text = `${getSuccess(false)} ${response.status}`
 			document.getElementById('success').innerText = text
 			document.getElementById('error').className = ''
@@ -36,6 +50,11 @@ function showResponse(response) {
 		document.getElementById('error').className = 'invisible'
 		document.getElementById('verifications').className = ''
 		const text = `${getSuccess(json.success)} in ${json.elapsed} ms with ${json.nodes} nodes`
+		if (json.success) {
+			document.getElementById('result').className = 'success'
+		} else {
+			document.getElementById('result').className = 'errored'
+		}
 		document.getElementById('success').innerText = text
 		for (let i = 0; i < json.results.length; i++) {
 			const result = json.results[i]

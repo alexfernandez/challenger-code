@@ -7,6 +7,8 @@ extends: eslint:recommended
 parserOptions:
   sourceType: module
   ecmaVersion: 2018
+globals:
+  CodeMirror: readonly
 rules:
   no-inner-declarations: 0
   no-unused-vars:
