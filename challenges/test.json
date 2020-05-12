@@ -14,6 +14,6 @@
 		"output": 0
 	}],
 	"implementation": "const solve = () => 0",
-	"runningTimeoutMs": 1500,
+	"runningTimeoutSeconds": 1.5,
 	"maxMinutes": 10
 }
