@@ -3,7 +3,8 @@ const {ApiError, TestError} = require('../../lib/model/error.js')
 const {listChallenges, findChallenge} = require('../../lib/model/challenge.js')
 
 
-describe('Challenge model tests', () => {
+describe('Challenge model tests', function() {
+	this.timeout(5000)
 	it('should list challenges', async() => {
 		const challenges = await listChallenges()
 		expect(challenges.length).to.be.above(2)
