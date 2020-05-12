@@ -62,10 +62,8 @@ describe('Challenge integration tests', function() {
 			checkRun(run)
 			expect(run.success).to.equal(true)
 		}
-		// 2 tests per run
-		expect(elapsed).to.be.above(2 * timeout * runs.length)
-		console.log(runs)
-		console.log(elapsed)
+		// 3 tests per run
+		expect(elapsed).to.be.above(3 * timeout * runs.length)
 	})
 })
 
