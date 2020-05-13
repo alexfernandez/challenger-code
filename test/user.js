@@ -16,7 +16,6 @@ const data = {
 
 describe('User integration tests', () => {
 	let app = null
-	let user = null
 	let headers = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
@@ -26,9 +25,9 @@ describe('User integration tests', () => {
 	})
 	it('should sign up a new user', async() => {
 		const parsed = await request.getParsed(`${base}/signup`, 'POST', data)
-		data._id = parsed.body._id
-		checkUser(parsed.body)
-		user = parsed.body
+		const user = parsed.body
+		data._id = user._id
+		checkUser(user)
 		expect(parsed.headers).to.have.property('authorization')
 		headers = {headers: {authorization: parsed.headers.authorization}}
 	})
@@ -61,7 +60,7 @@ describe('User integration tests', () => {
 		}
 	})
 	it('should remove user', async() => {
-		await request.delete(`${base}/user/${user._id}`, '', headers)
+		await request.delete(`${base}/user/${data._id}`, '', headers)
 	})
 })
 
