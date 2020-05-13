@@ -16,6 +16,8 @@ const data = {
 
 describe.only('User integration tests', () => {
 	let app = null
+	let user = null
+	let headers = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
 	})
@@ -26,7 +28,9 @@ describe.only('User integration tests', () => {
 		const parsed = await request.getParsed(`${base}/signup`, 'POST', data)
 		data._id = parsed.body._id
 		checkUser(parsed.body)
+		user = parsed.body
 		expect(parsed.headers).to.have.property('authorization')
+		headers = {headers: {authorization: parsed.headers.authorization}}
 	})
 	it('should reject duplicated email', async() => {
 		try {
@@ -51,11 +55,13 @@ describe.only('User integration tests', () => {
 		const newEmail = `pip-${createTestToken()}@test.com`
 		try {
 			await request.post(`${base}/login`, {email: newEmail, password})
-			console.log(2)
 			throw new TestError('Invalid login')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
 		}
+	})
+	it('should remove user', async() => {
+		await request.delete(`${base}/user/${user._id}`, '', headers)
 	})
 })
 
