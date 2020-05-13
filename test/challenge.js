@@ -1,5 +1,6 @@
 const {expect} = require('chai')
 const request = require('basic-request')
+const {signup, removeUser} = require('./user.js')
 const server = require('../lib/server.js')
 const {TestError} = require('../lib/model/error.js')
 
@@ -12,13 +13,17 @@ const wrong = 'function trash() {return 1}'
 const timeout = 200
 const parallel = `function solve() {return new Promise(resolve => setTimeout(() => resolve(0), ${timeout}))}`
 
-describe('Challenge integration tests', function() {
+describe.only('Challenge integration tests', function() {
 	this.timeout(5000)
 	let app = null
+	let headers = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
+		const {loggedIn} = await signup()
+		headers = loggedIn
 	})
 	after(async() => {
+		await removeUser()
 		await server.stop(app)
 	})
 	it('should list challenges', async() => {
@@ -32,18 +37,18 @@ describe('Challenge integration tests', function() {
 		checkChallenge(challenge, challengeId)
 	})
 	it('should run a challenge', async() => {
-		const run = await request.post(`${base}/challenge/${challengeId}/run`, {code})
+		const run = await request.post(`${base}/challenge/${challengeId}/run`, {code}, headers)
 		checkRun(run)
 		expect(run.success).to.equal(true)
 	})
 	it('should fail a challenge', async() => {
-		const run = await request.post(`${base}/challenge/${challengeId}/run`, {code: failure})
+		const run = await request.post(`${base}/challenge/${challengeId}/run`, {code: failure}, headers)
 		checkRun(run)
 		expect(run.success).to.equal(false)
 	})
 	it('should reject a challenge', async() => {
 		try {
-			await request.post(`${base}/challenge/${challengeId}/run`, {code: wrong})
+			await request.post(`${base}/challenge/${challengeId}/run`, {code: wrong}, headers)
 			throw new TestError('Should not run this trash')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
@@ -52,7 +57,7 @@ describe('Challenge integration tests', function() {
 	it('should run challenges in parallel', async() => {
 		const promises = []
 		for (let i = 0; i < 5; i++) {
-			const promise = request.post(`${base}/challenge/${challengeId}/run`, {code: parallel})
+			const promise = request.post(`${base}/challenge/${challengeId}/run`, {code: parallel}, headers)
 			promises.push(promise)
 		}
 		const start = Date.now()

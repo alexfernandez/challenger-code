@@ -13,10 +13,10 @@ const data = {
 	password,
 	confirmPassword: password,
 }
+let headers = null
 
 describe('User integration tests', () => {
 	let app = null
-	let headers = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
 	})
@@ -24,12 +24,9 @@ describe('User integration tests', () => {
 		await server.stop(app)
 	})
 	it('should sign up a new user', async() => {
-		const parsed = await request.getParsed(`${base}/signup`, 'POST', data)
-		const user = parsed.body
-		data._id = user._id
+		const {user, loggedIn} = await signup()
 		checkUser(user)
-		expect(parsed.headers).to.have.property('authorization')
-		headers = {headers: {authorization: parsed.headers.authorization}}
+		expect(loggedIn.headers).to.have.property('authorization')
 	})
 	it('should reject duplicated email', async() => {
 		try {
@@ -60,13 +57,28 @@ describe('User integration tests', () => {
 		}
 	})
 	it('should remove user', async() => {
-		await request.delete(`${base}/user/${data._id}`, '', headers)
+		await removeUser()
 	})
 })
+
+async function signup() {
+	const parsed = await request.getParsed(`${base}/signup`, 'POST', data)
+	const user = parsed.body
+	data._id = user._id
+	const loggedIn = {headers: {authorization: parsed.headers.authorization}}
+	headers = loggedIn
+	return {user, loggedIn}
+}
+
+async function removeUser() {
+	await request.delete(`${base}/user/${data._id}`, '', headers)
+}
 
 function checkUser(user) {
 	expect(user.email).to.equal(email)
 	expect(user.role).to.equal('user')
 	expect(user).to.not.have.property('password')
 }
+
+module.exports = {signup, removeUser}
 
