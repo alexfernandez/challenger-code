@@ -14,7 +14,7 @@ const data = {
 	confirmPassword: password,
 }
 
-describe.only('User integration tests', () => {
+describe('User integration tests', () => {
 	let app = null
 	let user = null
 	let headers = null
