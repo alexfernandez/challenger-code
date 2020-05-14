@@ -10,7 +10,6 @@ window.onload = () => {
 
 window.loaders = [() => {
 	const json = localStorage.getItem('ccAuth')
-	console.log(json)
 	if (json) {
 		try {
 			window.ccAuth = JSON.parse(json)
