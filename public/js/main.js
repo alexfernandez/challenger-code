@@ -42,7 +42,7 @@ async function storeAuth(action, response) {
 	document.getElementById('error').className = 'invisible'
 	document.getElementById('error').className = 'invisible'
 	localStorage.setItem('ccAuth', JSON.stringify(json))
-	window.location = '/'
+	window.location = localStorage.getItem('ccLocation') || '/'
 }
 
 window.showError = function(action, error) {

@@ -3,6 +3,11 @@
 let codeMirror = null
 
 window.loaders.push(() => {
+	const solution = localStorage.getItem('solution')
+	if (solution) {
+		document.getElementById('solution').value = solution
+		localStorage.removeItem('solution')
+	}
 	codeMirror = CodeMirror.fromTextArea(document.getElementById('solution'), {
 		mode:  'javascript',
 		indentUnit: 4,
@@ -17,15 +22,16 @@ window.loaders.push(() => {
 })
 
 function sendDocument() {
+	codeMirror.save()
+	const solution = document.getElementById('solution').value
 	if (!window.ccAuth) {
 		localStorage.setItem('ccLocation', window.location)
+		localStorage.setItem('ccSolution', solution)
 		window.location = '/login'
 		return
 	}
 	console.log('sending')
-	codeMirror.save()
 	document.getElementById('send').disabled = true
-	const solution = document.getElementById('solution').value
 	const body = {code: solution}
 	const id = document.getElementById('challenge-id').innerText
 	fetch(`/api/challenge/${id}/run`, {
