@@ -9,7 +9,7 @@ window.onload = () => {
 }
 
 window.loaders = [() => {
-	const json = localStorage.getItem('auth')
+	const json = localStorage.getItem('ccAuth')
 	console.log(json)
 	if (json) {
 		try {
@@ -41,7 +41,7 @@ async function storeAuth(action, response) {
 	}
 	document.getElementById('error').className = 'invisible'
 	document.getElementById('error').className = 'invisible'
-	localStorage.setItem('auth', JSON.stringify(json))
+	localStorage.setItem('ccAuth', JSON.stringify(json))
 	window.location = '/'
 }
 
