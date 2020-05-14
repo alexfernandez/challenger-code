@@ -3,7 +3,7 @@ body {
 	font: 16px sans-serif;
 }
 
-.grid {
+.columns {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
