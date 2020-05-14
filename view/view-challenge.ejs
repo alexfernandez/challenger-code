@@ -6,15 +6,17 @@
 	</head>
 	<body>
 		<%- include('topbar.ejs') %>
-		<h1><%= challenge.name %></h1>
-		<h2>The Challenge</h2>
-		<p>
-		<%= challenge.description %>
-		</p>
-		<h2>Ready for It?</h2>
-		<p>
-		<a href="/challenge/<%= challenge.id %>/run">Run the challenge!</a>
-		</p>
+		<div class="wrapper">
+			<h1><%= challenge.name %></h1>
+			<h2>The Challenge</h2>
+			<p>
+			<%= challenge.description %>
+			</p>
+			<h2>Ready for It?</h2>
+			<p>
+			<a href="/challenge/<%= challenge.id %>/run">Run the challenge!</a>
+			</p>
+		</div>
 		<%- include('bottombar.ejs') %>
   </body>
 </html>

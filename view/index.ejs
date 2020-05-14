@@ -7,21 +7,21 @@
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper">
-		<h1>Challenges</h1>
-		<p>
+			<h1>Challenges</h1>
+			<p>
 			Go through them in order of difficulty or by category.
-		</p>
-		<% for (const challenge of challenges) { %>
+			</p>
+			<% for (const challenge of challenges) { %>
 			<h2><%= challenge.name %></h2>
 			<p>
-				<a href="/challenge/<%= challenge.id %>/view">View</a> or
-				<a href="/challenge/<%= challenge.id %>/run">run</a> the challenge.
+			<a href="/challenge/<%= challenge.id %>/view">View</a> or
+			<a href="/challenge/<%= challenge.id %>/run">run</a> the challenge.
 			</p>
-		<% } %>
-		<h2>Acknowledgements</h2>
-		<p>
+			<% } %>
+			<h2>Acknowledgements</h2>
+			<p>
 			See <a href="https://github.com/alexfernandez/challenger-code/graphs/contributors">contributors</a>.
-		</p>
+			</p>
 		</div>
 		<%- include('bottombar.ejs') %>
   </body>

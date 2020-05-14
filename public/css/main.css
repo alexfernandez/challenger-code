@@ -3,17 +3,18 @@ body {
 	font: 16px sans-serif;
 }
 
-.wrapper {
-	padding: 0px 10px;
-	background: #ffffff;
+.grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
 
-.topbar, .bottombar {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+.bar {
 	background: #fafafa;
+}
+
+.wrapper {
+	padding: 0px 10px;
+	background: #ffffff;
 }
 
 .user, .license, .repo {
