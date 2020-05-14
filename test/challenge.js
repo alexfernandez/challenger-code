@@ -14,7 +14,7 @@ const timeout = 200
 const parallel = `function solve() {return new Promise(resolve => setTimeout(() => resolve(0), ${timeout}))}`
 
 describe('Challenge integration tests', function() {
-	this.timeout(5000)
+	this.timeout(10000)
 	let app = null
 	let headers = null
 	before(async() => {
