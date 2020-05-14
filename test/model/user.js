@@ -3,7 +3,7 @@ const {ApiError, TestError} = require('../../lib/model/error.js')
 const {createUser} = require('../../lib/model/user.js')
 const {createTestToken} = require('../../lib/model/token.js')
 
-const username = `pep-${createTestToken()}`
+const username = `pep${createTestToken()}`
 const email = `${username}@test.com`
 const password = 'asdf12345'
 const data = {
@@ -32,17 +32,37 @@ describe('User model tests', () => {
 			expect(error).to.be.instanceof(ApiError)
 		}
 	})
-	it('should reject invalid user', async() => {
+	it('should reject invalid email', async() => {
 		try {
-			await createUser({username, email, password, confirmPassword: 'churro'})
-			throw new TestError('Invalid user')
+			await createUser({...data, email: 'abc'})
+			throw new TestError('Invalid email')
+		} catch(error) {
+			expect(error).to.be.instanceof(ApiError)
+		}
+	})
+	it('should reject invalid username', async() => {
+		try {
+			await createUser({...data, username: 'abc_de'})
+			throw new TestError('Invalid username')
+		} catch(error) {
+			expect(error).to.be.instanceof(ApiError)
+		}
+		try {
+			await createUser({...data, username: 'hithere@here'})
+			throw new TestError('Invalid username')
 		} catch(error) {
 			expect(error).to.be.instanceof(ApiError)
 		}
 	})
 	it('should reject invalid password', async() => {
 		try {
-			await createUser({username, email, password: '456', confirmPassword: '456'})
+			await createUser({...data, confirmPassword: 'churro'})
+			throw new TestError('Invalid user')
+		} catch(error) {
+			expect(error).to.be.instanceof(ApiError)
+		}
+		try {
+			await createUser({...data, password: '456', confirmPassword: '456'})
 			throw new TestError('Invalid password')
 		} catch(error) {
 			expect(error).to.be.instanceof(ApiError)

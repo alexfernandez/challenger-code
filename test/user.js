@@ -6,7 +6,7 @@ const {TestError} = require('../lib/model/error.js')
 
 const port = 9899
 const base = `http://localhost:${port}`
-const username = `pip-${createTestToken()}`
+const username = `pip${createTestToken()}`
 const email = `${username}@test.com`
 const password = 'asdf12345'
 const data = {
