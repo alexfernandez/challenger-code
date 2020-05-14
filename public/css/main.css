@@ -1,21 +1,33 @@
 body {
+	background: #f5f5f5;
 	font: 16px sans-serif;
 }
 
 .wrapper {
+	padding: 10px;
+	background: #ffffff;
 }
 
-.header {
+.topbar {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	background: #f5f5f5;
+	background: #fafafa;
 }
 
-.login {
+.bottombar {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	background: #fafafa;
+}
+
+.login, .license, .repo {
 	vertical-align: middle;
 	margin: 10px;
-	text-align: right;
 	line-height: 32px;
+}
+
+.login, .repo {
+	text-align: right;
 }
 
 .logo {

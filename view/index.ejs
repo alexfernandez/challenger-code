@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<%- include('head.ejs') %>
 		<title>challengerco.de</title>
-		<link href="/img/logo.png" rel="shortcut icon"/>
-		<link href="/css/main.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-<%- include('login.ejs') %>
-		<p>
-			Fork me <a href="https://github.com/alexfernandez/challenger-code">on GitHub</a>.
-		</p>
+		<%- include('topbar.ejs') %>
+		<div class="wrapper">
 		<h1>Challenges</h1>
 		<p>
 			Go through them in order of difficulty or by category.
@@ -25,5 +22,7 @@
 		<p>
 			See <a href="https://github.com/alexfernandez/challenger-code/graphs/contributors">contributors</a>.
 		</p>
+		</div>
+		<%- include('bottombar.ejs') %>
   </body>
 </html>
