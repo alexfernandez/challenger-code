@@ -30,27 +30,27 @@ describe('User integration tests', () => {
 	})
 	it('should reject duplicated email', async() => {
 		try {
-			await request.post(`${base}/signup`, data)
+			await request.post(`${base}/api/signup`, data)
 			throw new TestError('Duplicated email')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
 		}
 	})
 	it('should login user', async() => {
-		const parsed = await request.getParsed(`${base}/login`, 'POST', {email, password})
+		const parsed = await request.getParsed(`${base}/api/login`, 'POST', {email, password})
 		checkUser(parsed.body)
 		expect(parsed.headers).to.have.property('authorization')
 	})
 	it('should reject invalid logins', async() => {
 		try {
-			await request.post(`${base}/login`, {email, password: `${password}pop`})
+			await request.post(`${base}/api/login`, {email, password: `${password}pop`})
 			throw new TestError('Invalid login')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
 		}
 		const newEmail = `pip-${createTestToken()}@test.com`
 		try {
-			await request.post(`${base}/login`, {email: newEmail, password})
+			await request.post(`${base}/api/login`, {email: newEmail, password})
 			throw new TestError('Invalid login')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
@@ -62,7 +62,7 @@ describe('User integration tests', () => {
 })
 
 async function signup() {
-	const parsed = await request.getParsed(`${base}/signup`, 'POST', data)
+	const parsed = await request.getParsed(`${base}/api/signup`, 'POST', data)
 	const user = parsed.body
 	data._id = user._id
 	const loggedIn = {headers: {authorization: parsed.headers.authorization}}
