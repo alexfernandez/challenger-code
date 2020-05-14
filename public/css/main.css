@@ -4,17 +4,13 @@ body {
 }
 
 .wrapper {
-	padding: 10px;
+	padding: 0px 10px;
 	background: #ffffff;
-}
-
-.topbar {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	background: #fafafa;
 }
 
-.bottombar {
+.topbar, .bottombar {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	background: #fafafa;

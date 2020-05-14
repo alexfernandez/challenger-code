@@ -13,12 +13,9 @@
 		<script src="/js/run-challenge.js"></script>
 	</head>
 	<body>
+		<%- include('topbar.ejs') %>
 		<div class="wrapper">
 			<div class="read">
-				<p>
-					<a href="/"><img class="logo" src="/img/logo.png" /></a>
-					<strong>challengerco.de</strong> — challenge yourself
-				</p>
 				<h1>
 					<span id="challenge-id"><%= challenge.id %></span>:
 					<%= challenge.name %></h1>
@@ -60,13 +57,7 @@ function solve(array) {
 				</div>
 			</div>
 		</div>
-		<h2>Home</h2>
-		<p>
-		More challenges on <a href="/">challengerco.de</a>!
-		</p>
-		<p>
-		Fork me <a href="https://github.com/alexfernandez/challenger-code">on GitHub</a>.
-		</p>
+		<%- include('bottombar.ejs') %>
 	</body>
 </html>
 

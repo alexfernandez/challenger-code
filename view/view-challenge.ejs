@@ -5,10 +5,7 @@
 		<title><%= challenge.id %> - challengerco.de</title>
 	</head>
 	<body>
-		<p>
-			<a href="/"><img class="logo" src="/img/logo.png" /></a>
-			<strong>challengerco.de</strong> — challenge yourself
-		</p>
+		<%- include('topbar.ejs') %>
 		<h1><%= challenge.name %></h1>
 		<h2>The Challenge</h2>
 		<p>
@@ -18,9 +15,6 @@
 		<p>
 		<a href="/challenge/<%= challenge.id %>/run">Run the challenge!</a>
 		</p>
-		<h2>Home</h2>
-		<p>
-		Not ready yet? <a href="/">Go back</a>
-		</p>
+		<%- include('bottombar.ejs') %>
   </body>
 </html>
