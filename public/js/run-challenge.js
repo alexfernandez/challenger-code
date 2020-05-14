@@ -3,7 +3,6 @@
 let codeMirror = null
 
 window.loaders.push(() => {
-	console.log('loaded')
 	codeMirror = CodeMirror.fromTextArea(document.getElementById('solution'), {
 		mode:  'javascript',
 		indentUnit: 4,

@@ -2,10 +2,10 @@
 
 
 window.onload = () => {
-	console.log('loaded')
 	for (const loader of window.loaders) {
 		loader()
 	}
+	console.log('loaded')
 }
 
 window.loaders = [() => {
