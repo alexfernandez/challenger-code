@@ -20,13 +20,13 @@ body {
 	background: #fafafa;
 }
 
-.login, .license, .repo {
+.user, .license, .repo {
 	vertical-align: middle;
 	margin: 10px;
 	line-height: 32px;
 }
 
-.login, .repo {
+.user, .repo {
 	text-align: right;
 }
 

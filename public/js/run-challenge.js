@@ -13,14 +13,14 @@ window.onload = () => {
 		autofocus: true,
 		cursorBlinkRate: 0,
 	})
-	const submit = document.getElementById('submit')
-	submit.onclick = sendDocument
+	const send = document.getElementById('send')
+	send.onclick = sendDocument
 }
 
 function sendDocument() {
 	console.log('sending')
 	codeMirror.save()
-	document.getElementById('submit').disabled = true
+	document.getElementById('send').disabled = true
 	const solution = document.getElementById('solution').value
 	const body = {code: solution}
 	const id = document.getElementById('challenge-id').innerText
@@ -32,7 +32,7 @@ function sendDocument() {
 }
 
 function showResponse(response) {
-	document.getElementById('submit').disabled = false
+	document.getElementById('send').disabled = false
 	document.getElementById('result').className = 'disabled'
 	if (response.status != 200) {
 		response.json().then(json => {
@@ -70,7 +70,7 @@ function getSuccess(success) {
 }
 
 function showError(error) {
-	document.getElementById('submit').disabled = false
+	document.getElementById('send').disabled = false
 	document.getElementById('success').innerText = `${getSuccess(false)} Could not send: ${error}`
 }
 
