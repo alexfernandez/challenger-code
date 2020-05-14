@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('head.ejs') %>
+		<title><%= user.username %> - challengerco.de</title>
+	</head>
+	<body>
+		<%- include('topbar.ejs') %>
+		<div class="wrapper">
+			<h1><%= user.username %></h1>
+			<p>
+			A most excellent challenger.
+			</p>
+			<h2>Overview</h2>
+			<p>
+			Has overcome the odds on many challenges.
+			</p>
+		</div>
+		<%- include('bottombar.ejs') %>
+  </body>
+</html>
