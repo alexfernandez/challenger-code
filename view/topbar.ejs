@@ -16,11 +16,14 @@
 	</div>
 </div>
 <script>
-	const token = localStorage.getItem('token')
-	if (token) {
-		document.getElementById('register').setClass('invisible')
-		document.getElementById('useremail').innerText = token.email
-		document.getElementById('loggedin').setClass('')
+	const json = localStorage.getItem('token')
+	if (json) {
+		const token = JSON.parse(json)
+		if (token && token.email) {
+			document.getElementById('register').className = 'invisible'
+				document.getElementById('useremail').innerText = token.email
+				document.getElementById('loggedin').className = ''
+		}
 	}
 	document.url = '/'
 </script>
