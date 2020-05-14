@@ -16,7 +16,7 @@ window.loaders = [() => {
 			window.ccAuth = JSON.parse(json)
 			if (window.ccAuth && window.ccAuth.email) {
 				document.getElementById('register').className = 'invisible'
-				document.getElementById('useremail').innerText = window.ccAuth.email
+				document.getElementById('username').innerText = window.ccAuth.email
 				document.getElementById('loggedin').className = ''
 			}
 		} catch(error) {
@@ -43,6 +43,7 @@ async function storeAuth(action, response) {
 	document.getElementById('error').className = 'invisible'
 	localStorage.setItem('ccAuth', JSON.stringify(json))
 	window.location = localStorage.getItem('ccLocation') || '/'
+	localStorage.removeItem('ccLocation')
 }
 
 window.showError = function(action, error) {

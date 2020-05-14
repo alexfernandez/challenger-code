@@ -6,11 +6,13 @@ const {TestError} = require('../lib/model/error.js')
 
 const port = 9899
 const base = `http://localhost:${port}`
-const email = `pip-${createTestToken()}@test.com`
+const username = `pip-${createTestToken()}`
+const email = `${username}@test.com`
 const password = 'asdf12345'
 const data = {
 	email,
 	password,
+	username,
 	confirmPassword: password,
 }
 let headers = null
@@ -30,15 +32,31 @@ describe('User integration tests', () => {
 	})
 	it('should reject duplicated email', async() => {
 		try {
-			await request.post(`${base}/api/signup`, data)
+			await request.post(`${base}/api/signup`, {
+				...data,
+				username: username + 'fedro',
+			})
 			throw new TestError('Duplicated email')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
 		}
 	})
+	it('should reject duplicated username', async() => {
+		try {
+			await request.post(`${base}/api/signup`, {
+				...data,
+				email: email + 'mies',
+			})
+			throw new TestError('Duplicated username')
+		} catch(error) {
+			expect(error.constructor.name).to.equal('RequestError')
+		}
+	})
 	it('should login user', async() => {
-		const auth = await request.post(`${base}/api/login`, {email, password})
-		checkAuth(auth)
+		const authEmail = await request.post(`${base}/api/login`, {email, password})
+		checkAuth(authEmail)
+		const authUsername = await request.post(`${base}/api/login`, {email: username, password})
+		checkAuth(authUsername)
 	})
 	it('should reject invalid logins', async() => {
 		try {
