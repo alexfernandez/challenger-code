@@ -4,6 +4,7 @@
   "description": "Challenger code.",
   "main": "index.js",
   "scripts": {
+    "start": "node bin/start.js",
     "test": "mocha test/**"
   },
   "repository": {
