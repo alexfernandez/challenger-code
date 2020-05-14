@@ -17,6 +17,11 @@ window.loaders.push(() => {
 })
 
 function sendDocument() {
+	if (!window.ccAuth) {
+		localStorage.setItem('ccLocation', window.location)
+		window.location = '/login'
+		return
+	}
 	console.log('sending')
 	codeMirror.save()
 	document.getElementById('send').disabled = true
@@ -26,7 +31,10 @@ function sendDocument() {
 	fetch(`/api/challenge/${id}/run`, {
 		method: 'POST',
 		body: JSON.stringify(body),
-		headers: {'content-type': 'application/json'},
+		headers: {
+			'content-type': 'application/json',
+			authorization: window.ccAuth.header,
+		},
 	}).then(showResponse).catch(showError)
 }
 

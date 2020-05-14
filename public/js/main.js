@@ -13,10 +13,10 @@ window.loaders = [() => {
 	console.log(json)
 	if (json) {
 		try {
-			const auth = JSON.parse(json)
-			if (auth && auth.email) {
+			window.ccAuth = JSON.parse(json)
+			if (window.ccAuth && window.ccAuth.email) {
 				document.getElementById('register').className = 'invisible'
-				document.getElementById('useremail').innerText = auth.email
+				document.getElementById('useremail').innerText = window.ccAuth.email
 				document.getElementById('loggedin').className = ''
 			}
 		} catch(error) {
