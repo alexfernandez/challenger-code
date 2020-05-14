@@ -11,11 +11,15 @@ window.onload = () => {
 window.loaders = [() => {
 	const json = localStorage.getItem('auth')
 	if (json) {
-		const auth = JSON.parse(json)
-		if (auth && auth.email) {
-			document.getElementById('register').className = 'invisible'
-			document.getElementById('useremail').innerText = auth.email
-			document.getElementById('loggedin').className = ''
+		try {
+			const auth = JSON.parse(json)
+			if (auth && auth.email) {
+				document.getElementById('register').className = 'invisible'
+				document.getElementById('useremail').innerText = auth.email
+				document.getElementById('loggedin').className = ''
+			}
+		} catch(error) {
+			console.error(error)
 		}
 	}
 }]
