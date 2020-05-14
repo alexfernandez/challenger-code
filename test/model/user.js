@@ -19,7 +19,7 @@ describe('User model tests', () => {
 		expect(user).to.have.property('email')
 		expect(user).to.have.property('password')
 		expect(user.password).to.not.equal(password)
-		user.comparePassword(password)
+		user.checkPassword(password)
 	})
 	it('should reject empty user', async() => {
 		try {
@@ -44,10 +44,8 @@ describe('User model tests', () => {
 		} catch(error) {
 			expect(error).to.be.instanceof(ApiError)
 		}
-	})
-	it('should reject invalid password', async() => {
 		try {
-			await user.comparePassword(password + 'pop')
+			await user.checkPassword(password + 'pop')
 			throw new TestError('Invalid login')
 		} catch(error) {
 			expect(error).to.be.instanceof(ApiError)
