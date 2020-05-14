@@ -86,11 +86,11 @@ async function signup() {
 }
 
 async function removeUser() {
-	await request.delete(`${base}/api/user/${data.email}`, '', headers)
+	await request.delete(`${base}/api/user/${data.username}`, '', headers)
 }
 
 function checkAuth(auth) {
-	expect(auth.email).to.equal(email)
+	expect(auth.username).to.equal(username)
 	expect(auth).to.have.property('header')
 	expect(auth).to.not.have.property('password')
 }
