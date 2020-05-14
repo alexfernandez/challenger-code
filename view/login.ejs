@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('head.ejs') %>
+		<title>challengerco.de</title>
+		<script src="/js/login.js"></script>
+	</head>
+	<body>
+		<%- include('topbar.ejs') %>
+		<div class="wrapper">
+	<h1>Please login to continue</h1>
+	<p>
+		<input type="email" name="email" id="email" placeholder="Your email address"></input>
+	</p>
+	<p>
+			<input type="password" name="password" id="password" placeholder="Your password"></input>
+	</p>
+	<p>
+	<button id="send">Login</button> <span id="error" class="invisible"></span>
+	</p>
+		<%- include('bottombar.ejs') %>
+  </body>
+</html>
