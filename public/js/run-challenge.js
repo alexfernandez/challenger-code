@@ -2,7 +2,7 @@
 
 let codeMirror = null
 
-window.onload = () => {
+window.loaders.push(() => {
 	console.log('loaded')
 	codeMirror = CodeMirror.fromTextArea(document.getElementById('solution'), {
 		mode:  'javascript',
@@ -15,7 +15,7 @@ window.onload = () => {
 	})
 	const send = document.getElementById('send')
 	send.onclick = sendDocument
-}
+})
 
 function sendDocument() {
 	console.log('sending')

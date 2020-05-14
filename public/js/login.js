@@ -1,10 +1,10 @@
 'use strict'
 
-window.onload = () => {
-	console.log('loaded')
+
+window.loaders.push(() => {
 	const send = document.getElementById('send')
 	send.onclick = sendLogin
-}
+})
 
 function sendLogin() {
 	console.log('sending')
