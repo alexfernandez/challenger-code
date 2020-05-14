@@ -26,16 +26,15 @@ function sendSignup() {
 function storeResponse(response) {
 	if (response.status != 200) {
 		response.json().then(json => {
-			console.log(json)
 			showError(json.error)
 		})
 		return
 	}
 	document.getElementById('error').className = 'invisible'
 	response.json().then(json => {
-		console.log(`Result: ${JSON.stringify(json)}`)
 		document.getElementById('error').className = 'invisible'
-		localStorage.setItem(json, json)
+		localStorage.setItem('token', json)
+		window.location = '/'
 	})
 }
 

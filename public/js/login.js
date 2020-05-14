@@ -24,16 +24,15 @@ function storeResponse(response) {
 		response.json().then(json => {
 			document.getElementById('send').disabled = false
 			document.getElementById('error').className = 'errored'
-			console.log(json)
 			document.getElementById('error').innerText = `Could not login: ${json.error}`
 		})
 		return
 	}
 	document.getElementById('error').className = 'invisible'
 	response.json().then(json => {
-		console.log(`Result: ${JSON.stringify(json)}`)
 		document.getElementById('error').className = 'invisible'
-		localStorage.setItem(json, json)
+		localStorage.setItem('token', json)
+		window.location = '/'
 	})
 }
 
