@@ -14,8 +14,10 @@ function sendSignup() {
 	}
 	console.log('sending')
 	document.getElementById('send').disabled = true
+	const username = document.getElementById('username').value
 	const email = document.getElementById('email').value
-	const body = {email, password, confirmPassword}
+	const body = {username, email, password, confirmPassword}
+	console.log(body)
 	window.processAuth('signup', () => fetch(`/api/signup`, {
 		method: 'POST',
 		body: JSON.stringify(body),
