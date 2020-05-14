@@ -73,6 +73,18 @@ describe('User integration tests', () => {
 			expect(error.constructor.name).to.equal('RequestError')
 		}
 	})
+	it('should find correct user', async() => {
+		const user = await request.get(`${base}/api/user/${username}`)
+		expect(user.username).to.equal(username)
+		expect(user.email).to.equal(email)
+		expect(user).to.not.have.property('password')
+		try {
+			await request.get(`${base}/api/user/${username}fedro`)
+			throw new TestError('Invalid username')
+		} catch(error) {
+			expect(error.constructor.name).to.equal('RequestError')
+		}
+	})
 	it('should remove user', async() => {
 		await removeUser()
 	})
