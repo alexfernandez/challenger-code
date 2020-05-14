@@ -1,0 +1,26 @@
+<div class="header">
+	<div>
+	<a href="/"><img class="logo" src="/img/logo.png" /></a>
+	<strong>challengerco.de</strong> — challenge yourself
+	</div>
+	<div class="login">
+		<span id="register">
+			<a href="/login">Login</a>
+			-
+			<a href="/register">Register</a>
+
+		</span>
+		<span id="loggedin" class="invisible">
+			Logged in as <span id="email">x@test.com</span>
+		</span>
+	</div>
+</div>
+<script>
+	const token = localStorage.getItem('token')
+	if (token) {
+		document.getElementById('register').setClass('invisible')
+		document.getElementById('email').innerText = token.email
+		document.getElementById('loggedin').setClass('')
+	}
+</script>
+

@@ -1,3 +1,22 @@
+body {
+	font: 16px sans-serif;
+}
+
+.wrapper {
+}
+
+.header {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	background: #f5f5f5;
+}
+
+.login {
+	vertical-align: middle;
+	margin: 10px;
+	text-align: right;
+	line-height: 32px;
+}
 
 .logo {
 	width: 32px;
@@ -5,11 +24,6 @@
 	vertical-align: middle;
 	image-rendering: pixelated;
 	margin: 10px;
-}
-
-.wrapper {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
 }
 
 .solution {
