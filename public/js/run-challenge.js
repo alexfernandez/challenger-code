@@ -27,7 +27,7 @@ function sendDocument() {
 	if (!window.ccAuth) {
 		localStorage.setItem('ccLocation', window.location)
 		localStorage.setItem('ccSolution', solution)
-		window.location = '/login'
+		window.location = '/user/login'
 		return
 	}
 	console.log('sending')
