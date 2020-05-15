@@ -1,7 +1,10 @@
 const {expect} = require('chai')
 const {ApiError, TestError} = require('../../lib/model/error.js')
 const {Solution} = require('../../lib/model/solution.js')
+const {createTestToken} = require('../../lib/model/token.js')
 const {createChallenge} = require('./challenge.js')
+
+const username = `pap${createTestToken()}`
 
 
 describe('Challenge model tests', function() {
@@ -11,12 +14,14 @@ describe('Challenge model tests', function() {
 		challenge = await createChallenge()
 	})
 	it('should run challenge', async() => {
-		const right = new Solution(challenge, 'function solve() {return 0}')
+		const right = new Solution(challenge, 'function solve() {return 0}', username)
 		const successful = await right.runSandboxed()
 		expect(successful.success).to.equal(true)
-		const wrong = new Solution(challenge, 'function solve() {return 1}')
+		expect(successful.username).to.equal(username)
+		const wrong = new Solution(challenge, 'function solve() {return 1}', username)
 		const failed = await wrong.runSandboxed()
 		expect(failed.success).to.equal(false)
+		expect(failed.username).to.equal(username)
 	})
 	it('should reject malicious code', async() => {
 		try {
@@ -35,14 +40,16 @@ describe('Challenge model tests', function() {
 		}
 	})
 	it('should run in a separate process', async() => {
-		const right = new Solution(challenge, 'function solve() {return 0}')
+		const right = new Solution(challenge, 'function solve() {return 0}', username)
 		const successful = await right.runIsolated()
 		expect(successful.success).to.equal(true)
-		const wrong = new Solution(challenge, 'function solve() {return 1}')
+		expect(successful.username).to.equal(username)
+		const wrong = new Solution(challenge, 'function solve() {return 1}', username)
 		const failed = await wrong.runIsolated()
 		expect(failed.success).to.equal(false)
+		expect(failed.username).to.equal(username)
 		try {
-			const isolated = new Solution(challenge, 'function solve() {while (true){}}')
+			const isolated = new Solution(challenge, 'function solve() {while (true){}}', username)
 			await isolated.runIsolated()
 			throw new TestError('Should not finish infinite loop')
 		} catch(error) {
