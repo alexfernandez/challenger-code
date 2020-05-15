@@ -23,7 +23,27 @@ Body parameters:
 
 * `code`: the code to run.
 
-### Acknowledgements
+## Pending Stuff
+
+This is a list of things I'm working on.
+Please let me know if you want to tackle any
+so we don't duplicate efforts.
+Thanks!
+
+* Challenge editor:
+accepts submissions from anyone,
+as `challengeco.de/username/challenges`.
+* Admin role:
+select challenges for the main collection.
+* Challenger list:
+select by category, difficulty.
+* User page:
+show challenges run and achievements by any player.
+* Browser runner:
+run challenges directly in the browser.
+* Redirect [http site](http://challengerco.de/) to https.
+
+## Acknowledgements
 
 The code and challenges are open for participation.
 Pull requests are very welcome!
