@@ -36,6 +36,14 @@ describe('Challenge integration tests', function() {
 		const challenge = await request.get(`${base}/challenge/${challengeId}`)
 		checkChallenge(challenge, challengeId)
 	})
+	it('should not find non-existing challenge', async() => {
+		try {
+			await request.get(`${base}/challenge/fake-test`)
+			throw new TestError('Should not find fake test')
+		} catch(error) {
+			expect(error.constructor.name).to.equal('RequestError')
+		}
+	})
 	it('should run a challenge', async() => {
 		const run = await request.post(`${base}/challenge/${challengeId}/run`, {code}, headers)
 		checkRun(run)
