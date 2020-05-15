@@ -1,5 +1,4 @@
 const {expect} = require('chai')
-const {ApiError, TestError} = require('../../lib/model/error.js')
 const {Challenge} = require('../../lib/model/challenge.js')
 
 
@@ -35,8 +34,7 @@ describe('Challenge model tests', function() {
 	this.timeout(5000)
 	let challenge = null
 	it('should create challenge', async() => {
-		challenge = new Challenge(data)
-		await challenge.init()
+		challenge = await createChallenge()
 		expect(challenge.id).to.equal('test')
 		expect(challenge).to.have.property('verifications')
 		expect(challenge.verifications.length).to.equal(3)
@@ -52,40 +50,13 @@ describe('Challenge model tests', function() {
 		expect(number).to.be.above(0)
 		expect(number).to.be.below(1000)
 	})
-	it('should run challenge', async() => {
-		const successful = await challenge.runSandboxed('function solve() {return 0}')
-		expect(successful.success).to.equal(true)
-		const failed = await challenge.runSandboxed('function solve() {return 1}')
-		expect(failed.success).to.equal(false)
-	})
-	it('should reject malicious code', async() => {
-		try {
-			await challenge.runSandboxed(`const fs = require("fs");
-			const solve = () => fs.readFileSync("/etc/resolv.conf")`)
-			throw new TestError('Should not run require()')
-		} catch(error) {
-			expect(error.constructor.name).to.equal('VMError')
-		}
-		try {
-			await challenge.runSandboxed(`import {readFileSync} from "fs";
-			const solve = () => fs.readFileSync("/etc/resolv.conf")`)
-			throw new TestError('Should not run import')
-		} catch(error) {
-			expect(error).to.be.instanceof(SyntaxError)
-		}
-	})
-	it('should run in a separate process', async() => {
-		const successful = await challenge.runIsolated('function solve() {return 0}')
-		expect(successful.success).to.equal(true)
-		const failed = await challenge.runIsolated('function solve() {return 1}')
-		expect(failed.success).to.equal(false)
-		try {
-			await challenge.runIsolated('function solve() {while (true){}}')
-			throw new TestError('Should not finish infinite loop')
-		} catch(error) {
-			console.error(error)
-			expect(error).to.be.instanceof(ApiError)
-		}
-	})
 })
+
+async function createChallenge() {
+	const challenge = new Challenge(data)
+	await challenge.init()
+	return challenge
+}
+
+module.exports = {createChallenge}
 
