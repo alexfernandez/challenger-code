@@ -32,13 +32,16 @@ Thanks!
 
 * Challenge editor:
 accepts submissions from anyone,
-as `challengeco.de/username/challenges`.
+saved as `challengeco.de/username/challenges`.
 * Admin role:
 select challenges for the main collection.
 * Challenger list:
 select by category, difficulty.
 * User page:
 show challenges run and achievements by any player.
+* View challenge stats:
+show min and average for: nodes, execution time, memory?
+* Check max memory used by a challenge run.
 * Browser runner:
 run challenges directly in the browser.
 * Redirect [http site](http://challengerco.de/) to https.
