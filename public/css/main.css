@@ -3,18 +3,44 @@ body {
 	font: 100% sans-serif;
 }
 
+/* Generic classes */
+
+.invisible {
+	display: none;
+}
+
+.disabled {
+	background: grey;
+}
+
+.errored {
+	background: #fdd;
+}
+
+.success {
+	background: #dfd;
+}
+
+pre, textarea {
+	tab-size : 4;
+}
+
+/* Layout */
+
 .columns {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 }
 
-.bar {
-	background: #fafafa;
-}
-
 .wrapper {
 	padding: 0em 0.5em;
 	background: #ffffff;
+}
+
+/* Concrete elements */
+
+.bar {
+	background: #fafafa;
 }
 
 .user, .license, .repo {
@@ -37,27 +63,12 @@ body {
 
 .solution {
 	width: 80%;
-	height: 80%;
+	height: 10em;
 }
 
-.invisible {
-	display: none;
-}
-
-.disabled {
-	background: grey;
-}
-
-.errored {
-	background: #fdd;
-}
-
-.success {
-	background: #dfd;
-}
-
-pre, textarea {
-	tab-size : 4;
+.description {
+	width: 80%;
+	height: 20em;
 }
 
 .CodeMirror {

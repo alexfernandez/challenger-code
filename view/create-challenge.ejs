@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('head.ejs') %>
+		<title>Create challenge - challengerco.de</title>
+		<script src="/js/create-challenge.js"></script>
+	</head>
+	<body>
+		<%- include('topbar.ejs') %>
+		<div class="wrapper">
+			<h1>Enter challenge information</h1>
+			<%- include('challenge-fields.ejs') %>
+			<p>
+			<button id="create">Create</button>
+			</p>
+		</div>
+		<%- include('bottombar.ejs') %>
+  </body>
+</html>

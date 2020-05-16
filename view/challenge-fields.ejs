@@ -1,0 +1,10 @@
+			<p>
+			<%= challenge.username || 'main' %> /
+			<input type="text" id="id" value="<%= challenge.id || '' %>" placeholder="Unique id"/>
+			</p>
+			<p>
+			<input type="text" id="name" value=<%= challenge.name || '' %>" placeholder="Challenge name"/>
+			</p>
+			<p>
+			<textarea class="description" id="description" placeholder="Enter long description"><%= challenge.description || '' %></textarea>
+			</p>
