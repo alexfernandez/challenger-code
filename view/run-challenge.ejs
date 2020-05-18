@@ -3,13 +3,7 @@
 	<head>
 		<%- include('head.ejs') %>
 		<title><%= challenge.id %> - challengerco.de</title>
-		<!-- Codemirror from https://cdnjs.com/libraries/codemirror -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css"
-			integrity="sha256-vZ3SaLOjnKO/gGvcUWegySoDU6ff33CS5i9ot8J9Czk=" crossorigin="anonymous" />
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.js"
-			integrity="sha256-dPTL2a+npIonoK5i0Tyes0txCMUWZBf8cfKRfACRotc=" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"
-			integrity="sha256-7AjEsHnW7cpq2raC/uxnGCP2G4zIKmCdz7OAv6LN00o=" crossorigin="anonymous"></script>
+		<%- include('codemirror.ejs') %>
 		<script src="/js/run-challenge.js"></script>
 	</head>
 	<body>
@@ -29,9 +23,9 @@
 				<pre>[<%= verification.input %>] ⇒ <%= verification.output %></pre>
 				<% } %>
 			</div>
-			<div class="write">
+			<div class="solve">
 				<h2>Your Solution</h2>
-				<textarea class="solution" id="solution" name="Solution">
+				<textarea class="solution" id="solution">
 /**
  * Write a function solve() with your answer to the challenge.
  */
