@@ -71,6 +71,23 @@ pre, textarea {
 	height: 20em;
 }
 
+button, .button {
+	border: none;
+	background-color: #a85540;
+	color: #ffffff;
+	border-radius: 0.5em;
+	margin: 0.2em;
+	padding: 0.5em 1em;
+}
+
+button:hover, .button:hover {
+	background-color: #e87560;
+}
+
+button:focus, .button:focus {
+	background-color: #883520;
+}
+
 .CodeMirror {
 	border: black solid thin;
 	margin: 0.5em;
