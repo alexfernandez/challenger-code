@@ -25,6 +25,10 @@
 			<button id="send">Sign up</button> <span id="error" class="invisible"></span>
 			</p>
 			<p>
+			Sign up with <a href="https://github.com/login/oauth/authorize?client_id=<%= clientId
+			%>&scope=user:email&state=<%= state %>">GitHub</a>.
+			</p>
+			<p>
 			Or <a href="/user/login">log in</a> if you already have a user.
 			</p>
 		</div>
