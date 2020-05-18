@@ -82,7 +82,7 @@ function saveDocument() {
 }
 
 function buildBody() {
-	const body = {verifications: readVerifications()}
+	const body = {username: 'main', verifications: readVerifications()}
 	fields.forEach(field => body[field] = document.getElementById(field).value)
 	return body
 }
