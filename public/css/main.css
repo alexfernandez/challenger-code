@@ -3,6 +3,12 @@ body {
 	font: 100% sans-serif;
 }
 
+/* Generic tags */
+
+a {
+	text-decoration: none;
+}
+
 /* Generic classes */
 
 .invisible {
@@ -72,20 +78,29 @@ pre, textarea {
 }
 
 button, .button {
+	vertical-align: middle;
 	border: none;
 	background-color: #a85540;
 	color: #ffffff;
 	border-radius: 0.5em;
 	margin: 0.2em;
 	padding: 0.5em 1em;
+	font-size: 0.85em;
 }
 
 button:hover, .button:hover {
 	background-color: #e87560;
+	cursor: pointer;
 }
 
 button:focus, .button:focus {
 	background-color: #883520;
+}
+
+.buttonlogo {
+	max-width: 1em;
+	max-height: 1em;
+	vertical-align: middle;
 }
 
 .CodeMirror {

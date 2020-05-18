@@ -10,6 +10,13 @@
 		<div class="wrapper">
 			<h1>Please sign up to start</h1>
 			<p>
+			<a class="button" href="https://github.com/login/oauth/authorize?client_id=<%= clientId
+			%>&scope=user:email&state=<%= state %>"><img src="/img/github.svg" class="buttonlogo"> GitHub access</a>
+			</p>
+			<p>
+			Create a new user:
+			</p>
+			<p>
 			<input type="text" id="username" value="<%= existing.username || '' %>" placeholder="Username"></input>
 			</p>
 			<p>
@@ -23,10 +30,6 @@
 			</p>
 			<p>
 			<button id="send">Sign up</button> <span id="error" class="invisible"></span>
-			</p>
-			<p>
-			Sign up with <a href="https://github.com/login/oauth/authorize?client_id=<%= clientId
-			%>&scope=user:email&state=<%= state %>">GitHub</a>.
 			</p>
 			<p>
 			Or <a href="/user/login">log in</a> if you already have a user.
