@@ -35,10 +35,10 @@ async function fetchAndStoreAuth(action, fetcher) {
 		return window.showError(action, json.error)
 	}
 	document.getElementById('error').className = 'invisible'
-	await storeAuth(json)
+	await window.storeAuth(json)
 }
 
-async function storeAuth(auth) {
+window.storeAuth = async function(auth) {
 	localStorage.setItem('ccAuth', JSON.stringify(auth))
 	const previousLocation = localStorage.getItem('ccLocation')
 	localStorage.removeItem('ccLocation')
