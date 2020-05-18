@@ -34,7 +34,7 @@ function sendDocument() {
 	document.getElementById('send').disabled = true
 	const body = {code: solution}
 	const id = document.getElementById('challenge-id').innerText
-	fetch(`/api/challenge/${id}/run`, {
+	fetch(`/api/challenge/main/${id}/run`, {
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: {
