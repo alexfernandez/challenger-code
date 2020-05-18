@@ -66,11 +66,24 @@ function solve(array) {
 </textarea>
 				<h2>Verifications</h2>
 				<div id="verifications">
-					<p id="verification">
-					<input type="text" id="input" value="[]" placeholder="Input parameters"/>
+					<% for (let i = 0; i < challenge.verifications.length; i++) { %>
+					<% const verification = challenge.verifications[i] %>
+					<p id="verification<%= i %>">
+					<% const rawInput = JSON.stringify(verification.input) %>
+					<% const input = rawInput.substring(1, rawInput.length - 1) %>
+					<input type="text" id="input<%= i %>" value="<%= input %>"
+						placeholder="Input parameters (JSON)"/>
 					⇒
-					<input type="number" id="output" value="" placeholder="Output"/>
-					<button id="remove" disabled>-</button>
+					<input type="number" id="output<%= i %>" value="<%= verification.output %>"
+						placeholder="Output (number)"/>
+						<button id="remove<%= i %>">-</button>
+					</p>
+					<% } %>
+					<p id="verification" class="invisible">
+					<input type="text" id="input" value="" placeholder="Input parameters (JSON)"/>
+					⇒
+					<input type="number" id="output" value="" placeholder="Output (number)"/>
+					<button id="remove">-</button>
 					</p>
 				</div>
 				<p>

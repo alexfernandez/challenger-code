@@ -18,22 +18,49 @@ window.loaders.push(() => {
 	})
 	document.getElementById('save').onclick = saveDocument
 	document.getElementById('add-verification').onclick = addVerification
-	addVerification()
+	if (!document.getElementById('verification0')) addVerification()
 })
 
 function addVerification() {
-	const verifications = readVerifications()
-	const order = verifications.length
-	const verification = document.getElementById('verification').cloneNode()
+	const order = countVerifications()
+	console.log(`adding ${order}`)
+	const verification = document.getElementById('verification').cloneNode(true)
+	verification.id = `verification${order}`
+	verification.className = ''
 	for (const child of verification.children) {
 		if (child.id == 'remove') child.onclick = removeVerification
-		child.id = `child.id${order}`
+		child.id += order
 	}
 	document.getElementById('verifications').appendChild(verification)
+	disableIfLastVerification()
+}
+
+function countVerifications() {
+	for (let i = 0; i < 20; i++) {
+		const field = document.getElementById(`verification${i}`)
+		if (!field) return i
+	}
+	return 20
 }
 
 function removeVerification(event) {
 	console.log(event)
+	const id = event.srcElement.id
+	const order = parseInt(id.replace('remove', ''))
+	console.log(order)
+	const verification = document.getElementById(`verification${order}`)
+	document.getElementById(`verifications`).removeChild(verification)
+	disableIfLastVerification()
+
+}
+
+function disableIfLastVerification() {
+	const total = countVerifications()
+	if (total == 1) {
+		document.getElementById(`remove0`).disabled = true
+	} else {
+		document.getElementById(`remove0`).disabled = false
+	}
 }
 
 function saveDocument() {
