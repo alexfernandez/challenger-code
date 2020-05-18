@@ -112,13 +112,13 @@ function showResponse(response) {
 	response.json().then(json => {
 		console.log(`Result: ${JSON.stringify(json)}`)
 		document.getElementById('result').className = 'success'
-		document.getElementById('result').innerText = '✅challenge saved'
+		document.getElementById('result').innerText = '✅ Challenge saved'
 	})
 }
 
 function showError(error) {
 	document.getElementById('save').disabled = false
 	document.getElementById('result').className = 'errored'
-	document.getElementById('result').innerText = `❌Could not save: ${error}`
+	document.getElementById('result').innerText = `❌ Could not save: ${error}`
 }
 
