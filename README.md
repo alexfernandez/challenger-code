@@ -10,13 +10,11 @@ The following API calls are published.
 
 Returns a list of challenges with `id` and `name` from `owner`.
 Currently only valid for `owner=main`.
-No body parameters.
 
 ### `GET /api/challenge/:owner/:id`
 
 Returns the challenge with the given `owner` and `id`.
 Currently only valid for `owner=main`.
-No body parameters.
 
 ### `POST /api/challenge/:id/run`
 
