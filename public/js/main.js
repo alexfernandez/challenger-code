@@ -25,24 +25,24 @@ window.loaders = [() => {
 }]
 
 window.processAuth = function(action, fetcher) {
-	fetchAndStore(action, fetcher).catch(error => window.showError(action, error))
+	fetchAndStoreAuth(action, fetcher).catch(error => window.showError(action, error))
 }
 
-async function fetchAndStore(action, fetcher) {
+async function fetchAndStoreAuth(action, fetcher) {
 	const response = await fetcher()
-	await storeAuth(action, response)
-}
-
-async function storeAuth(action, response) {
 	const json = await response.json()
 	if (response.status != 200) {
 		return window.showError(action, json.error)
 	}
 	document.getElementById('error').className = 'invisible'
-	document.getElementById('error').className = 'invisible'
-	localStorage.setItem('ccAuth', JSON.stringify(json))
-	window.location = localStorage.getItem('ccLocation') || '/'
+	await storeAuth(json)
+}
+
+async function storeAuth(auth) {
+	localStorage.setItem('ccAuth', JSON.stringify(auth))
+	const previousLocation = localStorage.getItem('ccLocation')
 	localStorage.removeItem('ccLocation')
+	window.location = previousLocation || '/'
 }
 
 window.showError = function(action, error) {
