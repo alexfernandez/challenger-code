@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('head.ejs') %>
+		<title>challengerco.de</title>
+		<script>
+			const auth = <%- JSON.stringify(auth) %>
+			window.storeAuth(auth)
+		</script>
+	</head>
+	<body>
+		<%- include('topbar.ejs') %>
+		<h1>Redirecting</h1>
+		<p>
+		Or go to <a href="/">home</a>.
+		</p>
+		<%- include('bottombar.ejs') %>
+  </body>
+</html>
