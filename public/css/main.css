@@ -77,6 +77,8 @@ pre, textarea {
 	height: 20em;
 }
 
+/* Buttons */
+
 button, .button {
 	vertical-align: middle;
 	border: none;
@@ -88,7 +90,12 @@ button, .button {
 	font-size: 0.85em;
 }
 
-button:hover, .button:hover {
+button:disabled, .button:disabled {
+	background-color: #a87580;
+	color: #cccccc;
+}
+
+button:hover:enabled, .button:hover:enabled {
 	background-color: #e87560;
 	cursor: pointer;
 }
@@ -102,6 +109,8 @@ button:focus, .button:focus {
 	max-height: 1em;
 	vertical-align: middle;
 }
+
+/* Editor */
 
 .CodeMirror {
 	border: black solid thin;
