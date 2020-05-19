@@ -25,7 +25,7 @@
 				<select id="category">
 					<option value="" disabled></option>>
 					<% for (const category of categories) { %>
-					<option value="<%= category %>"<%= category == challenge.category ? ' selected' : '' %>><%= category %></option>
+					<option value="<%= category %>"><%= category %></option>
 					<% } %>
 				</select>
 				</p>
@@ -34,23 +34,21 @@
 				<select id="difficulty">
 					<option value="" disabled></option>>
 					<% for (const difficulty of difficulties) { %>
-					<option value="<%= difficulty %>"<%= difficulty == challenge.difficulty ? ' selected' : '' %>><%= difficulty %></option>
+					<option value="<%= difficulty %>"><%= difficulty %></option>
 					<% } %>
 				</select>
 				</p>
 				<p>
 				<textarea class="description" id="description"
-					placeholder="Enter long description"><%= challenge.description || '' %></textarea>
+					placeholder="Enter long description"></textarea>
 				</p>
 				<p>
 				<label for="runningTimeoutSeconds">Execution timeout (in seconds):</label>
-				<input type="number" id="runningTimeoutSeconds" value="<%= challenge.runningTimeoutSeconds || '' %>"
-					placeholder="Running timeout in seconds"/>
+				<input type="number" id="runningTimeoutSeconds" placeholder="Running timeout in seconds"/>
 				</p>
 				<p>
 				<label for="maxMinutes">Max time to solve (in minutes):</label>
-				<input type="number" id="maxMinutes" value="<%= challenge.maxMinutes || '' %>"
-					placeholder="Max minutes for solution"/>
+				<input type="number" id="maxMinutes" placeholder="Max minutes for solution"/>
 				</p>
 			</div>
 			<div class="solve">
@@ -66,21 +64,8 @@ function solve(array) {
 </textarea>
 				<h2>Verifications</h2>
 				<div id="verifications">
-					<% for (let i = 0; i < challenge.verifications.length; i++) { %>
-					<% const verification = challenge.verifications[i] %>
-					<p id="verification<%= i %>">
-					<% const rawInput = JSON.stringify(verification.input) %>
-					<% const input = rawInput.substring(1, rawInput.length - 1) %>
-					<input type="text" id="input<%= i %>" value="<%= input %>"
-						placeholder="Input parameters (JSON)"/>
-					⇒
-					<input type="number" id="output<%= i %>" value="<%= verification.output %>"
-						placeholder="Output (number)"/>
-						<button id="remove<%= i %>">-</button>
-					</p>
-					<% } %>
 					<p id="verification" class="invisible">
-					<input type="text" id="input" value="" placeholder="Input parameters (JSON)"/>
+					[<input type="text" id="input" value="" placeholder="Input parameters (JSON)"/>]
 					⇒
 					<input type="number" id="output" value="" placeholder="Output (number)"/>
 					<button id="remove">-</button>

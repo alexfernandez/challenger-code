@@ -7,6 +7,11 @@ const fields = [
 ]
 
 window.loaders.push(() => {
+	loadPage().catch(console.error)
+})
+
+async function loadPage() {
+	await loadChallenge()
 	codeMirror = CodeMirror.fromTextArea(document.getElementById('implementation'), {
 		mode:  'javascript',
 		indentUnit: 4,
@@ -16,19 +21,23 @@ window.loaders.push(() => {
 		autofocus: true,
 		cursorBlinkRate: 0,
 	})
-	document.getElementById('save').onclick = saveDocument
+	document.getElementById('save').onclick = saveChallenge
 	document.getElementById('add-verification').onclick = addVerification
 	if (!document.getElementById('verification0')) addVerification()
-})
+}
 
-function addVerification() {
+function addVerification(data) {
 	const order = countVerifications()
 	console.log(`adding ${order}`)
 	const verification = document.getElementById('verification').cloneNode(true)
 	verification.id = `verification${order}`
 	verification.className = ''
+	const rawInput = JSON.stringify(data.input)
 	for (const child of verification.children) {
+		console.log(child.id)
 		if (child.id == 'remove') child.onclick = removeVerification
+		else if (child.id == 'input') child.value = rawInput.substring(1, rawInput.length - 1)
+		else if (child.id == 'output') child.value = data.output
 		child.id += order
 	}
 	document.getElementById('verifications').appendChild(verification)
@@ -63,7 +72,42 @@ function disableIfLastVerification() {
 	}
 }
 
-function saveDocument() {
+async function loadChallenge() {
+	if (!window.ccAuth) {
+		return
+	}
+	document.getElementById('save').disabled = true
+	const id = document.getElementById('id').value
+	if (!id) return
+	const response = await fetch(`/api/challenge/main/${id}/edit`, {
+		method: 'GET',
+		headers: {
+			'content-type': 'application/json',
+			authorization: window.ccAuth.header,
+		},
+	})
+	if (response.status != 200) {
+		response.json().then(json => {
+			showError(json.error)
+		})
+		return
+	}
+	const challenge = await response.json()
+	for (const attribute in challenge) {
+		const element = document.getElementById(attribute)
+		if (element) setAttribute(element, challenge[attribute])
+	}
+	console.log(challenge)
+	for (const verification of challenge.verifications) {
+		addVerification(verification)
+	}
+}
+
+function setAttribute(element, attribute) {
+	element.value = attribute
+}
+
+function saveChallenge() {
 	if (!window.ccAuth) {
 		return
 	}
