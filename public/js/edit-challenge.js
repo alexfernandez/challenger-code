@@ -23,41 +23,35 @@ async function loadPage() {
 	})
 	document.getElementById('save').onclick = saveChallenge
 	document.getElementById('add-verification').onclick = addVerification
-	if (!document.getElementById('verification0')) addVerification()
+	if (!countVerifications()) addVerification()
 }
 
-function addVerification(data) {
-	const order = countVerifications()
-	console.log(`adding ${order}`)
+function addVerification(data = {}) {
 	const verification = document.getElementById('verification').cloneNode(true)
-	verification.id = `verification${order}`
+	verification.id = ''
 	verification.className = ''
-	const rawInput = JSON.stringify(data.input)
-	for (const child of verification.children) {
-		console.log(child.id)
-		if (child.id == 'remove') child.onclick = removeVerification
-		else if (child.id == 'input') child.value = rawInput.substring(1, rawInput.length - 1)
-		else if (child.id == 'output') child.value = data.output
-		child.id += order
+	if (data.input) {
+		const input = verification.children[0]
+		const rawInput = JSON.stringify(data.input)
+		input.value = rawInput.substring(1, rawInput.length - 1)
 	}
+	if (data.output) {
+		const output = verification.children[1]
+		output.value = data.output
+	}
+	const remove = verification.children[2]
+	remove.onclick = removeVerification
 	document.getElementById('verifications').appendChild(verification)
 	disableIfLastVerification()
 }
 
 function countVerifications() {
-	for (let i = 0; i < 20; i++) {
-		const field = document.getElementById(`verification${i}`)
-		if (!field) return i
-	}
-	return 20
+	return document.getElementById('verifications').children.length
 }
 
 function removeVerification(event) {
-	console.log(event)
-	const id = event.srcElement.id
-	const order = parseInt(id.replace('remove', ''))
-	console.log(order)
-	const verification = document.getElementById(`verification${order}`)
+	const remove = event.srcElement
+	const verification = remove.parentElement
 	document.getElementById(`verifications`).removeChild(verification)
 	disableIfLastVerification()
 
@@ -65,10 +59,12 @@ function removeVerification(event) {
 
 function disableIfLastVerification() {
 	const total = countVerifications()
+	const first = document.getElementById(`verifications`).children[0]
+	const remove = first.children[2]
 	if (total == 1) {
-		document.getElementById(`remove0`).disabled = true
+		remove.disabled = true
 	} else {
-		document.getElementById(`remove0`).disabled = false
+		remove.disabled = false
 	}
 }
 
@@ -97,10 +93,10 @@ async function loadChallenge() {
 		const element = document.getElementById(attribute)
 		if (element) setAttribute(element, challenge[attribute])
 	}
-	console.log(challenge)
 	for (const verification of challenge.verifications) {
 		addVerification(verification)
 	}
+	document.getElementById('save').disabled = false
 }
 
 function setAttribute(element, attribute) {
