@@ -129,13 +129,11 @@ function buildBody() {
 
 function readVerifications() {
 	const verifications = []
-	for (let i = 0; i < 20; i++) {
-		const field = document.getElementById(`verification${i}`)
-		if (!field) return verifications
-		verifications[i] = {
-			input: document.getElementById(`input${i}`).value,
-			output: document.getElementById(`output${i}`).value,
-		}
+	const parent = document.getElementById(`verifications`)
+	for (const child of parent.children) {
+		const input = child.children[0].value
+		const output = child.children[1].value
+		verifications.push({input, output})
 	}
 	return verifications
 }
