@@ -77,6 +77,11 @@ pre, textarea {
 	height: 20em;
 }
 
+.verification {
+	background-color: #fff0e0;
+	padding: 0.5em;
+}
+
 /* Buttons */
 
 button, .button {
