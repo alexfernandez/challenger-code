@@ -29,20 +29,30 @@ async function loadPage() {
 function addVerification(data = {}) {
 	const verification = document.getElementById('verification').cloneNode(true)
 	verification.id = ''
-	verification.className = ''
-	if (data.input) {
-		const input = verification.children[0]
-		const rawInput = JSON.stringify(data.input)
-		input.value = rawInput.substring(1, rawInput.length - 1)
+	verification.className = 'verification'
+	for (const child of verification.children) {
+		if (child.name == 'remove') {
+			child.onclick = removeVerification
+		} else {
+			setVerificationValue(data[child.name], child)
+		}
 	}
-	if (data.output) {
-		const output = verification.children[1]
-		output.value = data.output
-	}
-	const remove = verification.children[2]
-	remove.onclick = removeVerification
 	document.getElementById('verifications').appendChild(verification)
 	disableIfLastVerification()
+}
+
+function setVerificationValue(value, element) {
+	if (value === undefined) return
+	if (element.type == 'checkbox') {
+		element.checked = value
+		return
+	}
+	if (element.name == 'input') {
+		const rawInput = JSON.stringify(value)
+		element.value = rawInput.substring(1, rawInput.length - 1)
+		return
+	}
+	element.value = value
 }
 
 function countVerifications() {
@@ -91,16 +101,12 @@ async function loadChallenge() {
 	const challenge = await response.json()
 	for (const attribute in challenge) {
 		const element = document.getElementById(attribute)
-		if (element) setAttribute(element, challenge[attribute])
+		if (element) element.value = challenge[attribute]
 	}
 	for (const verification of challenge.verifications) {
 		addVerification(verification)
 	}
 	document.getElementById('save').disabled = false
-}
-
-function setAttribute(element, attribute) {
-	element.value = attribute
 }
 
 function saveChallenge() {
@@ -131,11 +137,27 @@ function readVerifications() {
 	const verifications = []
 	const parent = document.getElementById(`verifications`)
 	for (const child of parent.children) {
-		const input = child.children[0].value
-		const output = child.children[1].value
-		verifications.push({input, output})
+		verifications.push(readVerification(child))
 	}
 	return verifications
+}
+
+function readVerification(element) {
+	const verification = {}
+	for (const child of element.children) {
+		if (child.name) {
+			verification[child.name] = getVerificationField(child)
+		}
+	}
+	return verification
+}
+
+function getVerificationField(element) {
+	if (element.type == 'checkbox') return element.checked
+	if (element.name == 'input') return JSON.parse(`[${element.value}]`)
+	if (element.name == 'output') return parseFloat(element.value)
+	if (element.name == 'remove') return undefined
+	return element.value
 }
 
 function showResponse(response) {
