@@ -17,11 +17,17 @@
 				<p>
 				<%= challenge.description %>
 				</p>
-				<h2>Public verifications</h2>
-				<% for (const verification of challenge.verifications) { %>
-				<p><%= verification.name %></p>
-				<pre>[<%= verification.input %>] ⇒ <%= verification.output %></pre>
+				<h2>Verifications</h2>
+				<div id="verifications">
+				<% for (const [i, verification] of challenge.verifications.entries()) { %>
+				<p class="verification" id="verification<%= i %>">
+				<%= verification.name %> (<%= verification.public ? 'public' : 'private' %>)
+				<span id="success<%= i %>"></span>
+				<br/>
+				<tt>[<%= verification.input %>] ⇒ <%= verification.output %></tt>
+				</p>
 				<% } %>
+				</div>
 			</div>
 			<div class="solve">
 				<h2>Your Solution</h2>
@@ -39,15 +45,6 @@ function solve(array) {
 						<span id="success">???</span>
 					</h2>
 					<pre id="error" class="invisible"></pre>
-					<ol id="verifications">
-						<% for (let i = 0; i < challenge.totalVerifications; i++) { %>
-						<li>
-							<span id="name<%= i %>">
-								<%= challenge.verifications[i] ? challenge.verifications[i].name : '' %>
-							</span>
-							<span id="success<%= i %>">???</span>
-						</li>
-						<% } %>
 				</div>
 			</div>
 		</div>

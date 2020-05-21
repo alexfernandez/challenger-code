@@ -53,7 +53,6 @@ function showResponse(response) {
 			const text = `${getSuccess(false)} ${response.status}`
 			document.getElementById('success').innerText = text
 			document.getElementById('error').className = ''
-			document.getElementById('verifications').className = 'invisible'
 			document.getElementById('error').innerText = json.error
 		})
 		return
@@ -61,18 +60,14 @@ function showResponse(response) {
 	response.json().then(json => {
 		console.log(`Result: ${JSON.stringify(json)}`)
 		document.getElementById('error').className = 'invisible'
-		document.getElementById('verifications').className = ''
 		const text = `${getSuccess(json.success)} in ${json.elapsed} ms with ${json.nodes} nodes`
-		if (json.success) {
-			document.getElementById('result').className = 'success'
-		} else {
-			document.getElementById('result').className = 'errored'
-		}
+		document.getElementById('result').className = json.success ? 'success' : 'errored'
 		document.getElementById('success').innerText = text
 		for (let i = 0; i < json.results.length; i++) {
 			const result = json.results[i]
-			document.getElementById(`name${i}`).innerText = result.name
-			document.getElementById(`success${i}`).innerText = `${getSuccess(result.success)} in ${result.elapsed} ms`
+			const success = document.getElementById(`success${i}`)
+			success.className = result.success ? 'success' : 'errored'
+			success.innerText = `${getSuccess(result.success)} in ${result.elapsed} ms`
 		}
 	})
 }
