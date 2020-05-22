@@ -17,8 +17,7 @@ window.loaders.push(() => {
 		autofocus: true,
 		cursorBlinkRate: 0,
 	})
-	const send = document.getElementById('send')
-	send.onclick = sendDocument
+	document.getElementById('send').onclick = sendDocument
 })
 
 function sendDocument() {
