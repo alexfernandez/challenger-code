@@ -58,7 +58,6 @@ function showResponse(response) {
 		return
 	}
 	response.json().then(json => {
-		console.log(`Result: ${JSON.stringify(json)}`)
 		const stats = json.stats
 		document.getElementById('error').className = 'invisible'
 		const text = `${getSuccess(json.success)}`
