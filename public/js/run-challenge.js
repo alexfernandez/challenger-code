@@ -59,8 +59,9 @@ function showResponse(response) {
 	}
 	response.json().then(json => {
 		console.log(`Result: ${JSON.stringify(json)}`)
+		const stats = json.stats
 		document.getElementById('error').className = 'invisible'
-		const text = `${getSuccess(json.success)} in ${json.elapsed} ms with ${json.nodes} nodes`
+		const text = `${getSuccess(json.success)}`
 		document.getElementById('result').className = json.success ? 'success' : 'errored'
 		document.getElementById('success').innerText = text
 		for (let i = 0; i < json.results.length; i++) {
@@ -69,6 +70,11 @@ function showResponse(response) {
 			success.className = result.success ? 'success' : 'errored'
 			success.innerText = `${getSuccess(result.success)} in ${result.elapsed} ms`
 		}
+		if (!json.success) return
+		const timeText = `${json.elapsed} ms, min: ${stats.elapsedMin}, avg: ${stats.elapsedAvg.toFixed(1)}`
+		document.getElementById('time').innerText = timeText
+		const nodesText = `${json.nodes} nodes, min: ${stats.nodesMin}, avg: ${stats.nodesAvg.toFixed(1)}`
+		document.getElementById('nodes').innerText = nodesText
 	})
 }
 
