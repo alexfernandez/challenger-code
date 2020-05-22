@@ -17,10 +17,15 @@ window.loaders.push(() => {
 		autofocus: true,
 		cursorBlinkRate: 0,
 	})
-	document.getElementById('send').onclick = sendDocument
+	document.getElementById('send').onclick = sendSolution
+	if (!window.ccAuth) return
+	document.getElementById('fork').onclick = forkChallenge
+	if (window.ccAuth.role != 'admin') return
+	document.getElementById('edit').className = ''
+	document.getElementById('edit').onclick = editChallenge
 })
 
-function sendDocument() {
+function sendSolution() {
 	codeMirror.save()
 	const solution = document.getElementById('solution').value
 	if (!window.ccAuth) {
@@ -75,6 +80,7 @@ function showResponse(response) {
 		document.getElementById('time').innerText = timeText
 		const nodesText = `${json.nodes} nodes, min: ${stats.nodesMin}, avg: ${stats.nodesAvg.toFixed(1)}`
 		document.getElementById('nodes').innerText = nodesText
+		document.getElementById('fork').className = ''
 	})
 }
 
@@ -86,5 +92,14 @@ function getSuccess(success) {
 function showError(error) {
 	document.getElementById('send').disabled = false
 	document.getElementById('success').innerText = `${getSuccess(false)} Could not send: ${error}`
+}
+
+function forkChallenge() {
+	console.log(window.ccAuth)
+}
+
+function editChallenge() {
+	const id = document.getElementById('challenge-id').innerText
+	window.location = `/main/${id}/edit`
 }
 
