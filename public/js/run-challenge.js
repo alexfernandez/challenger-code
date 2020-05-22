@@ -34,6 +34,7 @@ function sendDocument() {
 	document.getElementById('send').disabled = true
 	const body = {code: solution}
 	const id = document.getElementById('challenge-id').innerText
+	document.getElementById('loader').innerHTML = '<img class="loader" src="/img/loader.gif" />'
 	fetch(`/api/challenge/main/${id}/run`, {
 		method: 'POST',
 		body: JSON.stringify(body),
@@ -45,6 +46,7 @@ function sendDocument() {
 }
 
 function showResponse(response) {
+	document.getElementById('loader').innerHTML = ''
 	document.getElementById('send').disabled = false
 	document.getElementById('result').className = 'disabled'
 	if (response.status != 200) {
