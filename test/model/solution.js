@@ -7,7 +7,7 @@ const {createChallenge} = require('./challenge.js')
 const username = `pap${createTestToken()}`
 
 
-describe('Challenge model tests', function() {
+describe('Solution model tests', function() {
 	this.timeout(5000)
 	let challenge = null
 	before(async() => {

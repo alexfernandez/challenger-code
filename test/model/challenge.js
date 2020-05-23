@@ -5,6 +5,7 @@ const {Challenge} = require('../../lib/model/challenge.js')
 const data = {
 	id: 'test',
 	category: 'test',
+	difficulty: 'test',
 	name: 'Test',
 	description: 'Return 0 always',
 	implementation: 'function solve() {return 0}',

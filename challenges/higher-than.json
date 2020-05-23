@@ -1,6 +1,7 @@
 {
 	"id": "higher-than",
 	"category": "lists",
+	"difficulty": "basic",
 	"name": "Count values higher than given value",
 	"description": "Write a function solve(limit, array) that will return the number of elements of the array that are larger than the limit.",
 	"verifications": [{
