@@ -2,7 +2,7 @@ const {expect} = require('chai')
 const request = require('basic-request')
 const {signup, removeUser} = require('./user.js')
 const server = require('../lib/server.js')
-const {TestError} = require('../lib/model/error.js')
+const {TestError} = require('../lib/error.js')
 
 const port = 9899
 const base = `http://localhost:${port}/api`

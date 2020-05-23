@@ -1,5 +1,5 @@
 const {expect} = require('chai')
-const {ApiError, TestError} = require('../../lib/model/error.js')
+const {ApiError, TestError} = require('../../lib/error.js')
 const {createUser} = require('../../lib/model/user.js')
 const {createTestToken} = require('../../lib/model/token.js')
 
