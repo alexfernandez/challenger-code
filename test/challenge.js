@@ -13,7 +13,7 @@ const wrong = 'function trash() {return 1}'
 const timeout = 200
 const parallel = `function solve() {return new Promise(resolve => setTimeout(() => resolve(0), ${timeout}))}`
 
-describe.only('Challenge integration tests', function() {
+describe('Challenge integration tests', function() {
 	this.timeout(10000)
 	let app = null
 	let headers = null
