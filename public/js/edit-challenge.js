@@ -48,8 +48,7 @@ function setVerificationValue(value, element) {
 		return
 	}
 	if (element.name == 'input') {
-		const rawInput = JSON.stringify(value)
-		element.value = rawInput.substring(1, rawInput.length - 1)
+		element.value = JSON.stringify(value).slice(1, -1)
 		return
 	}
 	element.value = value
