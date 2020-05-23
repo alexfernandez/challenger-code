@@ -24,7 +24,7 @@
 				<%= verification.name %> (<%= verification.public ? 'public' : 'private' %>)
 				<span id="success<%= i %>"></span>
 				<br/>
-				<tt>[<%= verification.input %>] ⇒ <%= verification.output %></tt>
+				<tt>[<%= JSON.stringify(verification.input).slice(1, -1) %>] ⇒ <%= verification.output %></tt>
 				</p>
 				<% } %>
 				</div>
