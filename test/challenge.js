@@ -32,6 +32,15 @@ describe('Challenge integration tests', function() {
 		expect(challenges[0]).to.have.property('id')
 		expect(challenges[0]).to.have.property('name')
 	})
+	it('should list by category and difficulty', async() => {
+		for (const order of ['difficulty', 'category']) {
+			const challenges = await request.get(`${base}/challenges?order=${order}`)
+			expect(challenges).to.have.property('test')
+			expect(challenges.test.length).to.be.above(0)
+			expect(challenges.test[0]).to.have.property('id')
+			expect(challenges.test[0]).to.have.property('name')
+		}
+	})
 	it('should find a challenge', async() => {
 		const challenge = await request.get(`${base}/challenge/${challengeId}`)
 		checkChallenge(challenge, challengeId)
