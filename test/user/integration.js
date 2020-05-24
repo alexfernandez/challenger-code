@@ -32,7 +32,7 @@ describe('User integration tests', () => {
 	})
 	it('should reject duplicated email', async() => {
 		try {
-			await request.post(`${base}/api/signup`, {
+			await request.post(`${base}/api/user/signup`, {
 				...data,
 				username: username + 'fedro',
 			})
@@ -43,7 +43,7 @@ describe('User integration tests', () => {
 	})
 	it('should reject duplicated username', async() => {
 		try {
-			await request.post(`${base}/api/signup`, {
+			await request.post(`${base}/api/user/signup`, {
 				...data,
 				email: email + 'mies',
 			})
@@ -53,21 +53,21 @@ describe('User integration tests', () => {
 		}
 	})
 	it('should login user', async() => {
-		const authEmail = await request.post(`${base}/api/login`, {email, password})
+		const authEmail = await request.post(`${base}/api/user/login`, {email, password})
 		checkAuth(authEmail)
-		const authUsername = await request.post(`${base}/api/login`, {email: username, password})
+		const authUsername = await request.post(`${base}/api/user/login`, {email: username, password})
 		checkAuth(authUsername)
 	})
 	it('should reject invalid logins', async() => {
 		try {
-			await request.post(`${base}/api/login`, {email, password: `${password}pop`})
+			await request.post(`${base}/api/user/login`, {email, password: `${password}pop`})
 			throw new TestError('Invalid login')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
 		}
 		const newEmail = `pip-${createTestToken()}@test.com`
 		try {
-			await request.post(`${base}/api/login`, {email: newEmail, password})
+			await request.post(`${base}/api/user/login`, {email: newEmail, password})
 			throw new TestError('Invalid login')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
@@ -91,7 +91,7 @@ describe('User integration tests', () => {
 })
 
 async function signup() {
-	const auth = await request.post(`${base}/api/signup`, data)
+	const auth = await request.post(`${base}/api/user/signup`, data)
 	const loggedIn = {headers: {authorization: auth.header}}
 	headers = loggedIn
 	return {auth, loggedIn}

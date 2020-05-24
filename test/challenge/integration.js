@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const request = require('basic-request')
-const {signup, removeUser} = require('../user/e2e.js')
+const {signup, removeUser} = require('../user/integration.js')
 const server = require('../../lib/server.js')
 const {TestError} = require('../../lib/error.js')
 
@@ -27,14 +27,14 @@ describe('Challenge integration tests', function() {
 		await server.stop(app)
 	})
 	it('should list challenges', async() => {
-		const challenges = await request.get(`${base}/challenges/main`)
+		const challenges = await request.get(`${base}/challenge/main/list`)
 		expect(challenges.length).to.be.above(2)
 		expect(challenges[0]).to.have.property('id')
 		expect(challenges[0]).to.have.property('name')
 	})
 	it('should list by category and difficulty', async() => {
 		for (const order of ['difficulty', 'category']) {
-			const challenges = await request.get(`${base}/challenges/main?order=${order}`)
+			const challenges = await request.get(`${base}/challenge/main/list?order=${order}`)
 			expect(challenges).to.have.property('test')
 			expect(challenges.test.length).to.be.above(0)
 			expect(challenges.test[0]).to.have.property('id')
@@ -47,7 +47,7 @@ describe('Challenge integration tests', function() {
 	})
 	it('should not find non-existing challenge', async() => {
 		try {
-			await request.get(`${base}/challenge/fake-test`)
+			await request.get(`${base}/challenge/main/fake-test`)
 			throw new TestError('Should not find fake test')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
