@@ -95,14 +95,28 @@ function showError(error) {
 }
 
 function forkChallenge() {
+	codeMirror.save()
+	const solution = document.getElementById('solution').value
 	const id = document.getElementById('challenge-id').innerText
+	const data = {
+		username: window.ccAuth.username,
+		implementation: solution,
+	}
 	fetch(`/api/challenge/main/${id}/fork`, {
 		method: 'POST',
+		body: JSON.stringify(data),
 		headers: {
 			'content-type': 'application/json',
 			authorization: window.ccAuth.header,
 		},
-	}).then(() => {
+	}).then(response => {
+		if (response.status != 200) {
+			response.json().then(json => {
+				document.getElementById('error').className = ''
+				document.getElementById('error').innerText = json.error
+			})
+			return
+		}
 		window.location = `/${window.ccAuth.username}/${id}`
 	}).catch(showError)
 }
