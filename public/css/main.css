@@ -78,8 +78,10 @@ pre, textarea {
 }
 
 .verification {
-	background-color: #fff0e0;
-	padding: 0.5em;
+	border: #fff0e0 thick solid;
+	background-color: #fffdfb;
+	padding: 0.4em;
+	margin: 0.3em;
 }
 
 .loader {
