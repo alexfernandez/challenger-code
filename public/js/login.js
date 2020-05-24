@@ -12,7 +12,7 @@ function sendLogin() {
 	const email = document.getElementById('email').value
 	const password = document.getElementById('password').value
 	const body = {email, password}
-	window.processAuth('login', () => fetch(`/api/login`, {
+	window.processAuth('login', () => fetch(`/api/user/login`, {
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: {'content-type': 'application/json'},
