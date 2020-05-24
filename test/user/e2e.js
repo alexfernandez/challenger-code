@@ -1,8 +1,8 @@
 const {expect} = require('chai')
 const request = require('basic-request')
-const server = require('../lib/server.js')
-const {createTestToken} = require('../lib/model/token.js')
-const {TestError} = require('../lib/error.js')
+const server = require('../../lib/server.js')
+const {createTestToken} = require('../../lib/token.js')
+const {TestError} = require('../../lib/error.js')
 
 const port = 9899
 const base = `http://localhost:${port}`

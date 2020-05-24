@@ -1,7 +1,7 @@
 const {expect} = require('chai')
 const {ApiError, TestError} = require('../../lib/error.js')
-const {createUser} = require('../../lib/model/user.js')
-const {createTestToken} = require('../../lib/model/token.js')
+const {createUser} = require('../../lib/user/user.js')
+const {createTestToken} = require('../../lib/token.js')
 
 const username = `pep${createTestToken()}`
 const email = `${username}@test.com`

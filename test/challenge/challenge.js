@@ -1,5 +1,5 @@
 const {expect} = require('chai')
-const {Challenge} = require('../../lib/model/challenge.js')
+const {Challenge} = require('../../lib/challenge/challenge.js')
 
 
 const data = {
