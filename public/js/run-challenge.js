@@ -95,7 +95,16 @@ function showError(error) {
 }
 
 function forkChallenge() {
-	console.log(window.ccAuth)
+	const id = document.getElementById('challenge-id').innerText
+	fetch(`/api/challenge/main/${id}/fork`, {
+		method: 'POST',
+		headers: {
+			'content-type': 'application/json',
+			authorization: window.ccAuth.header,
+		},
+	}).then(() => {
+		window.location = `/${window.ccAuth.username}/${id}`
+	}).catch(showError)
 }
 
 function editChallenge() {
