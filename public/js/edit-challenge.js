@@ -127,7 +127,7 @@ function saveChallenge() {
 }
 
 function buildBody() {
-	const body = {username: 'main', verifications: readVerifications()}
+	const body = {owner: 'main', verifications: readVerifications()}
 	fields.forEach(field => body[field] = document.getElementById(field).value)
 	return body
 }

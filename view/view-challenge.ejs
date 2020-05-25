@@ -7,19 +7,19 @@
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper">
-			<h1><%= challenge.username %>: <%= challenge.name %></h1>
+			<h1><%= challenge.owner %>: <%= challenge.name %></h1>
 			<h2>The Challenge</h2>
 			<p>
 			<%= challenge.description %>
 			</p>
 			<h2>Ready for It?</h2>
 			<p>
-			<% const editable = auth.role == 'admin' || challenge.username == auth.username %>
+			<% const editable = auth.role == 'admin' || challenge.owner == auth.username %>
 			<button id="run">
-				<a href="<%= challenge.username %>/<%= challenge.id %>/run">Run the challenge!</a>
+				<a href="<%= challenge.owner %>/<%= challenge.id %>/run">Run the challenge!</a>
 			</button>
 			<button id="edit" class="<%= editable ? '' : 'invisible' %>">
-				<a href="/<%= challenge.username %>/<%= challenge.id %>/edit">Edit</a>
+				<a href="/<%= challenge.owner %>/<%= challenge.id %>/edit">Edit</a>
 			</button>
 			</p>
 		</div>

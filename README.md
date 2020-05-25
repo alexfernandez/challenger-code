@@ -33,7 +33,7 @@ Thanks!
 
 * Challenge editor:
 accepts submissions from anyone,
-saved as `challengeco.de/username/challenges`.
+saved as `challengeco.de/owner/challenges`.
 * Admin role:
 select challenges for the main collection.
 * Challenger list:

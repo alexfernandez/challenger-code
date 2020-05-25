@@ -13,7 +13,7 @@
 				<h1>Edit challenge</h1>
 				<p>
 				<label for="id">Challenge id:</label>
-				<%= challenge.username || 'main' %> /
+				<span id="owner"><%= challenge.owner || 'Main' %></span> /
 				<input type="text" id="id" value="<%= challenge.id || '' %>" placeholder="Unique id"/>
 				</p>
 				<p>

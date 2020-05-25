@@ -4,9 +4,10 @@ const stdio = require('stdio')
 const {runChallenge} = require('../lib/runner.js')
 
 const options = stdio.getopt({
-	id: {key: 'i', args: 1, description: 'Challenge identifier'},
+	owner: {key: 'o', args: 1, description: 'Challenge owner'},
+	challengeId: {key: 'i', args: 1, description: 'Challenge identifier'},
 	code: {key: 'c', args: 1, description: 'Code for the challenge'},
-	username: {key: 'u', args: 1, description: 'Name of user running'},
+	sender: {key: 's', args: 1, description: 'Name of user sending'},
 	quiet: {key: 'q', description: 'Do not pipe output'},
 })
 
