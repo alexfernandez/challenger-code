@@ -20,11 +20,11 @@ a {
 }
 
 .errored {
-	background: #fdd;
+	background: #fff0f0;
 }
 
 .success {
-	background: #dfd;
+	background: #e8fff0;
 }
 
 pre, textarea {
