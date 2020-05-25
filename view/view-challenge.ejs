@@ -12,13 +12,10 @@
 			<p>
 			<%= challenge.description %>
 			</p>
-			<p>
-			<button id="fork" class="invisible">Fork</button>
-			<button id="edit" class="invisible">Edit</button>
-			</p>
 			<h2>Ready for It?</h2>
 			<p>
-			<a href="/main/<%= challenge.id %>/run">Run the challenge!</a>
+			<button id="run"><a href="/main/<%= challenge.id %>/run">Run the challenge!</a></button>
+			<button id="edit" class="<%= challenge.username == auth.username ? '' : 'invisible' %>">Edit</button>
 			</p>
 		</div>
 		<%- include('bottombar.ejs') %>
