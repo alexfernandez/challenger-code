@@ -2,7 +2,7 @@
 
 let codeMirror = null
 const fields = [
-	'id', 'owner', 'name', 'description', 'difficulty', 'category',
+	'id', 'name', 'description', 'difficulty', 'category',
 	'runningTimeoutSeconds', 'maxMinutes', 'implementation',
 ]
 
@@ -82,9 +82,8 @@ async function loadChallenge() {
 		return
 	}
 	document.getElementById('save').disabled = true
+	const owner = document.getElementById('owner').innerText
 	const id = document.getElementById('id').value
-	const owner = document.getElementById('owner').value
-	if (!id || !owner) return
 	const response = await fetch(`/api/challenge/${owner}/${id}/edit`, {
 		method: 'GET',
 		headers: {
@@ -128,8 +127,11 @@ function saveChallenge() {
 }
 
 function buildBody() {
-	const body = {verifications: readVerifications()}
-	fields.forEach(field => body[field] = document.getElementById(field).value)
+	const owner = document.getElementById('owner').innerText
+	const body = {owner, verifications: readVerifications()}
+	fields.forEach(field => {
+		body[field] = document.getElementById(field).value
+	})
 	return body
 }
 
