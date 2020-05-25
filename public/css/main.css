@@ -67,6 +67,12 @@ pre, textarea {
 	margin: 0.5em;
 }
 
+.challenge {
+	background-color: #f8f8f8;
+	border: #cccccc solid thin;
+	padding: 0.2em;
+}
+
 .solution {
 	width: 80%;
 	height: 10em;
