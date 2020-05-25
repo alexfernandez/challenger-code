@@ -117,7 +117,7 @@ function forkChallenge() {
 			})
 			return
 		}
-		window.location = `/${window.ccAuth.username}/${id}`
+		window.location = `/${window.ccAuth.username}/${id}/edit`
 	}).catch(showError)
 }
 
