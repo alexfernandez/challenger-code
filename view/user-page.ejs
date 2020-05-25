@@ -11,10 +11,18 @@
 			<p>
 			A most excellent challenger.
 			</p>
-			<h2>Overview</h2>
+			<%- include('list-challenges.ejs') %>
+			<h2>Accomplishments</h2>
 			<p>
 			Has overcome the odds on many challenges.
 			</p>
+			<% if (myself) { %>
+			<h2>Your page</h2>
+			<p>
+			<button id="settings"><a href="/user/settings">Settings</a></button>
+			<button id="logout">Log out</button>
+			</p>
+			<% } %>
 		</div>
 		<%- include('bottombar.ejs') %>
   </body>
