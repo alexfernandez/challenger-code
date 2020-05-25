@@ -99,7 +99,7 @@ function forkChallenge() {
 	const solution = document.getElementById('solution').value
 	const id = document.getElementById('challenge-id').innerText
 	const data = {
-		sender: window.ccAuth.username,
+		owner: window.ccAuth.username,
 		implementation: solution,
 	}
 	fetch(`/api/challenge/main/${id}/fork`, {
