@@ -13,7 +13,7 @@ const wrong = 'function trash() {return 1}'
 const timeout = 200
 const parallel = `function solve() {return new Promise(resolve => setTimeout(() => resolve(0), ${timeout}))}`
 
-describe.only('Challenge integration tests', function() {
+describe('Challenge integration tests', function() {
 	this.timeout(10000)
 	let app = null
 	let headers = null
@@ -89,12 +89,11 @@ describe.only('Challenge integration tests', function() {
 		// 3 tests per run
 		expect(elapsed).to.be.above(3 * timeout * runs.length)
 	})
-	it.only('should fork a challenge', async() => {
+	it('should fork a challenge', async() => {
 		const forked = await request.post(`${base}/main/${challengeId}/fork`, {owner: username, code}, headers)
 		expect(forked).to.have.property('owner')
 		expect(forked.owner).to.equal(username)
 		const list = await request.get(`${base}/${username}/list`)
-		console.log(list)
 		expect(list.length).to.equal(1)
 		expect(list[0].id).to.equal(challengeId)
 	})
