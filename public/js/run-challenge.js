@@ -35,10 +35,9 @@ function sendSolution() {
 		return
 	}
 	console.log('sending')
-	document.getElementById('send').disabled = true
+	startFetch()
 	const body = {code: solution}
 	const id = document.getElementById('challenge-id').innerText
-	document.getElementById('loader').innerHTML = '<img class="loader" src="/img/loader.gif" />'
 	fetch(`/api/challenge/main/${id}/run`, {
 		method: 'POST',
 		body: JSON.stringify(body),
@@ -46,20 +45,16 @@ function sendSolution() {
 			'content-type': 'application/json',
 			authorization: window.ccAuth.header,
 		},
-	}).then(showResponse).catch(showError)
+	}).then(showResponse).catch(error => showError(`Could not send: ${error}`))
 }
 
 function showResponse(response) {
-	document.getElementById('loader').innerHTML = ''
-	document.getElementById('send').disabled = false
+	stopFetch()
 	document.getElementById('result').className = 'disabled'
 	if (response.status != 200) {
 		response.json().then(json => {
-			document.getElementById('result').className = 'errored'
-			const text = `${getSuccess(false)} ${response.status}`
-			document.getElementById('success').innerText = text
-			document.getElementById('error').className = ''
-			document.getElementById('error').innerText = json.error
+			document.getElementById('success').innerText = `${getSuccess(false)}`
+			showError(`Could not send solution (${response.status}): ${json.error}`)
 		})
 		return
 	}
@@ -90,8 +85,27 @@ function getSuccess(success) {
 }
 
 function showError(error) {
+	stopFetch()
+	const element = document.getElementById('error')
+	element.className = 'errored'
+	element.innerText = error
+}
+
+function startFetch() {
+	document.getElementById('send').disabled = true
+	document.getElementById('fork').disabled = true
+	document.getElementById('edit').disabled = true
+	const element = document.getElementById('error')
+	element.className = ''
+	element.innerText = ''
+	document.getElementById('loader').innerHTML = '<img class="loader" src="/img/loader.gif" />'
+}
+
+function stopFetch() {
 	document.getElementById('send').disabled = false
-	document.getElementById('success').innerText = `${getSuccess(false)} Could not send: ${error}`
+	document.getElementById('fork').disabled = false
+	document.getElementById('edit').disabled = false
+	document.getElementById('loader').innerHTML = ''
 }
 
 function forkChallenge() {
@@ -102,6 +116,7 @@ function forkChallenge() {
 		owner: window.ccAuth.username,
 		implementation: solution,
 	}
+	startFetch()
 	fetch(`/api/challenge/main/${id}/fork`, {
 		method: 'POST',
 		body: JSON.stringify(data),
@@ -110,10 +125,10 @@ function forkChallenge() {
 			authorization: window.ccAuth.header,
 		},
 	}).then(response => {
+		stopFetch()
 		if (response.status != 200) {
 			response.json().then(json => {
-				document.getElementById('error').className = ''
-				document.getElementById('error').innerText = json.error
+				showError(`Could not fork: ${json.error}`)
 			})
 			return
 		}
