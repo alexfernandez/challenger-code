@@ -2,15 +2,19 @@
 <html lang="en">
 	<head>
 		<%- include('head.ejs') %>
-		<title><%= challenge.id %> - challengerco.de</title>
+		<title><%= challenge.id %> — challengerco.de</title>
 	</head>
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper">
-			<h1><%= challenge.name %></h1>
+			<h1><%= challenge.username %>: <%= challenge.name %></h1>
 			<h2>The Challenge</h2>
 			<p>
 			<%= challenge.description %>
+			</p>
+			<p>
+			<button id="fork" class="invisible">Fork</button>
+			<button id="edit" class="invisible">Edit</button>
 			</p>
 			<h2>Ready for It?</h2>
 			<p>
