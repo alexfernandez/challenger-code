@@ -3,10 +3,10 @@
 let codeMirror = null
 
 window.loaders.push(() => {
-	const solution = localStorage.getItem('solution')
+	const solution = localStorage.getItem('ccSolution')
 	if (solution) {
 		document.getElementById('solution').value = solution
-		localStorage.removeItem('solution')
+		localStorage.removeItem('ccSolution')
 	}
 	codeMirror = CodeMirror.fromTextArea(document.getElementById('solution'), {
 		mode:  'javascript',
