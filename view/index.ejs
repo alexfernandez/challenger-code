@@ -7,23 +7,7 @@
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper">
-			<h1>Challenges</h1>
-			<p>
-			Go through them in order of difficulty.
-			</p>
-			<% for (const difficulty in list) { %>
-			<h2>Difficulty: <%= difficulty %></h2>
-			<% const challenges = list[difficulty] %>
-			<% for (const challenge of challenges) { %>
-			<div class="challenge">
-			<h3><%= challenge.name %></h3>
-			<p>
-			<button id="view"><a href="/main/<%= challenge.id %>">View</a></button> or
-			<button id="run"><a href="/main/<%= challenge.id %>/run">Run</a></button> the challenge.
-			</p>
-			</div>
-			<% } %>
-			<% } %>
+			<%- include('list-challenges.ejs') %>
 			<h2>Acknowledgements</h2>
 			<p>
 			See <a href="https://github.com/alexfernandez/challenger-code/graphs/contributors">contributors</a>.
