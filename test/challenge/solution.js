@@ -4,7 +4,7 @@ const {Solution} = require('../../lib/challenge/solution.js')
 const {createTestToken} = require('../../lib/token.js')
 const {createChallenge} = require('./challenge.js')
 
-const username = `pap${createTestToken()}`
+const sender = `pap${createTestToken()}`
 
 
 describe('Solution model tests', function() {
@@ -14,14 +14,14 @@ describe('Solution model tests', function() {
 		challenge = await createChallenge()
 	})
 	it('should run challenge', async() => {
-		const right = new Solution(challenge, 'function solve() {return 0}', username)
+		const right = new Solution(challenge, 'function solve() {return 0}', sender)
 		const successful = await right.runSandboxed()
 		expect(successful.success).to.equal(true)
-		expect(successful.username).to.equal(username)
-		const wrong = new Solution(challenge, 'function solve() {return 1}', username)
+		expect(successful.sender).to.equal(sender)
+		const wrong = new Solution(challenge, 'function solve() {return 1}', sender)
 		const failed = await wrong.runSandboxed()
 		expect(failed.success).to.equal(false)
-		expect(failed.username).to.equal(username)
+		expect(failed.sender).to.equal(sender)
 	})
 	it('should reject malicious code', async() => {
 		try {
@@ -40,16 +40,16 @@ describe('Solution model tests', function() {
 		}
 	})
 	it('should run in a separate process', async() => {
-		const right = new Solution(challenge, 'function solve() {return 0}', username)
+		const right = new Solution(challenge, 'function solve() {return 0}', sender)
 		const successful = await right.runIsolated()
 		expect(successful.success).to.equal(true)
-		expect(successful.username).to.equal(username)
-		const wrong = new Solution(challenge, 'function solve() {return 1}', username)
+		expect(successful.sender).to.equal(sender)
+		const wrong = new Solution(challenge, 'function solve() {return 1}', sender)
 		const failed = await wrong.runIsolated()
 		expect(failed.success).to.equal(false)
-		expect(failed.username).to.equal(username)
+		expect(failed.sender).to.equal(sender)
 		try {
-			const isolated = new Solution(challenge, 'function solve() {while (true){}}', username)
+			const isolated = new Solution(challenge, 'function solve() {while (true){}}', sender)
 			await isolated.runIsolated()
 			throw new TestError('Should not finish infinite loop')
 		} catch(error) {
