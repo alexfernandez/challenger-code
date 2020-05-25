@@ -102,6 +102,10 @@ button, .button {
 	font-size: 0.85em;
 }
 
+button a {
+	color: #ffffff;
+}
+
 button:disabled, .button:disabled {
 	background-color: #a87580;
 	color: #cccccc;
