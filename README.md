@@ -6,20 +6,17 @@ Challenge yourself with coding exercises.
 
 The following API calls are published.
 
-### `GET /api/challenges/:owner`
+### `GET /api/challenge/:owner/list`
 
 Returns a list of challenges with `id` and `name` from `owner`.
-Currently only valid for `owner=main`.
 
 ### `GET /api/challenge/:owner/:id`
 
 Returns the challenge with the given `owner` and `id`.
-Currently only valid for `owner=main`.
 
-### `POST /api/challenge/:id/run`
+### `POST /api/challenge/:owner/:id/run`
 
 Runs the given challenge `id` from `owner` with some code.
-Currently only valid for `owner=main`.
 Body parameters:
 
 * `code`: the code to run.
