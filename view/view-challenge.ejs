@@ -14,8 +14,13 @@
 			</p>
 			<h2>Ready for It?</h2>
 			<p>
-			<button id="run"><a href="/main/<%= challenge.id %>/run">Run the challenge!</a></button>
-			<button id="edit" class="<%= challenge.username == auth.username ? '' : 'invisible' %>">Edit</button>
+			<% const editable = auth.role == 'admin' || challenge.username == auth.username %>
+			<button id="run">
+				<a href="<%= challenge.username %>/<%= challenge.id %>/run">Run the challenge!</a>
+			</button>
+			<button id="edit" class="<%= editable ? '' : 'invisible' %>">
+				<a href="/<%= challenge.username %>/<%= challenge.id %>/edit">Edit</a>
+			</button>
 			</p>
 		</div>
 		<%- include('bottombar.ejs') %>
