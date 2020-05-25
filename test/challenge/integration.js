@@ -96,6 +96,13 @@ describe('Challenge integration tests', function() {
 		const list = await request.get(`${base}/${username}/list`)
 		expect(list.length).to.equal(1)
 		expect(list[0].id).to.equal(challengeId)
+		for (const order of ['difficulty', 'category']) {
+			const challenges = await request.get(`${base}/${username}/list?order=${order}`)
+			expect(challenges).to.have.property('test')
+			expect(challenges.test.length).to.be.above(0)
+			expect(challenges.test[0]).to.have.property('id')
+			expect(challenges.test[0]).to.have.property('name')
+		}
 	})
 })
 
