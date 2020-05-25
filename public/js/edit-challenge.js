@@ -172,7 +172,6 @@ function showResponse(response) {
 		return
 	}
 	response.json().then(json => {
-		console.log(`Result: ${JSON.stringify(json)}`)
 		document.getElementById('result').className = 'success'
 		document.getElementById('result').innerText = '✅ Challenge saved'
 	})
