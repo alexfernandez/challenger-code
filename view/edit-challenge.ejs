@@ -9,78 +9,7 @@
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper columns">
-			<div class="edit">
-				<h1>Edit challenge</h1>
-				<p>
-				<label for="id">Challenge id:</label>
-				<span id="owner"><%= challenge.owner %></span> /
-				<input type="text" id="id" value="<%= challenge.id || '' %>" placeholder="Unique id"/>
-				</p>
-				<p>
-				<label for="id">Challenge name:</label>
-				<input type="text" id="name" value="<%= challenge.name || '' %>" placeholder="Challenge name"/>
-				</p>
-				<p>
-				<label for="category">Select category:</label>
-				<select id="category">
-					<option value="" disabled></option>>
-					<% for (const category of categories) { %>
-					<option value="<%= category %>"><%= category %></option>
-					<% } %>
-				</select>
-				</p>
-				<p>
-				<label for="difficulty">Select difficulty:</label>
-				<select id="difficulty">
-					<option value="" disabled></option>>
-					<% for (const difficulty of difficulties) { %>
-					<option value="<%= difficulty %>"><%= difficulty %></option>
-					<% } %>
-				</select>
-				</p>
-				<p>
-				<textarea class="description" id="description"
-					placeholder="Enter long description"></textarea>
-				</p>
-				<p>
-				<label for="runningTimeoutSeconds">Execution timeout (in seconds):</label>
-				<input type="number" id="runningTimeoutSeconds" placeholder="Running timeout in seconds"/>
-				</p>
-				<p>
-				<label for="maxMinutes">Max time to solve (in minutes):</label>
-				<input type="number" id="maxMinutes" placeholder="Max minutes for solution"/>
-				</p>
-			</div>
-			<div class="solve">
-				<h2>Reference Implementation</h2>
-			<p>
-			                <textarea class="solution" id="implementation">
-/**
- * Write a function solve() with the reference implementation for the challenge.
- */
-function solve(array) {
-    // write your code here
-}
-</textarea>
-				<h2>Verifications</h2>
-				<div id="verifications">
-				</div>
-				<p id="verification" class="verification invisible">
-				Public: <input type="checkbox" name="public" />
-				Name: <input type="text" name="name" value="" placeholder="Verification name" /><br/>
-				[<input type="text" name="input" value="" placeholder="Input parameters (JSON)" />]
-				⇒
-				<input type="number" name="output" value="" placeholder="Output (number)" />
-				<button name="remove">-</button>
-				</p>
-				<p>
-				<button id="add-verification">+</button>
-				</p>
-				<p>
-				<button id="save">Save</button>
-				<span id="result"></span>
-				</p>
-			</div>
+			<%- include('challenge-fields.ejs') %>
 		</div>
 		<%- include('bottombar.ejs') %>
   </body>
