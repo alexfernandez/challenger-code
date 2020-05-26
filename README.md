@@ -37,12 +37,12 @@ select challenges for the main collection.
 select by category, difficulty.
 * User page:
 show challenges run and achievements by any player.
-* View challenge stats:
+* ✅View challenge stats:
 show min and average for: nodes, execution time, memory?
 * Check max memory used by a challenge run.
 * Browser runner:
 run challenges directly in the browser.
-* Redirect [http site](http://challengerco.de/) to https.
+* ✅Redirect [http site](http://challengerco.de/) to https.
 
 ## Acknowledgements
 
