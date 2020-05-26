@@ -14,12 +14,12 @@
 			</p>
 			<h2>Ready for It?</h2>
 			<p>
-			<button id="run">
-				<a href="/<%= challenge.owner %>/<%= challenge.id %>/run">Run the challenge!</a>
-			</button>
-			<button id="edit" class="invisible">
-				<a href="/<%= challenge.owner %>/<%= challenge.id %>/edit">Edit</a>
-			</button>
+			<a href="/<%= challenge.owner %>/<%= challenge.id %>/run">
+				<button id="run">Run the challenge!</button>
+			</a>
+			<a href="/<%= challenge.owner %>/<%= challenge.id %>/edit">
+				<button id="edit" class="invisible">Edit</button>
+			</a>
 			</p>
 		</div>
 		<%- include('bottombar.ejs') %>
