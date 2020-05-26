@@ -15,7 +15,9 @@ window.loaders = [() => {
 			window.ccAuth = JSON.parse(json)
 			if (window.ccAuth && window.ccAuth.username) {
 				document.getElementById('register').className = 'invisible'
-				document.getElementById('currentUsername').innerText = window.ccAuth.username
+				const current = document.getElementById('currentUsername')
+				current.innerText = window.ccAuth.username
+				current.href = `/${window.ccAuth.username}`
 				document.getElementById('loggedin').className = ''
 			}
 		} catch(error) {
