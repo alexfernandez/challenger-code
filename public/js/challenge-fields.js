@@ -126,7 +126,6 @@ function readVerification(element) {
 	for (const child of element.children) {
 		if (child.name) {
 			const value = getVerificationField(child)
-			console.log(value)
 			if (isInvalid(child.name, value)) {
 				child.className = 'errored'
 				throw new Error(`${child.name} cannot be empty`)
