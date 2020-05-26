@@ -81,6 +81,8 @@ function saveChallenge() {
 	codeMirror.save()
 	console.log('saving')
 	document.getElementById('save').disabled = true
+	document.getElementById('result').innerText = ''
+	document.getElementById('result').className = ''
 	const body = buildBody()
 	fetch(`/api/challenge/${body.owner}/${body.id}/save`, {
 		method: 'POST',

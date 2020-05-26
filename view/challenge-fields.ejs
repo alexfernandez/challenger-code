@@ -1,5 +1,5 @@
 <div class="edit">
-	<h1>Edit challenge</h1>
+	<h1><%= challenge.id ? 'Edit' : 'Create' %> challenge</h1>
 	<p>
 	<label for="id">Challenge id:</label>
 	<span id="owner"><%= challenge.owner %></span> /
@@ -12,7 +12,7 @@
 	<p>
 	<label for="category">Select category:</label>
 	<select id="category">
-		<option value="" disabled></option>>
+		<option value=""></option>
 		<% for (const category of categories) { %>
 		<option value="<%= category %>"><%= category %></option>
 		<% } %>
@@ -21,7 +21,7 @@
 	<p>
 	<label for="difficulty">Select difficulty:</label>
 	<select id="difficulty">
-		<option value="" disabled></option>>
+		<option value=""></option>
 		<% for (const difficulty of difficulties) { %>
 		<option value="<%= difficulty %>"><%= difficulty %></option>
 		<% } %>

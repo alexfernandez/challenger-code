@@ -3,15 +3,14 @@
 	<head>
 		<%- include('head.ejs') %>
 		<title>Create challenge — challengerco.de</title>
+		<%- include('codemirror.ejs') %>
+		<script src="/js/challenge-fields.js"></script>
 		<script src="/js/create-challenge.js"></script>
 	</head>
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper columns">
 			<%- include('challenge-fields.ejs') %>
-			<p>
-			<button id="create">Create</button>
-			</p>
 		</div>
 		<%- include('bottombar.ejs') %>
   </body>
