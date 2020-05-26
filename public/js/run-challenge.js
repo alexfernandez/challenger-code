@@ -37,8 +37,8 @@ function sendSolution() {
 	console.log('sending')
 	startFetch()
 	const body = {code: solution}
-	const id = document.getElementById('id').value
-	const owner = document.getElementById('owner').value
+	const id = document.getElementById('id').innerText
+	const owner = document.getElementById('owner').innerText
 	fetch(`/api/challenge/${owner}/${id}/run`, {
 		method: 'POST',
 		body: JSON.stringify(body),
@@ -112,8 +112,8 @@ function stopFetch() {
 function forkChallenge() {
 	codeMirror.save()
 	const solution = document.getElementById('solution').value
-	const id = document.getElementById('id').value
-	const owner = document.getElementById('owner').value
+	const id = document.getElementById('id').innerText
+	const owner = document.getElementById('owner').innerText
 	const data = {
 		owner: window.ccAuth.username,
 		implementation: solution,
@@ -139,8 +139,8 @@ function forkChallenge() {
 }
 
 function editChallenge() {
-	const id = document.getElementById('id').value
-	const owner = document.getElementById('owner').value
+	const id = document.getElementById('id').innerText
+	const owner = document.getElementById('owner').innerText
 	window.location = `/${owner}/${id}/edit`
 }
 
