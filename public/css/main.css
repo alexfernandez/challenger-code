@@ -68,6 +68,7 @@ pre, textarea {
 }
 
 .challenge {
+	display: table;
 	background-color: #f8f8f8;
 	border: #cccccc solid thin;
 	padding: 0.2em;
