@@ -71,7 +71,7 @@ pre, textarea {
 	display: table;
 	background-color: #f8f8f8;
 	border: #cccccc solid thin;
-	padding: 0.2em;
+	padding: 0 0.5em;
 }
 
 .solution {
