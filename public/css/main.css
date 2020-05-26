@@ -97,6 +97,12 @@ pre, textarea {
 	max-height: 1em;
 }
 
+#personal {
+	background-color: #fff0f0;
+	border: #ffc0c0 thin solid;
+	padding: 0.3em;
+}
+
 /* Buttons */
 
 button {
