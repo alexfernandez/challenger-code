@@ -2,6 +2,11 @@
 <p>
 Go through them in order of difficulty.
 </p>
+<p>
+<a href="/<%= username %>/new">
+	<button id="create" class="invisible">Create</button>
+</a>
+</p>
 <% for (const difficulty in list) { %>
 <h2>Difficulty: <%= difficulty %></h2>
 <% const challenges = list[difficulty] %>
@@ -11,10 +16,10 @@ Go through them in order of difficulty.
 	<p>
 	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>">
 		<button class="view">View</button>
-	</a> or
+	</a>
 	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>/run">
 		<button class="run">Run</button>
-	</a> the challenge.
+	</a>
 	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>/edit">
 		<button class="edit invisible">Edit</button>
 	</a>
