@@ -81,21 +81,32 @@ function saveChallenge() {
 	codeMirror.save()
 	console.log('saving')
 	startFetch()
+	buildAndSave().catch(showError)
+}
+
+async function buildAndSave() {
 	const body = buildBody()
-	fetch(`/api/challenge/${body.owner}/${body.id}/save`, {
+	const response = await fetch(`/api/challenge/${body.owner}/${body.id}/save`, {
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: {
 			'content-type': 'application/json',
 			authorization: window.ccAuth.header,
 		},
-	}).then(showResponse).catch(showError)
+	})
+	showResponse(response)
 }
 
 function buildBody() {
 	const owner = document.getElementById('owner').innerText
 	const body = {owner, verifications: readVerifications()}
 	fields.forEach(field => {
+		const element = document.getElementById(field)
+		if (!element.value) {
+			element.parentElement.className = 'errored'
+			throw new Error(`${field} cannot be empty`)
+		}
+		element.parentElement.className = ''
 		body[field] = document.getElementById(field).value
 	})
 	return body
@@ -114,10 +125,24 @@ function readVerification(element) {
 	const verification = {}
 	for (const child of element.children) {
 		if (child.name) {
+			const value = getVerificationField(child)
+			console.log(value)
+			if (isInvalid(child.name, value)) {
+				child.className = 'errored'
+				throw new Error(`${child.name} cannot be empty`)
+			}
+			child.className = ''
 			verification[child.name] = getVerificationField(child)
 		}
 	}
 	return verification
+}
+
+function isInvalid(name, value) {
+	if (!['name', 'output'].includes(name)) return false
+	if (typeof value == 'string' && value === '') return true
+	if (typeof value == 'number' && isNaN(value)) return true
+	return false
 }
 
 function getVerificationField(element) {
