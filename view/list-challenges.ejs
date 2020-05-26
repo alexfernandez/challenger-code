@@ -9,8 +9,12 @@ Go through them in order of difficulty.
 <div class="challenge">
 	<h3><%= challenge.name %></h3>
 	<p>
-	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>"><button id="view">View</button></a> or
-	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>/run"><button id="run">Run</button></a> the challenge.
+	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>">
+		<button id="view">View</button>
+	</a> or
+	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>/run">
+		<button id="run">Run</button>
+	</a> the challenge.
 	</p>
 </div>
 <% } %>
