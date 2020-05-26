@@ -80,9 +80,7 @@ function saveChallenge() {
 	}
 	codeMirror.save()
 	console.log('saving')
-	document.getElementById('save').disabled = true
-	document.getElementById('result').innerText = ''
-	document.getElementById('result').className = ''
+	startFetch()
 	const body = buildBody()
 	fetch(`/api/challenge/${body.owner}/${body.id}/save`, {
 		method: 'POST',
@@ -131,8 +129,7 @@ function getVerificationField(element) {
 }
 
 function showResponse(response) {
-	document.getElementById('save').disabled = false
-	document.getElementById('result').className = 'disabled'
+	stopFetch()
 	if (response.status != 200) {
 		response.json().then(json => {
 			showError(json.error)
@@ -142,12 +139,29 @@ function showResponse(response) {
 	response.json().then(() => {
 		document.getElementById('result').className = 'success'
 		document.getElementById('result').innerText = '✅ Challenge saved'
+		setTimeout(() => {
+			document.getElementById('result').className = ''
+			document.getElementById('result').innerText = ''
+		}, 5000)
 	})
 }
 
 function showError(error) {
-	document.getElementById('save').disabled = false
+	stopFetch()
 	document.getElementById('result').className = 'errored'
 	document.getElementById('result').innerText = `❌ Could not save: ${error}`
+}
+
+function startFetch() {
+	document.getElementById('save').disabled = true
+	document.getElementById('result').innerText = ''
+	document.getElementById('result').className = ''
+	document.getElementById('loader').innerHTML = '<img class="loader" src="/img/loader.gif" />'
+}
+
+function stopFetch() {
+	document.getElementById('save').disabled = false
+	document.getElementById('result').className = 'disabled'
+	document.getElementById('loader').innerHTML = ''
 }
 
