@@ -3,11 +3,16 @@
 	<head>
 		<%- include('head.ejs') %>
 		<title><%= challenge.id %> — challengerco.de</title>
+		<script src="/js/view-challenge.js"></script>
 	</head>
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper">
-			<h1><%= challenge.owner %>: <%= challenge.name %></h1>
+			<p>
+				<a href="/<% challenge.owner %>"><span id="owner"><%= challenge.owner %></span></a> /
+				<span id="id"><%= challenge.id %></span>
+			</p>
+			<h1><%= challenge.name %></h1>
 			<h2>The Challenge</h2>
 			<p>
 			<%= challenge.description %>

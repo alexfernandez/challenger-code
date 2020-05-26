@@ -10,11 +10,14 @@ Go through them in order of difficulty.
 	<h3><%= challenge.name %></h3>
 	<p>
 	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>">
-		<button id="view">View</button>
+		<button class="view">View</button>
 	</a> or
 	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>/run">
-		<button id="run">Run</button>
+		<button class="run">Run</button>
 	</a> the challenge.
+	<a href="/<%= challenge.owner || 'main' %>/<%= challenge.id %>/edit">
+		<button class="edit invisible">Edit</button>
+	</a>
 	</p>
 </div>
 <% } %>
