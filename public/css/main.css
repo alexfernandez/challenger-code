@@ -84,6 +84,7 @@ pre, textarea {
 }
 
 .verification {
+	display: table;
 	border: #fff0e0 thick solid;
 	background-color: #fffdfb;
 	padding: 0.4em;
