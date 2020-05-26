@@ -14,11 +14,10 @@
 			</p>
 			<h2>Ready for It?</h2>
 			<p>
-			<% const editable = auth.role == 'admin' || challenge.owner == auth.username %>
 			<button id="run">
-				<a href="<%= challenge.owner %>/<%= challenge.id %>/run">Run the challenge!</a>
+				<a href="/<%= challenge.owner %>/<%= challenge.id %>/run">Run the challenge!</a>
 			</button>
-			<button id="edit" class="<%= editable ? '' : 'invisible' %>">
+			<button id="edit" class="invisible">
 				<a href="/<%= challenge.owner %>/<%= challenge.id %>/edit">Edit</a>
 			</button>
 			</p>

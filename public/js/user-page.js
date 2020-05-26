@@ -2,6 +2,11 @@
 
 
 window.loaders.push(() => {
+	const username = document.getElementById('username').innerText
+	const auth = localStorage.getItem('ccAuth')
+	if  (auth && auth.username == username) {
+		document.getElementById('personal').className = ''
+	}
 	const logout = document.getElementById('logout')
 	if (!logout) return
 	logout.onclick = () => {

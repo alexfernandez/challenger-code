@@ -8,7 +8,7 @@
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper">
-			<h1><%= user.username %></h1>
+			<h1 id="username"><%= user.username %></h1>
 			<p>
 			A most excellent challenger.
 			</p>
@@ -17,13 +17,13 @@
 			<p>
 			Has overcome the odds on many challenges.
 			</p>
-			<% if (myself) { %>
-			<h2>Your page</h2>
-			<p>
-			<button id="settings"><a href="/user/settings">Settings</a></button>
-			<button id="logout">Log out</button>
-			</p>
-			<% } %>
+			<div id="personal" class="invisible">
+				<h2>Personal Area</h2>
+				<p>
+				<button id="settings"><a href="/user/settings">Settings</a></button>
+				<button id="logout">Log out</button>
+				</p>
+			</div>
 		</div>
 		<%- include('bottombar.ejs') %>
   </body>
