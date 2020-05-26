@@ -97,7 +97,7 @@ pre, textarea {
 
 /* Buttons */
 
-button, .button {
+button {
 	vertical-align: middle;
 	border: none;
 	background-color: #a85540;
@@ -106,10 +106,6 @@ button, .button {
 	margin: 0.2em;
 	padding: 0.5em 1em;
 	font-size: 0.85em;
-}
-
-button a {
-	color: #ffffff;
 }
 
 button:disabled, .button:disabled {
