@@ -138,7 +138,7 @@ function readVerification(element) {
 }
 
 function isInvalid(name, value) {
-	if (!['name', 'output'].includes(name)) return false
+	if (name == 'public') return false
 	if (typeof value == 'string' && value === '') return true
 	if (typeof value == 'number' && isNaN(value)) return true
 	return false
