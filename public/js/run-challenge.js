@@ -51,7 +51,7 @@ function sendSolution() {
 
 function showResponse(response) {
 	stopFetch()
-	document.getElementById('result').className = 'disabled'
+	document.getElementById('run').className = 'disabled'
 	if (response.status != 200) {
 		response.json().then(json => {
 			document.getElementById('success').innerText = `${getSuccess(false)}`
@@ -61,9 +61,9 @@ function showResponse(response) {
 	}
 	response.json().then(json => {
 		const stats = json.stats
-		document.getElementById('error').className = 'invisible'
+		document.getElementById('result').className = 'invisible'
 		const text = `${getSuccess(json.success)}`
-		document.getElementById('result').className = json.success ? 'success' : 'errored'
+		document.getElementById('run').className = json.success ? 'success' : 'errored'
 		document.getElementById('success').innerText = text
 		for (let i = 0; i < json.results.length; i++) {
 			const result = json.results[i]
@@ -87,7 +87,7 @@ function getSuccess(success) {
 
 function showError(error) {
 	stopFetch()
-	const element = document.getElementById('error')
+	const element = document.getElementById('result')
 	element.className = 'errored'
 	element.innerText = error
 }
@@ -96,17 +96,16 @@ function startFetch() {
 	document.getElementById('send').disabled = true
 	document.getElementById('fork').disabled = true
 	document.getElementById('edit').disabled = true
-	const element = document.getElementById('error')
+	const element = document.getElementById('result')
 	element.className = ''
-	element.innerText = ''
-	document.getElementById('loader').innerHTML = '<img class="loader" src="/img/loader.gif" />'
+	element.innerHTML = '<img class="loader" src="/img/loader.gif" />'
 }
 
 function stopFetch() {
 	document.getElementById('send').disabled = false
 	document.getElementById('fork').disabled = false
 	document.getElementById('edit').disabled = false
-	document.getElementById('loader').innerHTML = ''
+	document.getElementById('result').innerHTML = ''
 }
 
 function forkChallenge() {
