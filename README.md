@@ -1,6 +1,17 @@
 # Challenger Code
 
 Challenge yourself with coding exercises.
+Official website: [challengerco.de](https://challengerco.de/).
+
+## Installation
+
+If you want to install locally:
+
+    $ npm i challenger-code
+
+Start with
+
+    $ npm start
 
 ## API
 
@@ -43,6 +54,12 @@ show min and average for: nodes, execution time, memory?
 * Browser runner:
 run challenges directly in the browser.
 * ✅Redirect [http site](http://challengerco.de/) to https.
+
+## Architecture
+
+The project uses [fastify](https://github.com/fastify/fastify).
+It loosely follows the structure of
+[fastify-example-twitter](https://github.com/fastify/fastify-example-twitter).
 
 ## Acknowledgements
 
