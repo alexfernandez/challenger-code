@@ -3,6 +3,7 @@
 	<head>
 		<%- include('head.ejs') %>
 		<title><%= challenge.id %> — challengerco.de</title>
+		<script src="/js/deletion.js"></script>
 		<script src="/js/view-challenge.js"></script>
 	</head>
 	<body>
@@ -12,7 +13,7 @@
 				<a href="/<% challenge.owner %>"><span id="owner"><%= challenge.owner %></span></a> /
 				<span id="id"><%= challenge.id %></span>
 			</p>
-			<h1><%= challenge.name %></h1>
+			<h1 id="name"><%= challenge.name %></h1>
 			<h2>The Challenge</h2>
 			<p>
 			<%= challenge.description %>
@@ -25,6 +26,8 @@
 			<a href="/<%= challenge.owner %>/<%= challenge.id %>/edit">
 				<button id="edit" class="invisible">Edit</button>
 			</a>
+			<button id="delete" class="delete invisible">🗑</button>
+			<span id="result"></span>
 			</p>
 		</div>
 		<%- include('bottombar.ejs') %>
