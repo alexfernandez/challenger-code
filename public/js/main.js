@@ -26,17 +26,21 @@ window.loaders = [() => {
 	}
 }]
 
-window.processAuth = function(action, fetcher) {
-	fetchAndStoreAuth(action, fetcher).catch(error => window.showError(action, error))
+window.processAuth = function(action, url, body) {
+	fetchAndStoreAuth(action, url, body).catch(error => window.showError(action, error))
 }
 
-async function fetchAndStoreAuth(action, fetcher) {
-	const response = await fetcher()
+async function fetchAndStoreAuth(action, url, body) {
+	document.getElementById('error').className = 'invisible'
+	const response = await fetch(url, {
+		method: 'POST',
+		body: JSON.stringify(body),
+		headers: {'content-type': 'application/json'},
+	})
 	const json = await response.json()
 	if (response.status != 200) {
 		return window.showError(action, json.error)
 	}
-	document.getElementById('error').className = 'invisible'
 	await window.storeAuth(json)
 }
 

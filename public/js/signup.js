@@ -17,10 +17,6 @@ function sendSignup() {
 	const username = document.getElementById('username').value
 	const email = document.getElementById('email').value
 	const body = {username, email, password, confirmPassword}
-	window.processAuth('signup', () => fetch(`/api/user/signup`, {
-		method: 'POST',
-		body: JSON.stringify(body),
-		headers: {'content-type': 'application/json'},
-	}))
+	window.processAuth('signup', `/api/user/signup`, body)
 }
 
