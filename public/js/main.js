@@ -40,8 +40,8 @@ async function fetchAndStoreAuth(action, url, body) {
 		body: JSON.stringify(body),
 		headers: {'content-type': 'application/json'},
 	})
-	document.getElementById('result').innerText = ''
 	const json = await response.json()
+	document.getElementById('result').innerText = ''
 	if (response.status != 200) {
 		throw new Error(json.error)
 	}
