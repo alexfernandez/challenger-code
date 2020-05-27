@@ -75,6 +75,11 @@ pre, textarea {
 	margin: 0.3em;
 }
 
+.loader {
+	max-height: 1em;
+	max-width: 1em;
+}
+
 .solution {
 	width: 80%;
 	height: 10em;
