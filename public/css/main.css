@@ -93,11 +93,6 @@ pre, textarea {
 	margin: 0.3em;
 }
 
-.loader {
-	max-width: 1em;
-	max-height: 1em;
-}
-
 #personal {
 	background-color: #fff0f0;
 	border: #ffc0c0 thin solid;

@@ -20,8 +20,14 @@ async function loadPage() {
 		autofocus: true,
 		cursorBlinkRate: 0,
 	})
-	document.getElementById('save').onclick = saveChallenge
 	document.getElementById('add-verification').onclick = () => addVerification()
+	const saving = new window.Saving({
+		codeMirror,
+		button: document.getElementById('save'),
+		buildBody,
+		result: document.getElementById('result'),
+	})
+	saving.setup()
 }
 
 function addVerification(data = {}) {
@@ -72,29 +78,6 @@ function disableIfLastVerification() {
 	} else {
 		remove.disabled = false
 	}
-}
-
-function saveChallenge() {
-	if (!window.ccAuth) {
-		return
-	}
-	codeMirror.save()
-	console.log('saving')
-	startFetch()
-	buildAndSave().catch(showError)
-}
-
-async function buildAndSave() {
-	const body = buildBody()
-	const response = await fetch(`/api/challenge/${body.owner}/${body.id}/save`, {
-		method: 'POST',
-		body: JSON.stringify(body),
-		headers: {
-			'content-type': 'application/json',
-			authorization: window.ccAuth.header,
-		},
-	})
-	showResponse(response)
 }
 
 function buildBody() {
@@ -150,42 +133,5 @@ function getVerificationField(element) {
 	if (element.name == 'output') return parseFloat(element.value)
 	if (element.name == 'remove') return undefined
 	return element.value
-}
-
-function showResponse(response) {
-	stopFetch()
-	if (response.status != 200) {
-		response.json().then(json => {
-			showError(json.error)
-		})
-		return
-	}
-	response.json().then(() => {
-		document.getElementById('result').className = 'success'
-		document.getElementById('result').innerText = '✅ Challenge saved'
-		setTimeout(() => {
-			document.getElementById('result').className = ''
-			document.getElementById('result').innerText = ''
-		}, 5000)
-	})
-}
-
-function showError(error) {
-	stopFetch()
-	document.getElementById('result').className = 'errored'
-	document.getElementById('result').innerText = `❌ Could not save: ${error}`
-}
-
-function startFetch() {
-	document.getElementById('save').disabled = true
-	document.getElementById('result').innerText = ''
-	document.getElementById('result').className = ''
-	document.getElementById('loader').innerHTML = '<img class="loader" src="/img/loader.gif" />'
-}
-
-function stopFetch() {
-	document.getElementById('save').disabled = false
-	document.getElementById('result').className = 'disabled'
-	document.getElementById('loader').innerHTML = ''
 }
 
