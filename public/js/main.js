@@ -27,19 +27,23 @@ window.loaders = [() => {
 }]
 
 window.processAuth = function(action, url, body) {
-	fetchAndStoreAuth(action, url, body).catch(error => window.showError(action, error))
+	console.log('sending')
+	fetchAndStoreAuth(action, url, body).catch(error => window.showAuthError(action, error))
 }
 
 async function fetchAndStoreAuth(action, url, body) {
-	document.getElementById('error').className = 'invisible'
+	document.getElementById('send').disabled = true
+	document.getElementById('result').className = ''
+	document.getElementById('result').innerHTML = '<img class="loader" src="/img/loader.gif" />'
 	const response = await fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: {'content-type': 'application/json'},
 	})
+	document.getElementById('result').innerText = ''
 	const json = await response.json()
 	if (response.status != 200) {
-		return window.showError(action, json.error)
+		throw new Error(json.error)
 	}
 	await window.storeAuth(json)
 }
@@ -51,9 +55,9 @@ window.storeAuth = async function(auth) {
 	window.location = previousLocation || '/'
 }
 
-window.showError = function(action, error) {
+window.showAuthError = function(action, error) {
 	document.getElementById('send').disabled = false
-	document.getElementById('error').className = 'errored'
-	document.getElementById('error').innerText = `Could not ${action}: ${error}`
+	document.getElementById('result').className = 'errored'
+	document.getElementById('result').innerText = `Could not ${action}: ${error}`
 }
 

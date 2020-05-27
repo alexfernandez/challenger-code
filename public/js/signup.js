@@ -10,10 +10,8 @@ function sendSignup() {
 	const password = document.getElementById('password').value
 	const confirmPassword = document.getElementById('confirmPassword').value
 	if (!password || password != confirmPassword) {
-		return window.showError('signup', 'Passwords do not match')
+		return window.showAuthError('signup', 'Passwords do not match')
 	}
-	console.log('sending')
-	document.getElementById('send').disabled = true
 	const username = document.getElementById('username').value
 	const email = document.getElementById('email').value
 	const body = {username, email, password, confirmPassword}
