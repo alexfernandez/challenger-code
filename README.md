@@ -13,6 +13,25 @@ Start with
 
     $ npm start
 
+You will need a running instance of MongoDB listening to 127.0.0.1,
+no security.
+It will use database `cc`.
+
+### GitHub Authentication
+
+For authentication against GitHub you will need a file in the root directory
+called `.challenger-code.json`, containing:
+
+```
+{
+    "githubId": "...",
+    "githubSecret": "..."
+}
+```
+
+See [GitHub: Authorizing OAuth Apps](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
+for details.
+
 ## API
 
 The following API calls are published.
