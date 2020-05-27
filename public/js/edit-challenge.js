@@ -5,10 +5,10 @@ window.loaders.push(() => {
 })
 
 async function loadChallenge() {
+	document.getElementById('save').disabled = true
 	if (!window.ccAuth) {
 		return
 	}
-	document.getElementById('save').disabled = true
 	const owner = document.getElementById('owner').innerText
 	const id = document.getElementById('id').value
 	const response = await fetch(`/api/challenge/${owner}/${id}/edit`, {
@@ -18,13 +18,11 @@ async function loadChallenge() {
 			authorization: window.ccAuth.header,
 		},
 	})
+	const challenge = await response.json()
 	if (response.status != 200) {
-		response.json().then(json => {
-			window.showError(json.error)
-		})
+		window.showError(challenge.error)
 		return
 	}
-	const challenge = await response.json()
 	for (const attribute in challenge) {
 		const element = document.getElementById(attribute)
 		if (element) element.value = challenge[attribute]
