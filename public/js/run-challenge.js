@@ -17,15 +17,19 @@ window.loaders.push(() => {
 		autofocus: true,
 		cursorBlinkRate: 0,
 	})
-	document.getElementById('send').onclick = sendSolution
+	document.getElementById('send').onclick = () => {
+		sendSolution().catch(error => showError(`Could not send: ${error}`))
+	}
 	if (!window.ccAuth) return
-	document.getElementById('fork').onclick = forkChallenge
+	document.getElementById('fork').onclick = () => {
+		forkChallenge().catch(error => showError(`Could not fork: ${error}`))
+	}
 	if (window.ccAuth.role != 'admin') return
 	document.getElementById('edit').className = ''
 	document.getElementById('edit').onclick = editChallenge
 })
 
-function sendSolution() {
+async function sendSolution() {
 	codeMirror.save()
 	const solution = document.getElementById('solution').value
 	if (!window.ccAuth) {
@@ -39,45 +43,37 @@ function sendSolution() {
 	const body = {code: solution}
 	const id = document.getElementById('id').innerText
 	const owner = document.getElementById('owner').innerText
-	fetch(`/api/challenge/${owner}/${id}/run`, {
+	const response = await fetch(`/api/challenge/${owner}/${id}/run`, {
 		method: 'POST',
 		body: JSON.stringify(body),
 		headers: {
 			'content-type': 'application/json',
 			authorization: window.ccAuth.header,
 		},
-	}).then(showResponse).catch(error => showError(`Could not send: ${error}`))
-}
-
-function showResponse(response) {
+	})
 	stopFetch()
 	document.getElementById('run').className = 'disabled'
+	const json = await response.json()
 	if (response.status != 200) {
-		response.json().then(json => {
-			document.getElementById('success').innerText = `${getSuccess(false)}`
-			showError(`Could not send solution (${response.status}): ${json.error}`)
-		})
-		return
+		document.getElementById('success').innerText = `${getSuccess(false)}`
+		throw new Error(`${response.status}: ${json.error}`)
 	}
-	response.json().then(json => {
-		const stats = json.stats
-		document.getElementById('result').className = 'invisible'
-		const text = `${getSuccess(json.success)}`
-		document.getElementById('run').className = json.success ? 'success' : 'errored'
-		document.getElementById('success').innerText = text
-		for (let i = 0; i < json.results.length; i++) {
-			const result = json.results[i]
-			const success = document.getElementById(`success${i}`)
-			success.className = result.success ? 'success' : 'errored'
-			success.innerText = `${getSuccess(result.success)} in ${result.elapsed} ms`
-		}
-		if (!json.success) return
-		const timeText = `${json.elapsed} ms, min: ${stats.elapsedMin}, avg: ${stats.elapsedAvg.toFixed(1)}`
-		document.getElementById('time').innerText = timeText
-		const nodesText = `${json.nodes} nodes, min: ${stats.nodesMin}, avg: ${stats.nodesAvg.toFixed(1)}`
-		document.getElementById('nodes').innerText = nodesText
-		document.getElementById('fork').className = ''
-	})
+	const stats = json.stats
+	const text = `${getSuccess(json.success)}`
+	document.getElementById('run').className = json.success ? 'success' : 'errored'
+	document.getElementById('success').innerText = text
+	for (let i = 0; i < json.results.length; i++) {
+		const result = json.results[i]
+		const success = document.getElementById(`success${i}`)
+		success.className = result.success ? 'success' : 'errored'
+		success.innerText = `${getSuccess(result.success)} in ${result.elapsed} ms`
+	}
+	if (!json.success) return
+	const timeText = `${json.elapsed} ms, min: ${stats.elapsedMin}, avg: ${stats.elapsedAvg.toFixed(1)}`
+	document.getElementById('time').innerText = timeText
+	const nodesText = `${json.nodes} nodes, min: ${stats.nodesMin}, avg: ${stats.nodesAvg.toFixed(1)}`
+	document.getElementById('nodes').innerText = nodesText
+	document.getElementById('fork').className = ''
 }
 
 function getSuccess(success) {
@@ -87,28 +83,27 @@ function getSuccess(success) {
 
 function showError(error) {
 	stopFetch()
-	const element = document.getElementById('result')
-	element.className = 'errored'
-	element.innerText = error
+	document.getElementById('result').className = 'errored'
+	document.getElementById('result').innerText = error
 }
 
 function startFetch() {
 	document.getElementById('send').disabled = true
 	document.getElementById('fork').disabled = true
 	document.getElementById('edit').disabled = true
-	const element = document.getElementById('result')
-	element.className = ''
-	element.innerHTML = '<img class="loader" src="/img/loader.gif" />'
+	document.getElementById('result').className = ''
+	document.getElementById('result').innerHTML = '<img class="loader" src="/img/loader.gif" />'
 }
 
 function stopFetch() {
 	document.getElementById('send').disabled = false
 	document.getElementById('fork').disabled = false
 	document.getElementById('edit').disabled = false
+	document.getElementById('result').className = ''
 	document.getElementById('result').innerHTML = ''
 }
 
-function forkChallenge() {
+async function forkChallenge() {
 	codeMirror.save()
 	const solution = document.getElementById('solution').value
 	const id = document.getElementById('id').innerText
@@ -118,23 +113,21 @@ function forkChallenge() {
 		implementation: solution,
 	}
 	startFetch()
-	fetch(`/api/challenge/${owner}/${id}/fork`, {
+	const response = await fetch(`/api/challenge/${owner}/${id}/fork`, {
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
 			'content-type': 'application/json',
 			authorization: window.ccAuth.header,
 		},
-	}).then(response => {
-		stopFetch()
-		if (response.status != 200) {
-			response.json().then(json => {
-				showError(`Could not fork: ${json.error}`)
-			})
-			return
-		}
-		window.location = `/${window.ccAuth.username}/${id}/edit`
-	}).catch(showError)
+	})
+	stopFetch()
+	if (response.status != 200) {
+		const json = await response.json()
+		showError(`Could not fork: ${json.error}`)
+		return
+	}
+	window.location = `/${window.ccAuth.username}/${id}/edit`
 }
 
 function editChallenge() {
