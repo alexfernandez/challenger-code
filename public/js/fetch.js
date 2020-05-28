@@ -13,6 +13,11 @@ window.apiFetch = async function(operation, url, method, params) {
 	})
 	if (response.status == 204) return
 	const json = await response.json()
+	if (response.status == 401) {
+		localStorage.setItem('ccLocation', window.location)
+		window.location = '/user/login'
+		return
+	}
 	if (response.status != 200) {
 		throw new Error(`Could  not ${operation} (${response.status}): ${json.error}`)
 	}
