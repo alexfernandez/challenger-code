@@ -26,8 +26,8 @@ describe('User integration tests', () => {
 		await server.stop(app)
 	})
 	it('should sign up a new user', async() => {
-		const {auth, loggedIn} = await signup()
-		checkAuth(auth)
+		const {user, loggedIn} = await signup()
+		checkUser(user)
 		expect(loggedIn.headers).to.have.property('authorization')
 	})
 	it('should reject duplicated email', async() => {
@@ -53,10 +53,14 @@ describe('User integration tests', () => {
 		}
 	})
 	it('should login user', async() => {
-		const authEmail = await request.post(`${base}/api/user/login`, {email, password})
-		checkAuth(authEmail)
-		const authUsername = await request.post(`${base}/api/user/login`, {email: username, password})
-		checkAuth(authUsername)
+		console.log(1)
+		const userByEmail = await request.post(`${base}/api/user/login`, {email, password})
+		console.log(2)
+		checkUser(userByEmail)
+		console.log(3)
+		const userByUsername = await request.post(`${base}/api/user/login`, {email: username, password})
+		console.log(4)
+		checkUser(userByUsername)
 	})
 	it('should reject invalid logins', async() => {
 		try {
@@ -91,20 +95,22 @@ describe('User integration tests', () => {
 })
 
 async function signup() {
-	const auth = await request.post(`${base}/api/user/signup`, data)
-	const loggedIn = {headers: {authorization: auth.header}}
+	const user = await request.post(`${base}/api/user/signup`, data)
+	const loggedIn = {headers: {authorization: user.token}}
 	headers = loggedIn
-	return {auth, loggedIn}
+	return {user, loggedIn}
 }
 
 async function removeUser() {
 	await request.delete(`${base}/api/user/${data.username}`, '', headers)
 }
 
-function checkAuth(auth) {
-	expect(auth.username).to.equal(username)
-	expect(auth).to.have.property('header')
-	expect(auth).to.not.have.property('password')
+function checkUser(user) {
+	expect(user.username).to.equal(username)
+	expect(user).to.have.property('token')
+	expect(user).to.not.have.property('_id')
+	expect(user).to.not.have.property('password')
+	expect(user).to.not.have.property('email')
 }
 
 module.exports = {signup, removeUser}

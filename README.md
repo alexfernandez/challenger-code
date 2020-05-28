@@ -17,19 +17,24 @@ You will need a running instance of MongoDB listening to 127.0.0.1,
 no security.
 It will use database `cc`.
 
-### GitHub Authentication
+### Configuration
 
-For authentication against GitHub you will need a file in the root directory
+You will need to have a file in the root directory
 called `.challenger-code.json`, containing:
 
 ```
 {
+	"jwtSecret": "...",
     "githubId": "...",
     "githubSecret": "..."
 }
 ```
 
-See [GitHub: Authorizing OAuth Apps](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
+The first value `jwtSecret` is used to encrypt JWT tokens,
+so make sure that it is kept secret.
+The next values `githubId` and `githubSecret` are used to authenticate using GitHub.
+Please refer to
+[GitHub: Authorizing OAuth Apps](https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/)
 for details.
 
 ## API
