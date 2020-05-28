@@ -15,15 +15,15 @@
 		"output": 0
 	}, {
 		"name": "Big array ~100,000 elements, all 0s",
-		"input": ["array"],
+		"input": ["`array`"],
 		"array": "function generate() {const array = []; for (let i = 0; i < 100000; i++) {array.push(0)}; return array}"
 	}, {
 		"name": "Big array ~100,000 elements, all 1s",
-		"input": ["array"],
+		"input": ["`array`"],
 		"array": "function generate() {const array = []; for (let i = 0; i < 100000; i++) {array.push(1)}; return array}"
 	}, {
 		"name": "Big array ~100,000 elements, random",
-		"input": ["array"],
+		"input": ["`array`"],
 		"array": "function generate() {const array = []; for (let i = 0; i < 100000; i++) {array.push(Math.floor(Math.random() * 2))}; return array}"
 	}],
 	"implementation": "const solve = (array) => {let total = 0; let partial = 0; for (let i = array.length -1; i >= 0; i--) {if (array[i] ==1) {partial += 1} else {total += partial; if (total > 1000000000) return -1}}; return total}",
