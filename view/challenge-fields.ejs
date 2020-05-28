@@ -55,18 +55,24 @@ function solve(array) {
 	<h2>Verifications</h2>
 	<div id="verifications">
 	</div>
-	<p id="verification" class="verification invisible">
+	<div id="verification" class="verification invisible">
 	Public: <input type="checkbox" name="public" />
-	Name: <input type="text" name="name" value="" placeholder="Verification name" /><br/>
+	Name: <input type="text" name="name" value="" placeholder="Verification name" />
+	<br/>
 	[<input type="text" name="input" value="" placeholder="Input parameters (JSON)" />]
 	<span title="To enter a variable, place it inside backticks: `var`. You will then enter its value as a function generate() below.">ⓘ</span>
 	⇒
 	<input type="number" name="output" value="" placeholder="Output (number)" />
 	<button name="remove">-</button>
-	</p>
-	<p class="verification">
+	<br/>
+	</div>
+	<div id="variable" class="variable invisible">
+		<input type="text" name="name" /> = <textarea name="value">function generate() {
+}</textarea>
+	</div>
+	<div class="verification">
 	<button id="add-verification">+</button>
-	</p>
+	</div>
 	<p>
 	<button id="save">Save</button>
 	<span id="result"></span>
