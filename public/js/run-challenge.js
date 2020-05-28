@@ -34,7 +34,7 @@ async function sendSolution() {
 	const solution = document.getElementById('solution').value
 	if (!window.ccUser) {
 		localStorage.setItem('ccSolution', solution)
-		return sendToLogin()
+		return window.sendToLogin()
 	}
 	console.log('sending')
 	startFetch()
