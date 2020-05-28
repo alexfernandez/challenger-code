@@ -34,28 +34,17 @@ function addVerification(data = {}) {
 	const verification = document.getElementById('verification').cloneNode(true)
 	verification.id = ''
 	verification.className = 'verification'
+	const byName = {}
 	for (const child of verification.children) {
-		if (child.name == 'remove') {
-			child.onclick = removeVerification
-		} else {
-			setVerificationValue(data[child.name], child)
-		}
+		byName[child.name] = child
 	}
+	byName.remove.onclick = removeVerification
+	byName.public.checked = data.public
+	byName.name.value = data.name
+	if (data.input) byName.input.value = JSON.stringify(data.input).slice(1, -1)
+	byName.output.value = data.output
 	document.getElementById('verifications').appendChild(verification)
 	disableIfLastVerification()
-}
-
-function setVerificationValue(value, element) {
-	if (value === undefined) return
-	if (element.type == 'checkbox') {
-		element.checked = value
-		return
-	}
-	if (element.name == 'input') {
-		element.value = JSON.stringify(value).slice(1, -1)
-		return
-	}
-	element.value = value
 }
 
 function countVerifications() {
