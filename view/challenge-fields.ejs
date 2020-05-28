@@ -28,6 +28,8 @@
 	</select>
 	</p>
 	<p>
+	<label for="description">Long description</label>
+	<span title="The first occurrence of the text 'solve(...)', if present, will be used to extract the parameters for the solution.">ⓘ</span>
 	<textarea class="description" id="description" placeholder="Enter long description"></textarea>
 	</p>
 	<p>
@@ -57,6 +59,7 @@ function solve(array) {
 	Public: <input type="checkbox" name="public" />
 	Name: <input type="text" name="name" value="" placeholder="Verification name" /><br/>
 	[<input type="text" name="input" value="" placeholder="Input parameters (JSON)" />]
+	<span title="To enter a variable, place it inside backticks: `var`. You will then enter its value as a function generate() below.">ⓘ</span>
 	⇒
 	<input type="number" name="output" value="" placeholder="Output (number)" />
 	<button name="remove">-</button>
