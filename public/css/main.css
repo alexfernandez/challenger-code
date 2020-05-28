@@ -29,6 +29,7 @@ a {
 
 pre, textarea {
 	tab-size : 4;
+	vertical-align: top;
 }
 
 /* Layout */
