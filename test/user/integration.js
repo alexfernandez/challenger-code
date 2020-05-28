@@ -17,7 +17,7 @@ const data = {
 }
 let headers = null
 
-describe.only('User integration tests', () => {
+describe('User integration tests', () => {
 	let app = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
@@ -53,13 +53,9 @@ describe.only('User integration tests', () => {
 		}
 	})
 	it('should login user', async() => {
-		console.log(1)
 		const userByEmail = await request.post(`${base}/api/user/login`, {email, password})
-		console.log(2)
 		checkUser(userByEmail)
-		console.log(3)
 		const userByUsername = await request.post(`${base}/api/user/login`, {email: username, password})
-		console.log(4)
 		checkUser(userByUsername)
 	})
 	it('should reject invalid logins', async() => {
@@ -78,12 +74,12 @@ describe.only('User integration tests', () => {
 		}
 	})
 	it('should find correct user', async() => {
-		const user = await request.get(`${base}/api/user/${username}`)
+		const user = await request.get(`${base}/api/user/${username}`, '', headers)
 		expect(user.username).to.equal(username)
 		expect(user.email).to.equal(email)
 		expect(user).to.not.have.property('password')
 		try {
-			await request.get(`${base}/api/user/${username}fedro`)
+			await request.get(`${base}/api/user/${username}fedro`, '', headers)
 			throw new TestError('Invalid username')
 		} catch(error) {
 			expect(error.constructor.name).to.equal('RequestError')
@@ -96,7 +92,7 @@ describe.only('User integration tests', () => {
 
 async function signup() {
 	const user = await request.post(`${base}/api/user/signup`, data)
-	const loggedIn = {headers: {authorization: user.token}}
+	const loggedIn = {headers: {authorization: `Bearer ${user.token}`}}
 	headers = loggedIn
 	return {user, loggedIn}
 }
