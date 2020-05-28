@@ -32,6 +32,10 @@ pre, textarea {
 	vertical-align: top;
 }
 
+textarea {
+	border: #888 solid thin;
+}
+
 /* Layout */
 
 .columns {
@@ -141,11 +145,21 @@ button:focus, .button:focus {
 /* Editor */
 
 .CodeMirror {
-	border: black solid thin;
+	border: #888 solid thin;
 	margin: 0.5em;
+	height: auto;
 	/*
 	max-width: 100%;
 	width: 100%;
 	*/
+}
+
+.code {
+	display: inline-block;
+	max-width: 50%;
+	border: #888 solid thin;
+	background-color: white;
+	tab-size : 4;
+	vertical-align: top;
 }
 

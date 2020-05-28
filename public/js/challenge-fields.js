@@ -46,8 +46,9 @@ function addVerification(data = {}) {
 		const variable = document.getElementById('variable').cloneNode(true)
 		variable.classList.remove('invisible')
 		const byName = sortByName(variable)
+		console.log(byName)
 		byName.name.value = name
-		byName.value.value = input.variables[name]
+		byName.undefined.innerText = input.variables[name]
 		verification.appendChild(variable)
 	}
 	document.getElementById('verifications').appendChild(verification)
