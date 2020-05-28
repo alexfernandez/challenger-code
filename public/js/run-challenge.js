@@ -20,11 +20,11 @@ window.loaders.push(() => {
 	document.getElementById('send').onclick = () => {
 		sendSolution().catch(error => showError(`Could not send: ${error}`))
 	}
-	if (!window.ccAuth) return
+	if (!window.ccUser) return
 	document.getElementById('fork').onclick = () => {
 		forkChallenge().catch(error => showError(`Could not fork: ${error}`))
 	}
-	if (window.ccAuth.role != 'admin') return
+	if (window.ccUser.role != 'admin') return
 	document.getElementById('edit').className = ''
 	document.getElementById('edit').onclick = editChallenge
 })
@@ -32,11 +32,9 @@ window.loaders.push(() => {
 async function sendSolution() {
 	codeMirror.save()
 	const solution = document.getElementById('solution').value
-	if (!window.ccAuth) {
-		localStorage.setItem('ccLocation', window.location)
+	if (!window.ccUser) {
 		localStorage.setItem('ccSolution', solution)
-		window.location = '/user/login'
-		return
+		return sendToLogin()
 	}
 	console.log('sending')
 	startFetch()
@@ -97,13 +95,13 @@ async function forkChallenge() {
 	const id = document.getElementById('id').innerText
 	const owner = document.getElementById('owner').innerText
 	const data = {
-		owner: window.ccAuth.username,
+		owner: window.ccUser.username,
 		implementation: solution,
 	}
 	startFetch()
 	await window.apiFetch('fork', `${owner}/${id}/fork`, 'POST', data)
 	stopFetch()
-	window.location = `/${window.ccAuth.username}/${id}/edit`
+	window.location = `/${window.ccUser.username}/${id}/edit`
 }
 
 function editChallenge() {

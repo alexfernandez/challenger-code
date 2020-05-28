@@ -3,7 +3,7 @@
 
 window.loaders.push(() => {
 	const username = document.getElementById('username').innerText
-	if  (window.ccAuth && window.ccAuth.username == username) {
+	if  (window.ccUser && window.ccUser.username == username) {
 		document.getElementById('personal').className = ''
 		document.getElementById('create').className = ''
 		processClass('edit', makeVisible)
@@ -22,7 +22,7 @@ window.loaders.push(() => {
 		})
 	}
 	document.getElementById('logout').onclick = () => {
-		localStorage.removeItem('ccAuth')
+		localStorage.removeItem('ccUser')
 		window.location = '/'
 	}
 })

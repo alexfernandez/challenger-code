@@ -10,6 +10,6 @@ function sendLogin() {
 	const email = document.getElementById('email').value
 	const password = document.getElementById('password').value
 	const body = {email, password}
-	window.processAuth('login', `/api/user/login`, body)
+	window.processUser('login', `/api/user/login`, body)
 }
 

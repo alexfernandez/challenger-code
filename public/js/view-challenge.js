@@ -2,7 +2,7 @@
 
 window.loaders.push(() => {
 	const owner = document.getElementById('owner').innerText
-	if (window.ccAuth && window.ccAuth.username == owner) {
+	if (window.ccUser && window.ccUser.username == owner) {
 		document.getElementById('edit').className = ''
 		document.getElementById('delete').className = ''
 		const deletion = new window.Deletion({

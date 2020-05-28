@@ -8,15 +8,13 @@ window.apiFetch = async function(operation, url, method, params) {
 		body,
 		headers: {
 			'content-type': 'application/json',
-			authorization: window.ccAuth.header,
+			authorization: `Bearer ${window.ccUser.token}`,
 		},
 	})
 	if (response.status == 204) return
 	const json = await response.json()
 	if (response.status == 401) {
-		localStorage.setItem('ccLocation', window.location)
-		window.location = '/user/login'
-		return
+		return window.sendToLogin()
 	}
 	if (response.status != 200) {
 		throw new Error(`Could  not ${operation} (${response.status}): ${json.error}`)
@@ -39,8 +37,8 @@ window.Saving = class Saving {
 	}
 
 	async saveChallenge() {
-		if (!window.ccAuth) {
-			throw new Error('Invalid authorization')
+		if (!window.ccUser) {
+			throw new Error('Invalid user')
 		}
 		console.log('saving')
 		this.codeMirror.save()

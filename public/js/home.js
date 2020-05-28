@@ -1,7 +1,7 @@
 'use strict'
 
 window.loaders.push(() => {
-	if (window.ccAuth && window.ccAuth.role == 'admin') {
+	if (window.ccUser && window.ccUser.role == 'admin') {
 		document.getElementById('create').className = ''
 	}
 })

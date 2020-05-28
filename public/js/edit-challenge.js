@@ -6,8 +6,8 @@ window.loaders.push(() => {
 
 async function loadChallenge() {
 	document.getElementById('save').disabled = true
-	if (!window.ccAuth) {
-		return
+	if (!window.ccUser) {
+		return window.sendToLogin()
 	}
 	const owner = document.getElementById('owner').innerText
 	const id = document.getElementById('id').value
