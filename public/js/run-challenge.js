@@ -43,21 +43,9 @@ async function sendSolution() {
 	const body = {code: solution}
 	const id = document.getElementById('id').innerText
 	const owner = document.getElementById('owner').innerText
-	const response = await fetch(`/api/challenge/${owner}/${id}/run`, {
-		method: 'POST',
-		body: JSON.stringify(body),
-		headers: {
-			'content-type': 'application/json',
-			authorization: window.ccAuth.header,
-		},
-	})
-	stopFetch()
 	document.getElementById('run').className = 'disabled'
-	const json = await response.json()
-	if (response.status != 200) {
-		document.getElementById('success').innerText = `${getSuccess(false)}`
-		throw new Error(`${response.status}: ${json.error}`)
-	}
+	const json = await window.apiFetch('run', `${owner}/${id}/run`, 'POST', body)
+	stopFetch()
 	const stats = json.stats
 	const text = `${getSuccess(json.success)}`
 	document.getElementById('run').className = json.success ? 'success' : 'errored'
@@ -113,20 +101,8 @@ async function forkChallenge() {
 		implementation: solution,
 	}
 	startFetch()
-	const response = await fetch(`/api/challenge/${owner}/${id}/fork`, {
-		method: 'POST',
-		body: JSON.stringify(data),
-		headers: {
-			'content-type': 'application/json',
-			authorization: window.ccAuth.header,
-		},
-	})
+	await window.apiFetch('fork', `${owner}/${id}/fork`, 'POST', data)
 	stopFetch()
-	if (response.status != 200) {
-		const json = await response.json()
-		showError(`Could not fork: ${json.error}`)
-		return
-	}
 	window.location = `/${window.ccAuth.username}/${id}/edit`
 }
 
