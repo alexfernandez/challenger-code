@@ -20,8 +20,8 @@ describe('Challenge integration tests', function() {
 	let username = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
-		const {auth, loggedIn} = await signup()
-		username = auth.username
+		const {user, loggedIn} = await signup()
+		username = user.username
 		headers = loggedIn
 	})
 	after(async() => {
