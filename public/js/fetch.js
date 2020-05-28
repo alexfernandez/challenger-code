@@ -1,9 +1,9 @@
 'use strict'
 
 
-window.apiFetch = async function(operation, owner, id, method, params) {
-	const body = body ? JSON.stringify(params) : undefined
-	const response = await fetch(`/api/challenge/${owner}/${id}/${operation}`, {
+window.apiFetch = async function(operation, url, method, params) {
+	const body = params ? JSON.stringify(params) : undefined
+	const response = await fetch(`/api/challenge/${url}`, {
 		method,
 		body,
 		headers: {
