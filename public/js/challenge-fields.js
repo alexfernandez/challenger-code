@@ -33,18 +33,63 @@ async function loadPage() {
 function addVerification(data = {}) {
 	const verification = document.getElementById('verification').cloneNode(true)
 	verification.id = ''
-	verification.className = 'verification'
-	const byName = {}
-	for (const child of verification.children) {
-		byName[child.name] = child
-	}
+	verification.classList.remove('invisible')
+	const byName = sortByName(verification)
 	byName.remove.onclick = removeVerification
 	byName.public.checked = data.public
 	byName.name.value = data.name
-	if (data.input) byName.input.value = JSON.stringify(data.input).slice(1, -1)
+	const input = new Input(data)
+	byName.input.value = input.string
 	byName.output.value = data.output
+	console.log(input)
+	for (const name in input.variables) {
+		const variable = document.getElementById('variable').cloneNode(true)
+		variable.classList.remove('invisible')
+		const byName = sortByName(variable)
+		byName.name.value = name
+		byName.value.value = input.variables[name]
+		verification.appendChild(variable)
+	}
 	document.getElementById('verifications').appendChild(verification)
 	disableIfLastVerification()
+}
+
+function sortByName(parent) {
+	const byName = {}
+	for (const child of parent.children) {
+		byName[child.name] = child
+	}
+	return byName
+}
+
+class Input {
+	constructor(data) {
+		this.data = data
+		this.string = ''
+		this.variables = {}
+		this.build()
+	}
+
+	build() {
+		if (!this.data.input) return
+		const parameters = []
+		for (const element of this.data.input) {
+			const parameter = this.getParameter(element)
+			parameters.push(parameter)
+		}
+		this.string = parameters.join(',')
+	}
+
+	getParameter(element) {
+		const json = JSON.stringify(element)
+		if (typeof element != 'string') return json
+		const match = element.match(/^`(\w+)`$/)
+		if (!match) return json
+		const name = match[1]
+		const value = this.data[name]
+		this.variables[name] = value
+		return element
+	}
 }
 
 function countVerifications() {
