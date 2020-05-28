@@ -17,7 +17,7 @@ const data = {
 }
 let headers = null
 
-describe('User integration tests', () => {
+describe.only('User integration tests', () => {
 	let app = null
 	before(async() => {
 		app = await server.start({port, quiet: true})
