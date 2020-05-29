@@ -1,5 +1,6 @@
 {
 	"id": "higher-than",
+	"owner": "main",
 	"category": "lists",
 	"difficulty": "basic",
 	"name": "Count values higher than given value",

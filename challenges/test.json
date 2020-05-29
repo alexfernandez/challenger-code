@@ -1,5 +1,6 @@
 {
 	"id": "test",
+	"owner": "main",
 	"category": "test",
 	"difficulty": "test",
 	"name": "Test Challenge",

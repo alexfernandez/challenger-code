@@ -1,5 +1,6 @@
 {
 	"id": "east-west-pairs",
+	"owner": "main",
 	"category": "prefix-pairs",
 	"difficulty": "medium",
 	"name": "Count pairs of cars going East and West",
