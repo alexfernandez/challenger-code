@@ -152,9 +152,11 @@ class Input {
 		})
 		variableEditors.push(editor)
 		this.editors[name] = editor
+		setTimeout(() => editor.refresh(), 10)
 	}
 
 	removeEditor(name, editor) {
+		console.log(`removing ${name}`)
 		const textArea = editor.getTextArea()
 		editor.toTextArea()
 		textArea.parentElement.removeChild(textArea)
