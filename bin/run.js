@@ -11,7 +11,6 @@ const options = stdio.getopt({
 	mongodb: {key: 'm', args: 1, description: 'MongoDB connection string', default: 'mongodb://localhost/cc'},
 	quiet: {key: 'q', description: 'Do not pipe output'},
 })
-console.log(options)
 
 runChallenge(options).catch(error => {
 	if (process.send) {
