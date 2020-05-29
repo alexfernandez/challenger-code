@@ -162,6 +162,7 @@ class Input {
 		const textArea = editor.getTextArea()
 		editor.toTextArea()
 		textArea.parentElement.removeChild(textArea)
+		delete this.editors[name]
 	}
 }
 
