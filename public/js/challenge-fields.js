@@ -158,7 +158,7 @@ function readVerification(element) {
 		public: byName.public.checked,
 		name: byName.name.value,
 		input: byName.input.value,
-		output: byName.output.value,
+		output: parseFloat(byName.output.value),
 	}
 	if (!verification.name) showVerificationError(byName.name)
 	if (isNaN(verification.output)) showVerificationError(byName.output)
