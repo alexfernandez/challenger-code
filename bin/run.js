@@ -8,9 +8,10 @@ const options = stdio.getopt({
 	challengeId: {key: 'i', args: 1, description: 'Challenge identifier'},
 	code: {key: 'c', args: 1, description: 'Code for the challenge'},
 	sender: {key: 's', args: 1, description: 'Name of user sending'},
-	mongodb: {key: 'm', description: 'MongoDB connection string', default: 'mongodb://localhost/cc'},
+	mongodb: {key: 'm', args: 1, description: 'MongoDB connection string', default: 'mongodb://localhost/cc'},
 	quiet: {key: 'q', description: 'Do not pipe output'},
 })
+console.log(options)
 
 runChallenge(options).catch(error => {
 	if (process.send) {
