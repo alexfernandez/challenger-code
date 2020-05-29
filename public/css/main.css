@@ -60,7 +60,7 @@ textarea {
 	line-height: 2em;
 }
 
-.user, .repo {
+.user, .repo, .forked {
 	text-align: right;
 }
 

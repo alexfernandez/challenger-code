@@ -9,9 +9,17 @@
 	<body>
 		<%- include('topbar.ejs') %>
 		<div class="wrapper">
-			<p>
+			<div class="columns">
+				<p>
 				<a href="/<% challenge.owner %>"><span id="owner"><%= challenge.owner %></span></a> /
 				<span id="id"><%= challenge.id %></span>
+				</p>
+				<p class="forked">
+				<% if (challenge.origin) { %>
+				(forked from <a href="/<%= challenge.origin %>"><%= challenge.origin %></a>)
+				<% } %>
+				</p>
+			</div>
 			</p>
 			<h1 id="name"><%= challenge.name %></h1>
 			<h2>The Challenge</h2>
