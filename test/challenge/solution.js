@@ -9,7 +9,7 @@ const {createTestChallenge} = require('./challenge.js')
 const sender = `pap${createTestToken()}`
 
 
-describe.only('Solution model tests', function() {
+describe('Solution model tests', function() {
 	this.timeout(5000)
 	let challenge = null
 	before(async() => {
