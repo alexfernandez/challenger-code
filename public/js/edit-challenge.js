@@ -16,6 +16,7 @@ async function loadChallenge() {
 		const element = document.getElementById(attribute)
 		if (element) element.value = challenge[attribute]
 	}
+	window.codeMirror.setValue(challenge.implementation)
 	for (const verification of challenge.verifications) {
 		window.addVerification(verification)
 	}
