@@ -60,5 +60,5 @@ async function createTestChallenge() {
 	return challenge
 }
 
-module.exports = {createChallenge}
+module.exports = {createTestChallenge}
 
