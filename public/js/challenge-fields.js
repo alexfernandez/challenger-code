@@ -12,6 +12,7 @@ const codeMirrorConfig = {
 	lineNumbers: true,
 	autofocus: true,
 	cursorBlinkRate: 0,
+	viewportMargin: Infinity,
 }
 
 window.loaders.push(() => {
@@ -141,6 +142,7 @@ class Input {
 		this.element.appendChild(variable)
 		const editor = CodeMirror.fromTextArea(variable, {
 			...codeMirrorConfig,
+			autofocus: false,
 			lineNumbers: false,
 		})
 		const panel = document.getElementById('panel').cloneNode(true)
