@@ -95,18 +95,15 @@ class Input {
 		console.log('writing')
 		input.value = this.string
 		input.onkeyup = () => {
-			console.log('keyup')
 			if (this.timeout) clearTimeout(this.timeout)
 			this.timeout = setTimeout(() => this.refreshParameters(input.value), 1000)
 		}
 	}
 
 	refreshParameters(input) {
-		console.log('refreshing')
 		const matches = input.matchAll(/\$\{(\p{L}[\p{L}|\p{N}]*)\}/gu)
 		const variables = [...matches].map(match => match[1])
 		for (const name of variables) {
-			console.log(name)
 			if (!this.variables[name]) {
 				console.log(`adding ${name}`)
 				this.variables[name] = `const ${name} = `
@@ -123,7 +120,6 @@ class Input {
 	buildEditors() {
 		for (const [name, value] of Object.entries(this.variables)) {
 			if (!this.editors[name]) {
-				console.log('adding', name, value)
 				this.buildEditor(name, value)
 			}
 		}
