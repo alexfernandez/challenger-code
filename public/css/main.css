@@ -148,7 +148,7 @@ button:focus, .button:focus {
 	border: #888 solid thin;
 	min-height: 3em;
 	height: auto;
-	margin: 0.1em 0;
+	margin-bottom: 0.1em;
 	/*
 	max-width: 100%;
 	width: 100%;
@@ -168,7 +168,7 @@ button:focus, .button:focus {
 	border: #888 solid thin;
 	border-bottom: none;
 	background: #f7f7f7;
-	padding: 3px 7px;
+	padding: 0.1em 0.2em;
 	font-size: 0.85em;
 }
 

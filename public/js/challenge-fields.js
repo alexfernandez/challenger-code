@@ -64,6 +64,7 @@ class Input {
 		this.string = ''
 		this.variables = {}
 		this.editors = {}
+		this.panels = {}
 		this.timeout = null
 		this.readParameters()
 	}
@@ -134,6 +135,12 @@ class Input {
 	}
 
 	buildEditor(name, value) {
+		const panel = document.getElementById('panel').cloneNode(true)
+		panel.id = ''
+		panel.classList.remove('invisible')
+		panel.innerText = name
+		this.element.appendChild(panel)
+		this.panels[name] = panel
 		const variable = document.getElementById('variable').cloneNode(true)
 		variable.classList.remove('invisible')
 		variable.id = ''
@@ -144,13 +151,6 @@ class Input {
 			...codeMirrorConfig,
 			autofocus: false,
 			lineNumbers: false,
-		})
-		const panel = document.getElementById('panel').cloneNode(true)
-		panel.id = ''
-		panel.classList.remove('invisible')
-		panel.innerText = name
-		editor.addPanel(panel, {
-			position: top,
 		})
 		variableEditors.push(editor)
 		this.editors[name] = editor
@@ -163,6 +163,9 @@ class Input {
 		editor.toTextArea()
 		textArea.parentElement.removeChild(textArea)
 		delete this.editors[name]
+		const panel = this.panels[name]
+		panel.parentElement.removeChild(panel)
+		delete this.panels[name]
 	}
 }
 
