@@ -1,9 +1,10 @@
 const {expect} = require('chai')
-const {Challenge} = require('../../lib/challenge/challenge.js')
+const {createChallenge} = require('../../lib/challenge/challenge.js')
 
 
 const data = {
 	id: 'test',
+	owner: 'test',
 	category: 'test',
 	difficulty: 'test',
 	name: 'Test',
@@ -35,7 +36,7 @@ describe('Challenge model tests', function() {
 	this.timeout(5000)
 	let challenge = null
 	it('should create challenge', async() => {
-		challenge = await createChallenge()
+		challenge = await createTestChallenge()
 		expect(challenge.id).to.equal('test')
 		expect(challenge).to.have.property('verifications')
 		expect(challenge.verifications.length).to.equal(3)
@@ -53,8 +54,8 @@ describe('Challenge model tests', function() {
 	})
 })
 
-async function createChallenge() {
-	const challenge = new Challenge(data)
+async function createTestChallenge() {
+	const challenge = createChallenge(data)
 	await challenge.init()
 	return challenge
 }
