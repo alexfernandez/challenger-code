@@ -150,33 +150,20 @@ function readVerifications() {
 }
 
 function readVerification(element) {
-	const verification = {}
-	for (const child of element.children) {
-		if (child.name) {
-			const value = getVerificationField(child)
-			if (isInvalid(child.name, value)) {
-				child.className = 'errored'
-				throw new Error(`${child.name} cannot be empty`)
-			}
-			child.className = ''
-			verification[child.name] = getVerificationField(child)
-		}
+	const byName = sortByName(element)
+	const verification = {
+		public: byName.public.checked,
+		name: byName.name.value,
+		input: byName.input.value,
+		output: byName.output.value,
 	}
+	if (!verification.name) showVerificationError(byName.name)
+	if (isNaN(verification.output)) showVerificationError(byName.output)
 	return verification
 }
 
-function isInvalid(name, value) {
-	if (name == 'public') return false
-	if (typeof value == 'string' && value === '') return true
-	if (typeof value == 'number' && isNaN(value)) return true
-	return false
-}
-
-function getVerificationField(element) {
-	if (element.type == 'checkbox') return element.checked
-	if (element.name == 'input') return JSON.parse(`[${element.value}]`)
-	if (element.name == 'output') return parseFloat(element.value)
-	if (element.name == 'remove') return undefined
-	return element.value
+function showVerificationError(field) {
+	field.className = 'errored'
+	throw new Error(`${field.name} cannot be empty`)
 }
 
