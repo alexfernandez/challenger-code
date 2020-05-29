@@ -169,7 +169,8 @@ function readVerification(element) {
 	const variables = [...matches].map(match => match[1])
 	let result = verification.input
 	for (const variable of variables) {
-		result = result.replace(new RegExp(`${variable}`, 'g'), `"${variable}"`)
+		// do not use template string since the variable is already ${variable}
+		result = result.replace('${' + variable + '}', '"${' + variable + '}"')
 		verification[variable] = byName[`var-${variable}`].value
 	}
 	verification.input = result
