@@ -62,9 +62,9 @@ class Input {
 		this.verification = verification
 		this.element = element
 		this.string = ''
-		this.variables = {}
-		this.editors = {}
-		this.panels = {}
+		this.variables = new Map()
+		this.editors = new Map()
+		this.panels = new Map()
 		this.timeout = null
 		this.readParameters()
 	}
@@ -87,7 +87,7 @@ class Input {
 		if (!matches) return JSON.stringify(parameter)
 		const name = matches[1]
 		const value = this.verification[name]
-		this.variables[name] = value
+		this.variables.set(name, value)
 		return parameter
 	}
 
@@ -104,27 +104,27 @@ class Input {
 		const matches = input.matchAll(/\$\{(\p{L}[\p{L}|\p{N}]*)\}/gu)
 		const variables = [...matches].map(match => match[1])
 		for (const name of variables) {
-			if (!this.variables[name]) {
+			if (!this.variables.has(name)) {
 				console.log(`adding ${name}`)
-				this.variables[name] = `const ${name} = `
+				this.variables.set(name, `const ${name} = `)
 			}
 		}
-		for (const [name] of Object.entries(this.variables)) {
+		for (const [name] of this.variables.entries()) {
 			if (!variables.includes(name)) {
-				delete this.variables[name]
+				this.variables.delete(name)
 			}
 		}
 		this.buildEditors()
 	}
 
 	buildEditors() {
-		for (const [name, value] of Object.entries(this.variables)) {
-			if (!this.editors[name]) {
+		for (const [name, value] of this.variables.entries()) {
+			if (!this.editors.has(name)) {
 				this.buildEditor(name, value)
 			}
 		}
-		for (const [name, editor] of Object.entries(this.editors)) {
-			if (!this.variables[name]) {
+		for (const [name, editor] of this.editors.entries()) {
+			if (!this.variables.has(name)) {
 				this.removeEditor(name, editor)
 			}
 		}
@@ -136,7 +136,7 @@ class Input {
 		panel.classList.remove('invisible')
 		panel.innerText = name
 		this.element.appendChild(panel)
-		this.panels[name] = panel
+		this.panels.set(name, panel)
 		const variable = document.getElementById('variable').cloneNode(true)
 		variable.classList.remove('invisible')
 		variable.id = ''
@@ -149,7 +149,7 @@ class Input {
 			lineNumbers: false,
 		})
 		variableEditors.push(editor)
-		this.editors[name] = editor
+		this.editors.set(name, editor)
 		setTimeout(() => editor.refresh(), 10)
 	}
 
@@ -158,10 +158,10 @@ class Input {
 		const textArea = editor.getTextArea()
 		editor.toTextArea()
 		textArea.parentElement.removeChild(textArea)
-		delete this.editors[name]
-		const panel = this.panels[name]
+		this.editors.delete(name)
+		const panel = this.panels.get(name)
 		panel.parentElement.removeChild(panel)
-		delete this.panels[name]
+		this.panels.delete(name)
 	}
 }
 
