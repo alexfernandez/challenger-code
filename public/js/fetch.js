@@ -84,7 +84,7 @@ window.Deletion = class Deletion {
 		this.button.disabled = true
 		this.result.className = ''
 		this.result.innerText = ''
-		const sure = confirm(`Are you sure you want to delete challenge ${this.name}?`)
+		const sure = confirm(`Are you sure you want to delete challenge "${this.name}"?`)
 		if (!sure) return
 		await window.apiFetch('delete', `${this.owner}/${this.id}`, 'DELETE')
 		this.button.disabled = false
