@@ -57,6 +57,7 @@ window.Saving = class Saving {
 	}
 
 	showError(error) {
+		console.error(error)
 		this.button.disabled = false
 		this.result.className = 'errored'
 		this.result.innerText = `❌ Could not save: ${error}`
