@@ -146,7 +146,6 @@ button:focus, .button:focus {
 
 .CodeMirror {
 	border: #888 solid thin;
-	margin: 0.5em;
 	height: auto;
 	/*
 	max-width: 100%;
@@ -161,5 +160,13 @@ button:focus, .button:focus {
 	background-color: white;
 	tab-size : 4;
 	vertical-align: top;
+}
+
+.panel {
+	border: #888 solid thin;
+	border-bottom: none;
+	background: #f7f7f7;
+	padding: 3px 7px;
+	font-size: 0.85em;
 }
 
