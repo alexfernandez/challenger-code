@@ -7,11 +7,11 @@
 	"verifications": [{
 		"public": true,
 		"name": "Empty parameters",
-		"input": [],
+		"input": "",
 		"output": 0
 	}, {
 		"name": "Many parameters",
-		"input": [1, [1,2,3,4,5,6,7,8,9,1,2,3,4,5]],
+		"input": "1, [1,2,3,4,5,6,7,8,9,1,2,3,4,5]",
 		"output": 0
 	}],
 	"implementation": "const solve = () => 0",

@@ -5,21 +5,22 @@ const fields = [
 	'id', 'name', 'description', 'difficulty', 'category',
 	'runningTimeoutSeconds', 'maxMinutes', 'implementation',
 ]
+const codeMirrorConfig = {
+	mode:  'javascript',
+	indentUnit: 4,
+	indentWithTabs: true,
+	lineWrapping: true,
+	lineNumbers: true,
+	autofocus: true,
+	cursorBlinkRate: 0,
+}
 
 window.loaders.push(() => {
 	loadPage().catch(console.error)
 })
 
 async function loadPage() {
-	codeMirror = CodeMirror.fromTextArea(document.getElementById('implementation'), {
-		mode:  'javascript',
-		indentUnit: 4,
-		indentWithTabs: true,
-		lineWrapping: true,
-		lineNumbers: true,
-		autofocus: true,
-		cursorBlinkRate: 0,
-	})
+	codeMirror = CodeMirror.fromTextArea(document.getElementById('implementation'), codeMirrorConfig)
 	document.getElementById('add-verification').onclick = () => addVerification()
 	const saving = new window.Saving({
 		codeMirror,
@@ -44,11 +45,20 @@ function addVerification(data = {}) {
 	for (const name in input.variables) {
 		const variable = document.getElementById('variable').cloneNode(true)
 		variable.classList.remove('invisible')
-		const byName = sortByName(variable)
-		console.log(byName)
-		byName.name.value = name
-		byName.undefined.innerText = input.variables[name]
+		variable.id = ''
+		variable.value = input.variables[name]
 		verification.appendChild(variable)
+		const editor = CodeMirror.fromTextArea(variable, {
+			...codeMirrorConfig,
+			lineNumbers: false,
+		})
+		const panel = document.getElementById('panel').cloneNode(true)
+		panel.id = ''
+		panel.classList.remove('invisible')
+		panel.innerText = name
+		editor.addPanel(panel, {
+			position: top,
+		})
 	}
 	document.getElementById('verifications').appendChild(verification)
 	disableIfLastVerification()
@@ -72,23 +82,26 @@ class Input {
 
 	build() {
 		if (!this.data.input) return
-		const parameters = []
-		for (const element of this.data.input) {
-			const parameter = this.getParameter(element)
-			parameters.push(parameter)
+		console.log(this.data.input)
+		const parameters = JSON.parse(`[${this.data.input}]`)
+		const result = []
+		for (const parameter of parameters) {
+			const display = this.getDisplay(parameter)
+			result.push(display)
 		}
-		this.string = parameters.join(',')
+		this.string = result.join(',')
 	}
 
-	getParameter(element) {
-		const json = JSON.stringify(element)
-		if (typeof element != 'string') return json
-		const match = element.match(/^`(\w+)`$/)
-		if (!match) return json
+	getDisplay(parameter) {
+		if (typeof parameter != 'string') return JSON.stringify(parameter)
+		// variable in backticks starting with a letter, then alphanumeric sequence
+		const match = parameter.match(/^`(\p{L}[\p{L}|\p{N}]*)`$/u)
+		if (!match) return JSON.stringify(parameter)
+		console.log(match)
 		const name = match[1]
 		const value = this.data[name]
 		this.variables[name] = value
-		return element
+		return name
 	}
 }
 
