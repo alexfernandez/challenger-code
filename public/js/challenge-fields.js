@@ -93,13 +93,13 @@ class Input {
 
 	getDisplay(parameter) {
 		if (typeof parameter != 'string') return JSON.stringify(parameter)
-		// variable in backticks starting with a letter, then alphanumeric sequence
-		const match = parameter.match(/^`(\p{L}[\p{L}|\p{N}]*)`$/u)
+		// variable in ${} starting with a letter, then alphanumeric sequence
+		const match = parameter.match(/^\$\{(\p{L}[\p{L}|\p{N}]*)\}$/u)
 		if (!match) return JSON.stringify(parameter)
 		const name = match[1]
 		const value = this.data[name]
 		this.variables[name] = value
-		return name
+		return parameter
 	}
 }
 
