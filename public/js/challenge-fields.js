@@ -17,6 +17,7 @@ const codeMirrorConfig = {
 window.loaders.push(() => {
 	loadPage().catch(console.error)
 })
+const variableEditors = []
 
 async function loadPage() {
 	const implementation = document.getElementById('implementation')
@@ -46,6 +47,7 @@ function addVerification(data = {}) {
 		const variable = document.getElementById('variable').cloneNode(true)
 		variable.classList.remove('invisible')
 		variable.id = ''
+		variable.name = `var-${name}`
 		variable.value = input.variables[name]
 		verification.appendChild(variable)
 		const editor = CodeMirror.fromTextArea(variable, {
@@ -59,6 +61,7 @@ function addVerification(data = {}) {
 		editor.addPanel(panel, {
 			position: top,
 		})
+		variableEditors.push(editor)
 	}
 	document.getElementById('verifications').appendChild(verification)
 	disableIfLastVerification()
@@ -94,9 +97,9 @@ class Input {
 	getDisplay(parameter) {
 		if (typeof parameter != 'string') return JSON.stringify(parameter)
 		// variable in ${} starting with a letter, then alphanumeric sequence
-		const match = parameter.match(/^\$\{(\p{L}[\p{L}|\p{N}]*)\}$/u)
-		if (!match) return JSON.stringify(parameter)
-		const name = match[1]
+		const matches = parameter.match(/^\$\{(\p{L}[\p{L}|\p{N}]*)\}$/u)
+		if (!matches) return JSON.stringify(parameter)
+		const name = matches[1]
 		const value = this.data[name]
 		this.variables[name] = value
 		return parameter
@@ -159,6 +162,17 @@ function readVerification(element) {
 	}
 	if (!verification.name) showVerificationError(byName.name)
 	if (isNaN(verification.output)) showVerificationError(byName.output)
+	for (const editor of variableEditors) {
+		editor.save()
+	}
+	const matches = verification.input.matchAll(/\$\{(\p{L}[\p{L}|\p{N}]*)\}/gu)
+	const variables = [...matches].map(match => match[1])
+	let result = verification.input
+	for (const variable of variables) {
+		result = result.replace(new RegExp(`${variable}`, 'g'), `"${variable}"`)
+		verification[variable] = byName[`var-${variable}`].value
+	}
+	verification.input = result
 	return verification
 }
 
