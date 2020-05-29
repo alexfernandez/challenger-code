@@ -32,38 +32,19 @@ async function loadPage() {
 	saving.setup()
 }
 
-function addVerification(data = {}) {
-	const verification = document.getElementById('verification').cloneNode(true)
-	verification.id = ''
-	verification.classList.remove('invisible')
-	const byName = sortByName(verification)
+function addVerification(verification = {}) {
+	const element = document.getElementById('verification').cloneNode(true)
+	element.id = ''
+	element.classList.remove('invisible')
+	const byName = sortByName(element)
 	byName.remove.onclick = removeVerification
-	byName.public.checked = data.public
-	byName.name.value = data.name || ''
-	const input = new Input(data)
+	byName.public.checked = verification.public
+	byName.name.value = verification.name || ''
+	const input = new Input(verification, element)
 	byName.input.value = input.string
-	byName.output.value = data.output
-	for (const name in input.variables) {
-		const variable = document.getElementById('variable').cloneNode(true)
-		variable.classList.remove('invisible')
-		variable.id = ''
-		variable.name = `var-${name}`
-		variable.value = input.variables[name]
-		verification.appendChild(variable)
-		const editor = CodeMirror.fromTextArea(variable, {
-			...codeMirrorConfig,
-			lineNumbers: false,
-		})
-		const panel = document.getElementById('panel').cloneNode(true)
-		panel.id = ''
-		panel.classList.remove('invisible')
-		panel.innerText = name
-		editor.addPanel(panel, {
-			position: top,
-		})
-		variableEditors.push(editor)
-	}
-	document.getElementById('verifications').appendChild(verification)
+	byName.output.value = verification.output
+	input.buildEditors()
+	document.getElementById('verifications').appendChild(element)
 	disableIfLastVerification()
 }
 
@@ -76,16 +57,18 @@ function sortByName(parent) {
 }
 
 class Input {
-	constructor(data) {
-		this.data = data
+	constructor(verification, element) {
+		this.verification = verification
+		this.element = element
 		this.string = ''
 		this.variables = {}
-		this.build()
+		this.editors = {}
+		this.readParameters()
 	}
 
-	build() {
-		if (!this.data.input) return
-		const parameters = JSON.parse(`[${this.data.input}]`)
+	readParameters() {
+		if (!this.verification.input) return
+		const parameters = JSON.parse(`[${this.verification.input}]`)
 		const result = []
 		for (const parameter of parameters) {
 			const display = this.getDisplay(parameter)
@@ -100,9 +83,37 @@ class Input {
 		const matches = parameter.match(/^\$\{(\p{L}[\p{L}|\p{N}]*)\}$/u)
 		if (!matches) return JSON.stringify(parameter)
 		const name = matches[1]
-		const value = this.data[name]
+		const value = this.verification[name]
 		this.variables[name] = value
 		return parameter
+	}
+
+	buildEditors() {
+		for (const [name, value] of Object.entries(this.variables)) {
+			this.buildEditor(name, value)
+		}
+	}
+
+	buildEditor(name, value) {
+		const variable = document.getElementById('variable').cloneNode(true)
+		variable.classList.remove('invisible')
+		variable.id = ''
+		variable.name = `var-${name}`
+		variable.value = value
+		this.element.appendChild(variable)
+		const editor = CodeMirror.fromTextArea(variable, {
+			...codeMirrorConfig,
+			lineNumbers: false,
+		})
+		const panel = document.getElementById('panel').cloneNode(true)
+		panel.id = ''
+		panel.classList.remove('invisible')
+		panel.innerText = name
+		editor.addPanel(panel, {
+			position: top,
+		})
+		variableEditors.push(editor)
+		this.editors[name] = editor
 	}
 }
 
