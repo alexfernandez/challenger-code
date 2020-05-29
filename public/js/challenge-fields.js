@@ -41,7 +41,6 @@ function addVerification(data = {}) {
 	const input = new Input(data)
 	byName.input.value = input.string
 	byName.output.value = data.output
-	console.log(input)
 	for (const name in input.variables) {
 		const variable = document.getElementById('variable').cloneNode(true)
 		variable.classList.remove('invisible')
