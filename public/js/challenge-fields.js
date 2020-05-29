@@ -41,7 +41,7 @@ function addVerification(verification = {}) {
 	byName.public.checked = verification.public
 	byName.name.value = verification.name || ''
 	const input = new Input(verification, element)
-	byName.input.value = input.string
+	input.write(byName.input)
 	byName.output.value = verification.output
 	input.buildEditors()
 	document.getElementById('verifications').appendChild(element)
@@ -63,6 +63,7 @@ class Input {
 		this.string = ''
 		this.variables = {}
 		this.editors = {}
+		this.timeout = null
 		this.readParameters()
 	}
 
@@ -88,9 +89,46 @@ class Input {
 		return parameter
 	}
 
+	write(input) {
+		console.log('writing')
+		input.value = this.string
+		input.onkeyup = () => {
+			console.log('keyup')
+			if (this.timeout) clearTimeout(this.timeout)
+			this.timeout = setTimeout(() => this.refreshParameters(input.value), 1000)
+		}
+	}
+
+	refreshParameters(input) {
+		console.log('refreshing')
+		const matches = input.matchAll(/\$\{(\p{L}[\p{L}|\p{N}]*)\}/gu)
+		const variables = [...matches].map(match => match[1])
+		for (const name of variables) {
+			console.log(name)
+			if (!this.variables[name]) {
+				console.log(`adding ${name}`)
+				this.variables[name] = `const ${name} = `
+			}
+		}
+		for (const [name] of Object.entries(this.variables)) {
+			if (!variables.includes(name)) {
+				delete this.variables[name]
+			}
+		}
+		this.buildEditors()
+	}
+
 	buildEditors() {
 		for (const [name, value] of Object.entries(this.variables)) {
-			this.buildEditor(name, value)
+			if (!this.editors[name]) {
+				console.log('adding', name, value)
+				this.buildEditor(name, value)
+			}
+		}
+		for (const [name, editor] of Object.entries(this.editors)) {
+			if (!this.variables[name]) {
+				this.removeEditor(name, editor)
+			}
 		}
 	}
 
@@ -114,6 +152,12 @@ class Input {
 		})
 		variableEditors.push(editor)
 		this.editors[name] = editor
+	}
+
+	removeEditor(name, editor) {
+		const textArea = editor.getTextArea()
+		editor.toTextArea()
+		textArea.parentElement.removeChild(textArea)
 	}
 }
 
