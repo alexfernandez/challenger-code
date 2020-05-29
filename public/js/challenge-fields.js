@@ -172,7 +172,6 @@ function readVerification(element) {
 		output: parseFloat(byName.output.value),
 	}
 	if (!verification.name) showVerificationError(byName.name)
-	if (isNaN(verification.output)) showVerificationError(byName.output)
 	for (const editor of variableEditors) {
 		editor.save()
 	}
