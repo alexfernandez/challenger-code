@@ -24,6 +24,14 @@
 			<p>
 			Has overcome the odds on many challenges.
 			</p>
+			<% for (const success of successes) { %>
+			<p>
+			<a href="/<%= success.owner %>/<%= success.challengeId %>">
+				<%= success.name %>
+			</a>:
+			passed in <%= success.elapsed %> ms.
+			</p>
+			<% } %>
 			<%- include('list-challenges.ejs') %>
 		</div>
 		<%- include('bottombar.ejs') %>
