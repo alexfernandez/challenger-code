@@ -5,7 +5,7 @@ const {runChallenge} = require('../lib/runner.js')
 
 const options = stdio.getopt({
 	owner: {key: 'o', args: 1, description: 'Challenge owner'},
-	challengeId: {key: 'i', args: 1, description: 'Challenge identifier'},
+	id: {key: 'i', args: 1, description: 'Challenge identifier'},
 	code: {key: 'c', args: 1, description: 'Code for the challenge'},
 	sender: {key: 's', args: 1, description: 'Name of user sending'},
 	mongodb: {key: 'm', args: 1, description: 'MongoDB connection string', default: 'mongodb://localhost/cc'},

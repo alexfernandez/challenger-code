@@ -85,6 +85,16 @@ The project uses [fastify](https://github.com/fastify/fastify).
 It loosely follows the structure of
 [fastify-example-twitter](https://github.com/fastify/fastify-example-twitter).
 
+## Compatibility
+
+### Version 0.2.0 to 0.3.0
+
+Challenge runs now have `id`, not `challengeId`.
+If you want to preserve your existing challenge runs,
+use this script on the `mongo` console:
+
+    > db.runs.find().snapshot().forEach(e => db.runs.update({_id: e._id}, {$set: {id: e.challengeId}})
+
 ## Acknowledgements
 
 The code and challenges are open for participation.
