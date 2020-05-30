@@ -26,10 +26,15 @@
 			</p>
 			<% for (const success of successes) { %>
 			<p>
-			<a href="/<%= success.owner %>/<%= success.id %>"><%= success.name %></a>:
-			passed <%= success.times %> times,
-			best time <%= success.elapsedMin %> ms —
-			worst <%= success.elapsedMax %>.
+			<a href="/<%= success.owner %>/<%= success.id %>">
+				<%= success.owner %> / <%= success.id %> (<%= success.name %>)</a>:
+			passed <%= success.times %> times.
+			<br/>
+			Best time <%= success.elapsedMin %> ms —
+			average <%= success.elapsedAvg.toFixed(0) %>.
+			<br/>
+			Best size <%= success.nodesMin %> nodes —
+			average <%= success.nodesAvg.toFixed(1) %>.
 			</p>
 			<% } %>
 			<%- include('list-challenges.ejs') %>
