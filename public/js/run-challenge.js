@@ -2,13 +2,16 @@
 
 let codeMirror = null
 
-window.loaders.push(() => {
+window.loaders.push(() => loadSolution().catch(showError))
+
+async function loadSolution() {
+	const textArea = document.getElementById('solution')
 	const solution = localStorage.getItem('ccSolution')
 	if (solution) {
-		document.getElementById('solution').value = solution
+		textArea.value = solution
 		localStorage.removeItem('ccSolution')
 	}
-	codeMirror = CodeMirror.fromTextArea(document.getElementById('solution'), {
+	codeMirror = CodeMirror.fromTextArea(textArea, {
 		mode:  'javascript',
 		indentUnit: 4,
 		indentWithTabs: true,
@@ -27,7 +30,20 @@ window.loaders.push(() => {
 	if (window.ccUser.role != 'admin') return
 	document.getElementById('edit').className = ''
 	document.getElementById('edit').onclick = editChallenge
-})
+	const lastRun = await fetchLastRun()
+	console.log(lastRun)
+	if (lastRun.code) {
+		textArea.value = lastRun.code
+		codeMirror.value = textArea.value
+	}
+}
+
+async function fetchLastRun() {
+	const id = document.getElementById('id').innerText
+	const owner = document.getElementById('owner').innerText
+	const lastRun = await window.apiFetch('fetch last', `${owner}/${id}/last`, 'GET')
+	return lastRun
+}
 
 async function sendSolution() {
 	codeMirror.save()
