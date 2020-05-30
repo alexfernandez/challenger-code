@@ -61,7 +61,6 @@ describe('Solution model tests', function() {
 				await isolated.runIsolated()
 				throw new TestError('Should not finish infinite loop')
 			} catch(error) {
-				console.error(error)
 				expect(error).to.be.instanceof(ApiError)
 			}
 		} finally {
