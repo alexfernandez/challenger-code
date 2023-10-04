@@ -43,6 +43,11 @@ textarea {
 	grid-template-columns: 1fr 1fr;
 }
 
+.columns3 {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
 .wrapper {
 	padding: 0em 0.5em;
 	background: #ffffff;
